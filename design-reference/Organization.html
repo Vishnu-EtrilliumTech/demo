@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lawsome — Organization</title>
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.js"></script>
+<link rel="icon" href="public/favicon.png" />
+<link rel="stylesheet" href="lawsome-ui.css" />
+<style>
+  .org-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 22px; align-items: start; }
+  .uplabel { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--text-3); display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .uplabel [data-lucide] { width: 15px; height: 15px; color: var(--brand); }
+  .seg-list { display: flex; gap: 8px; flex-wrap: wrap; }
+  .contact-row { display: flex; align-items: center; gap: 11px; padding: 11px 0; border-bottom: 1px solid var(--divider); font-size: 13.5px; }
+  .contact-row:last-child { border-bottom: 0; }
+  .contact-row [data-lucide] { width: 16px; height: 16px; color: var(--text-3); flex: none; }
+  .settings-list .sr { display: flex; align-items: center; gap: 14px; padding: 15px 0; border-bottom: 1px solid var(--divider); }
+  .settings-list .sr:last-child { border-bottom: 0; }
+  .settings-list .sr .si { width: 38px; height: 38px; border-radius: 11px; flex: none; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand); }
+  .settings-list .sr .si [data-lucide] { width: 19px; height: 19px; }
+  .settings-list .sr .st { flex: 1; }
+  .settings-list .sr .st b { font-size: 13.5px; font-weight: 600; display: block; }
+  .settings-list .sr .st span { font-size: 12.5px; color: var(--text-3); }
+  .toggle { width: 42px; height: 24px; border-radius: 999px; background: var(--brand); position: relative; cursor: pointer; flex: none; }
+  .toggle::after { content: ""; position: absolute; top: 2px; left: 20px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: var(--sh-sm); }
+  .toggle.off { background: #d3d8e0; } .toggle.off::after { left: 2px; }
+  @media (max-width: 1000px){ .org-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" data-screen-label="Sidebar">
+    <div class="brand"><span class="logo-chip"><img src="public/logo-white.png" alt="Lawsome" /></span><span class="logo-mini"><img src="public/logo-mark.png" alt="Lawsome" /></span></div>
+    <nav class="nav-group">
+      <div class="lbl">Firm</div>
+      <a class="navitem" href="Dashboard.html"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a class="navitem" href="Cases.html"><i data-lucide="folder-open"></i><span>Cases</span></a>
+      <a class="navitem" href="Branches.html"><i data-lucide="building-2"></i><span>Branches</span></a>
+      <a class="navitem" href="Lawyers.html"><i data-lucide="users"></i><span>Lawyers</span></a>
+      <a class="navitem" href="Clients.html"><i data-lucide="contact"></i><span>Clients</span></a>
+    </nav>
+    <nav class="nav-group">
+      <div class="lbl">Practice</div>
+      <a class="navitem" href="eCourts.html"><i data-lucide="landmark"></i><span>eCourts</span></a>
+      <a class="navitem" href="Cause List.html"><i data-lucide="calendar-days"></i><span>Cause List</span></a>
+      <a class="navitem" href="Billing.html"><i data-lucide="receipt-indian-rupee"></i><span>Billing</span></a>
+    </nav>
+    <div class="spacer"></div>
+    <nav class="nav-group"><a class="navitem active" href="Organization.html"><i data-lucide="settings"></i><span>Settings</span></a></nav>
+    <div class="sidebar-foot">
+      <div class="userchip"><span class="ava">RN</span><span class="who"><b>Adv. Ritika Nair</b><span>Partner · Delhi</span></span><i data-lucide="chevrons-up-down"></i></div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="crumbs"><a href="Dashboard.html">Settings</a><i data-lucide="chevron-right"></i><span class="cur">Organization</span></div>
+      <div class="grow"></div>
+      <div class="searchbox"><i data-lucide="search"></i><input placeholder="Search settings…" /><kbd>⌘K</kbd></div>
+      <button class="icon-btn" aria-label="Notifications"><i data-lucide="bell"></i><span class="badge">3</span></button>
+    </header>
+
+    <div class="scroll">
+      <div class="sheet" data-screen-label="Organization" style="max-width:1100px">
+        <div class="page-head">
+          <div class="ph-lead">
+            <div class="eyebrow"><i data-lucide="building-2"></i> Organization settings</div>
+            <h1>Sharma &amp; Associates</h1>
+            <div class="sub">Your firm's profile, contact details and preferences on Lawsome.</div>
+          </div>
+          <div class="ph-actions"><button class="btn btn-primary" onclick="openDialog('editOrg')"><i data-lucide="pencil"></i> Edit organization</button></div>
+        </div>
+
+        <div class="org-grid">
+          <div>
+            <div class="card card-pad">
+              <div class="uplabel"><i data-lucide="building-2"></i> Organization details</div>
+              <p style="font-size:14px;line-height:1.65;color:var(--text-2);margin:0 0 18px">Sharma &amp; Associates is a full-service law firm established in 2009, practising across commercial, civil, criminal and regulatory matters. Headquartered in New Delhi with branches in Mumbai, Pune and Bengaluru.</p>
+              <div class="uplabel" style="margin-top:22px"><i data-lucide="tags"></i> Practice segments</div>
+              <div class="seg-list">
+                <span class="pill pill-neutral">Commercial</span><span class="pill pill-neutral">Civil litigation</span>
+                <span class="pill pill-neutral">Criminal defence</span><span class="pill pill-neutral">Regulatory</span>
+                <span class="pill pill-neutral">Arbitration</span><span class="pill pill-neutral">Real estate</span>
+              </div>
+              <div class="kv" style="margin-top:24px">
+                <div class="row"><span class="k">Established</span><span class="v">2009</span></div>
+                <div class="row"><span class="k">Registration</span><span class="v">Bar Council of India</span></div>
+                <div class="row"><span class="k">Branches</span><span class="v">4</span></div>
+                <div class="row"><span class="k">Members</span><span class="v">42</span></div>
+              </div>
+            </div>
+
+            <div class="card card-pad">
+              <div class="sec-head"><h3><span class="ic"><i data-lucide="sliders-horizontal"></i></span> Preferences</h3></div>
+              <div class="settings-list">
+                <div class="sr"><span class="si"><i data-lucide="refresh-cw"></i></span><div class="st"><b>eCourts auto-sync</b><span>Fetch cause lists &amp; orders daily for linked cases</span></div><div class="toggle"></div></div>
+                <div class="sr"><span class="si"><i data-lucide="sparkles"></i></span><div class="st"><b>AI case analysis</b><span>Generate briefs, alerts and next-action suggestions</span></div><div class="toggle"></div></div>
+                <div class="sr"><span class="si"><i data-lucide="bell"></i></span><div class="st"><b>Hearing reminders</b><span>Email &amp; in-app alerts before listed hearings</span></div><div class="toggle"></div></div>
+                <div class="sr"><span class="si"><i data-lucide="calendar-days"></i></span><div class="st"><b>Standardized date format</b><span>Display all dates as DD Mon YYYY</span></div><div class="toggle off"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="card card-pad">
+              <div class="uplabel"><i data-lucide="phone"></i> Contact information</div>
+              <div class="contact-row"><i data-lucide="mail"></i> contact@sharma-associates.in</div>
+              <div class="contact-row"><i data-lucide="phone"></i> +91 11 4567 8900</div>
+              <div class="contact-row"><i data-lucide="globe"></i> www.sharma-associates.in</div>
+              <div class="contact-row"><i data-lucide="map-pin"></i> 12 Barakhamba Road, New Delhi 110001</div>
+            </div>
+            <div class="card card-pad">
+              <div class="uplabel"><i data-lucide="shield-check"></i> Plan &amp; billing</div>
+              <div style="display:flex;align-items:center;gap:11px;margin-bottom:14px"><span class="pill pill-brand">Enterprise</span><span style="font-size:12.5px;color:var(--text-3)">Renews 01 Apr 2027</span></div>
+              <div class="kv" style="grid-template-columns:1fr">
+                <div class="row"><span class="k">Seats</span><span class="v">42 / 60</span></div>
+                <div class="row"><span class="k">eCourts credits</span><span class="v">Unlimited</span></div>
+                <div class="row"><span class="k">AI analyses / mo</span><span class="v">1,140 / 2,000</span></div>
+              </div>
+              <button class="btn btn-secondary" style="width:100%;margin-top:16px" onclick="location.href='Billing.html'"><i data-lucide="receipt-indian-rupee"></i> Manage billing</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dialog-backdrop" id="editOrg" onclick="if(event.target===this)closeDialog('editOrg')">
+  <div class="dialog">
+    <div class="dialog-head"><span class="di"><i data-lucide="building-2"></i></span><div class="dt"><b>Edit organization</b><span>Update your firm's profile</span></div><button class="x" onclick="closeDialog('editOrg')"><i data-lucide="x"></i></button></div>
+    <div class="dialog-body">
+      <div class="form-2col">
+        <div class="field"><label>Organization name <span class="req">*</span></label><input class="input" value="Sharma &amp; Associates" /></div>
+        <div class="field"><label>Email <span class="req">*</span></label><input class="input" value="contact@sharma-associates.in" /></div>
+        <div class="field"><label>Phone</label><input class="input" value="+91 11 4567 8900" /></div>
+        <div class="field"><label>Website</label><input class="input" value="www.sharma-associates.in" /></div>
+        <div class="field full"><label>Description</label><textarea class="input">Full-service law firm established in 2009, practising across commercial, civil, criminal and regulatory matters.</textarea></div>
+        <div class="field full"><label>Practice segments</label><input class="input" value="Commercial, Civil litigation, Criminal defence, Regulatory, Arbitration, Real estate" /><div class="hint">Comma-separated.</div></div>
+      </div>
+    </div>
+    <div class="dialog-foot"><button class="btn btn-secondary" onclick="closeDialog('editOrg')">Cancel</button><button class="btn btn-primary"><i data-lucide="check"></i> Save changes</button></div>
+  </div>
+</div>
+
+<script>
+  function openDialog(id){ document.getElementById(id).classList.add('open'); }
+  function closeDialog(id){ document.getElementById(id).classList.remove('open'); }
+  document.querySelectorAll('.toggle').forEach(function(t){ t.addEventListener('click', function(){ t.classList.toggle('off'); }); });
+  lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });
+</script>
+</body>
+</html>

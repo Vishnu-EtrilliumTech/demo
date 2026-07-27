@@ -1,0 +1,47 @@
+FROM node:20-alpine AS deps
+WORKDIR /app
+COPY package.json package-lock.json* yarn.lock* ./
+RUN npm ci --legacy-peer-deps
+
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+ARG NEXT_PUBLIC_AUTH_URL
+ARG NEXT_PUBLIC_AUTH_REALM
+ARG NEXT_PUBLIC_AUTH_CLIENT_ID
+ARG NEXT_PUBLIC_AUTH_BASE_URI
+ARG NEXT_PUBLIC_API_BASE_URL
+ARG NEXT_PUBLIC_GOOGLE_API_KEY
+ARG NEXT_PUBLIC_AI_ENABLED_ORG_IDS
+ARG NEXT_PUBLIC_SHOW_VERSION
+
+ENV NEXT_PUBLIC_AUTH_URL=$NEXT_PUBLIC_AUTH_URL
+ENV NEXT_PUBLIC_AUTH_REALM=$NEXT_PUBLIC_AUTH_REALM
+ENV NEXT_PUBLIC_AUTH_CLIENT_ID=$NEXT_PUBLIC_AUTH_CLIENT_ID
+ENV NEXT_PUBLIC_AUTH_BASE_URI=$NEXT_PUBLIC_AUTH_BASE_URI
+ENV NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL
+ENV NEXT_PUBLIC_GOOGLE_API_KEY=$NEXT_PUBLIC_GOOGLE_API_KEY
+ENV NEXT_PUBLIC_AI_ENABLED_ORG_IDS=$NEXT_PUBLIC_AI_ENABLED_ORG_IDS
+ENV NEXT_PUBLIC_SHOW_VERSION=$NEXT_PUBLIC_SHOW_VERSION
+
+RUN npm run build
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+EXPOSE 3000
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+CMD ["node", "server.js"]

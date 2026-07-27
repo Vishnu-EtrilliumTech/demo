@@ -1,0 +1,6 @@
+.formBg {
+  background-image: url("/reg form bg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}

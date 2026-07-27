@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lawsome — Branches</title>
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.js"></script>
+<link rel="icon" href="public/favicon.png" />
+<link rel="stylesheet" href="lawsome-ui.css" />
+<style>
+  #branchTable { display: none; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" data-screen-label="Sidebar">
+    <div class="brand"><span class="logo-chip"><img src="public/logo-white.png" alt="Lawsome" /></span><span class="logo-mini"><img src="public/logo-mark.png" alt="Lawsome" /></span></div>
+    <nav class="nav-group">
+      <div class="lbl">Firm</div>
+      <a class="navitem" href="Dashboard.html"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a class="navitem" href="Cases.html"><i data-lucide="folder-open"></i><span>Cases</span></a>
+      <a class="navitem active" href="Branches.html"><i data-lucide="building-2"></i><span>Branches</span></a>
+      <a class="navitem" href="Lawyers.html"><i data-lucide="users"></i><span>Lawyers</span></a>
+      <a class="navitem" href="Clients.html"><i data-lucide="contact"></i><span>Clients</span></a>
+    </nav>
+    <nav class="nav-group">
+      <div class="lbl">Practice</div>
+      <a class="navitem" href="eCourts.html"><i data-lucide="landmark"></i><span>eCourts</span></a>
+      <a class="navitem" href="Cause List.html"><i data-lucide="calendar-days"></i><span>Cause List</span></a>
+      <a class="navitem" href="Billing.html"><i data-lucide="receipt-indian-rupee"></i><span>Billing</span></a>
+    </nav>
+    <div class="spacer"></div>
+    <nav class="nav-group"><a class="navitem" href="Organization.html"><i data-lucide="settings"></i><span>Settings</span></a></nav>
+    <div class="sidebar-foot">
+      <div class="userchip"><span class="ava">RN</span><span class="who"><b>Adv. Ritika Nair</b><span>Partner · Delhi</span></span><i data-lucide="chevrons-up-down"></i></div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="crumbs"><a href="Dashboard.html">Firm</a><i data-lucide="chevron-right"></i><span class="cur">Branches</span></div>
+      <div class="grow"></div>
+      <div class="searchbox"><i data-lucide="search"></i><input placeholder="Search branches…" /><kbd>⌘K</kbd></div>
+      <button class="icon-btn" aria-label="Notifications"><i data-lucide="bell"></i><span class="badge">3</span></button>
+    </header>
+
+    <div class="scroll">
+      <div class="sheet" data-screen-label="Branches">
+        <div class="page-head">
+          <div class="ph-lead">
+            <div class="eyebrow"><i data-lucide="building-2"></i> Firm structure</div>
+            <h1>Branches</h1>
+            <div class="sub">Manage all offices in your organization — each branch has its own cases, lawyers and clients.</div>
+          </div>
+          <div class="ph-actions"><button class="btn btn-primary" onclick="openDialog('addBranch')"><i data-lucide="plus"></i> Add Branch</button></div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search"><i data-lucide="search"></i><input placeholder="Search by name, city or state…" /></div>
+          <div class="selectbox"><select><option>All states</option><option>Delhi</option><option>Maharashtra</option><option>Karnataka</option></select></div>
+          <div class="grow"></div>
+          <div class="viewtoggle">
+            <button class="active" id="gridBtn" onclick="setView('grid')" aria-label="Grid view"><i data-lucide="layout-grid"></i></button>
+            <button id="tableBtn" onclick="setView('table')" aria-label="Table view"><i data-lucide="list"></i></button>
+          </div>
+        </div>
+
+        <div id="branchGrid" class="grid-cards">
+          <div class="ecard">
+            <div class="ec-top">
+              <span class="ec-av av1">DL</span>
+              <div><div class="ec-name">Delhi <span class="pill pill-brand" style="vertical-align:middle">HQ</span></div><div class="ec-sub">Head office</div></div>
+              <div class="ec-menu"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></div>
+            </div>
+            <div class="ec-meta">
+              <div class="r"><i data-lucide="map-pin"></i> 12 Barakhamba Road, Connaught Place, New Delhi 110001</div>
+              <div class="r"><i data-lucide="phone"></i> +91 11 4567 8900</div>
+              <div class="r"><i data-lucide="mail"></i> delhi@sharma-associates.in</div>
+            </div>
+            <div class="ec-foot">
+              <div class="ec-stat"><b>104</b><span>Cases</span></div>
+              <div class="ec-stat"><b>16</b><span>Staff</span></div>
+              <div class="ec-actions"><button class="rowbtn" onclick="openDialog('editBranch')"><i data-lucide="pencil"></i></button><button class="rowbtn" onclick="openDialog('delBranch')"><i data-lucide="trash-2"></i></button></div>
+            </div>
+          </div>
+
+          <div class="ecard">
+            <div class="ec-top">
+              <span class="ec-av av3">MU</span>
+              <div><div class="ec-name">Mumbai</div><div class="ec-sub">Western region</div></div>
+              <div class="ec-menu"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></div>
+            </div>
+            <div class="ec-meta">
+              <div class="r"><i data-lucide="map-pin"></i> 4th Flr, Nariman Point, Mumbai 400021</div>
+              <div class="r"><i data-lucide="phone"></i> +91 22 6789 1200</div>
+              <div class="r"><i data-lucide="mail"></i> mumbai@sharma-associates.in</div>
+            </div>
+            <div class="ec-foot">
+              <div class="ec-stat"><b>71</b><span>Cases</span></div>
+              <div class="ec-stat"><b>12</b><span>Staff</span></div>
+              <div class="ec-actions"><button class="rowbtn" onclick="openDialog('editBranch')"><i data-lucide="pencil"></i></button><button class="rowbtn" onclick="openDialog('delBranch')"><i data-lucide="trash-2"></i></button></div>
+            </div>
+          </div>
+
+          <div class="ecard">
+            <div class="ec-top">
+              <span class="ec-av av2">PU</span>
+              <div><div class="ec-name">Pune</div><div class="ec-sub">Regulatory practice</div></div>
+              <div class="ec-menu"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></div>
+            </div>
+            <div class="ec-meta">
+              <div class="r"><i data-lucide="map-pin"></i> Senapati Bapat Road, Pune 411016</div>
+              <div class="r"><i data-lucide="phone"></i> +91 20 4123 5600</div>
+              <div class="r"><i data-lucide="mail"></i> pune@sharma-associates.in</div>
+            </div>
+            <div class="ec-foot">
+              <div class="ec-stat"><b>42</b><span>Cases</span></div>
+              <div class="ec-stat"><b>8</b><span>Staff</span></div>
+              <div class="ec-actions"><button class="rowbtn" onclick="openDialog('editBranch')"><i data-lucide="pencil"></i></button><button class="rowbtn" onclick="openDialog('delBranch')"><i data-lucide="trash-2"></i></button></div>
+            </div>
+          </div>
+
+          <div class="ecard">
+            <div class="ec-top">
+              <span class="ec-av av4">BL</span>
+              <div><div class="ec-name">Bengaluru</div><div class="ec-sub">South region</div></div>
+              <div class="ec-menu"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></div>
+            </div>
+            <div class="ec-meta">
+              <div class="r"><i data-lucide="map-pin"></i> MG Road, Bengaluru 560001</div>
+              <div class="r"><i data-lucide="phone"></i> +91 80 2345 6700</div>
+              <div class="r"><i data-lucide="mail"></i> blr@sharma-associates.in</div>
+            </div>
+            <div class="ec-foot">
+              <div class="ec-stat"><b>31</b><span>Cases</span></div>
+              <div class="ec-stat"><b>6</b><span>Staff</span></div>
+              <div class="ec-actions"><button class="rowbtn" onclick="openDialog('editBranch')"><i data-lucide="pencil"></i></button><button class="rowbtn" onclick="openDialog('delBranch')"><i data-lucide="trash-2"></i></button></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="branchTable" class="card" style="overflow:hidden">
+          <table class="tbl">
+            <thead><tr><th>Branch</th><th>Location</th><th>Phone</th><th class="r">Cases</th><th class="r">Staff</th><th class="r"></th></tr></thead>
+            <tbody>
+              <tr><td><div class="who2"><span class="a av1">DL</span> Delhi (HQ)</div></td><td>New Delhi, Delhi</td><td>+91 11 4567 8900</td><td class="r">104</td><td class="r">16</td><td class="r"><button class="rowbtn" onclick="openDialog('editBranch')"><i data-lucide="pencil"></i></button> <button class="rowbtn" onclick="openDialog('delBranch')"><i data-lucide="trash-2"></i></button></td></tr>
+              <tr><td><div class="who2"><span class="a av3">MU</span> Mumbai</div></td><td>Mumbai, Maharashtra</td><td>+91 22 6789 1200</td><td class="r">71</td><td class="r">12</td><td class="r"><button class="rowbtn" onclick="openDialog('editBranch')"><i data-lucide="pencil"></i></button> <button class="rowbtn" onclick="openDialog('delBranch')"><i data-lucide="trash-2"></i></button></td></tr>
+              <tr><td><div class="who2"><span class="a av2">PU</span> Pune</div></td><td>Pune, Maharashtra</td><td>+91 20 4123 5600</td><td class="r">42</td><td class="r">8</td><td class="r"><button class="rowbtn" onclick="openDialog('editBranch')"><i data-lucide="pencil"></i></button> <button class="rowbtn" onclick="openDialog('delBranch')"><i data-lucide="trash-2"></i></button></td></tr>
+              <tr><td><div class="who2"><span class="a av4">BL</span> Bengaluru</div></td><td>Bengaluru, Karnataka</td><td>+91 80 2345 6700</td><td class="r">31</td><td class="r">6</td><td class="r"><button class="rowbtn" onclick="openDialog('editBranch')"><i data-lucide="pencil"></i></button> <button class="rowbtn" onclick="openDialog('delBranch')"><i data-lucide="trash-2"></i></button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add / Edit branch modal (shared markup) -->
+<div class="dialog-backdrop" id="addBranch" onclick="if(event.target===this)closeDialog('addBranch')">
+  <div class="dialog">
+    <div class="dialog-head"><span class="di"><i data-lucide="building-2"></i></span><div class="dt"><b>Add branch</b><span>Create a new office in your organization</span></div><button class="x" onclick="closeDialog('addBranch')"><i data-lucide="x"></i></button></div>
+    <div class="dialog-body">
+      <div class="form-2col">
+        <div class="field full"><label>Branch name <span class="req">*</span></label><input class="input" placeholder="e.g. Chennai" /></div>
+        <div class="field"><label>Email <span class="req">*</span></label><input class="input" placeholder="branch@firm.in" /></div>
+        <div class="field"><label>Phone <span class="req">*</span></label><input class="input" placeholder="+91 …" /></div>
+        <div class="field full"><label>Address <span class="req">*</span></label><textarea class="input" placeholder="Street address"></textarea></div>
+        <div class="field"><label>Locality <span class="req">*</span></label><input class="input" /></div>
+        <div class="field"><label>District <span class="req">*</span></label><input class="input" /></div>
+        <div class="field"><label>State <span class="req">*</span></label><input class="input" /></div>
+        <div class="field"><label>Pincode <span class="req">*</span></label><input class="input" /></div>
+        <div class="field full"><label>Landmark</label><input class="input" placeholder="Optional" /></div>
+        <div class="field full"><label>Description</label><textarea class="input" placeholder="Optional"></textarea></div>
+      </div>
+    </div>
+    <div class="dialog-foot"><button class="btn btn-secondary" onclick="closeDialog('addBranch')">Cancel</button><button class="btn btn-primary"><i data-lucide="check"></i> Create branch</button></div>
+  </div>
+</div>
+
+<div class="dialog-backdrop" id="editBranch" onclick="if(event.target===this)closeDialog('editBranch')">
+  <div class="dialog">
+    <div class="dialog-head"><span class="di"><i data-lucide="pencil"></i></span><div class="dt"><b>Edit branch — Delhi (HQ)</b><span>Update office details</span></div><button class="x" onclick="closeDialog('editBranch')"><i data-lucide="x"></i></button></div>
+    <div class="dialog-body">
+      <div class="form-2col">
+        <div class="field full"><label>Branch name <span class="req">*</span></label><input class="input" value="Delhi" /></div>
+        <div class="field"><label>Email <span class="req">*</span></label><input class="input" value="delhi@sharma-associates.in" /></div>
+        <div class="field"><label>Phone <span class="req">*</span></label><input class="input" value="+91 11 4567 8900" /></div>
+        <div class="field full"><label>Address <span class="req">*</span></label><textarea class="input">12 Barakhamba Road, Connaught Place</textarea></div>
+        <div class="field"><label>Locality <span class="req">*</span></label><input class="input" value="Connaught Place" /></div>
+        <div class="field"><label>District <span class="req">*</span></label><input class="input" value="New Delhi" /></div>
+        <div class="field"><label>State <span class="req">*</span></label><input class="input" value="Delhi" /></div>
+        <div class="field"><label>Pincode <span class="req">*</span></label><input class="input" value="110001" /></div>
+      </div>
+    </div>
+    <div class="dialog-foot"><button class="btn btn-secondary" onclick="closeDialog('editBranch')">Cancel</button><button class="btn btn-primary"><i data-lucide="check"></i> Update branch</button></div>
+  </div>
+</div>
+
+<!-- Delete confirm -->
+<div class="dialog-backdrop" id="delBranch" onclick="if(event.target===this)closeDialog('delBranch')">
+  <div class="dialog sm">
+    <div class="dialog-head"><span class="di danger"><i data-lucide="trash-2"></i></span><div class="dt"><b>Delete branch?</b><span>This action cannot be undone</span></div><button class="x" onclick="closeDialog('delBranch')"><i data-lucide="x"></i></button></div>
+    <div class="dialog-body"><p class="lead">Deleting <b>Delhi (HQ)</b> will remove the branch from your organization. Cases and staff assigned to this branch must be reassigned first. This cannot be undone.</p></div>
+    <div class="dialog-foot"><button class="btn btn-secondary" onclick="closeDialog('delBranch')">Cancel</button><button class="btn btn-danger"><i data-lucide="trash-2"></i> Delete branch</button></div>
+  </div>
+</div>
+
+<script>
+  function openDialog(id){ document.getElementById(id).classList.add('open'); }
+  function closeDialog(id){ document.getElementById(id).classList.remove('open'); }
+  function setView(v){
+    document.getElementById('branchGrid').style.display = v==='grid' ? 'grid':'none';
+    document.getElementById('branchTable').style.display = v==='table' ? 'block':'none';
+    document.getElementById('gridBtn').classList.toggle('active', v==='grid');
+    document.getElementById('tableBtn').classList.toggle('active', v==='table');
+  }
+  lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });
+</script>
+</body>
+</html>

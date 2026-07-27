@@ -1,0 +1,290 @@
+/* ============================================================================
+   Lawsome UI — shared patterns promoted from page-local mockup styles
+   (auth split layout, step wizard, toggle switch) + new state primitives
+   (skeleton, spinner). Scoped under .lui-root. Token-driven; screen-migration
+   phases refine against the specific mockups.
+   ========================================================================== */
+
+/* ── Auth split layout (Login / Register) ─────────── */
+.lui-root .auth { display: grid; grid-template-columns: 1.05fr 1fr; min-height: 100vh; background: var(--bg); }
+.lui-root .apanel { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;
+  padding: 44px; color: #fff; background: linear-gradient(155deg, #131a2b 0%, #1d2740 55%, #22305a 100%); }
+.lui-root .apanel .a-logo img { height: 30px; width: auto; }
+.lui-root .apanel .a-head { font-family: var(--serif); font-weight: 500; font-size: 34px; line-height: 1.16; letter-spacing: -0.015em; margin: 0; max-width: 15ch; }
+.lui-root .apanel .hilites { display: flex; flex-direction: column; gap: 18px; margin-top: 8px; }
+.lui-root .apanel .hilites .row { display: flex; gap: 13px; align-items: flex-start; }
+.lui-root .apanel .hilites .hi { width: 38px; height: 38px; border-radius: 11px; flex: none; display: grid; place-items: center; background: rgba(255, 255, 255, 0.1); color: #fff; }
+.lui-root .apanel .hilites .hi svg { width: 19px; height: 19px; }
+.lui-root .apanel .hilites .ht b { display: block; font-size: 14px; font-weight: 600; }
+.lui-root .apanel .hilites .ht span { font-size: 12.5px; color: var(--ink-rev); }
+.lui-root .apanel .a-foot { font-size: 12px; color: var(--ink-rev-dim); }
+.lui-root .aform { display: flex; flex-direction: column; justify-content: center; align-items: stretch; padding: 44px; }
+.lui-root .aform .a-inner { width: 100%; max-width: 380px; margin: 0 auto; }
+.lui-root .aform h1 { font-family: var(--serif); font-weight: 500; font-size: 30px; letter-spacing: -0.015em; color: #121620; }
+.lui-root .aform .lead { font-size: 13.5px; color: var(--text-2); margin: 10px 0 26px; }
+.lui-root .aform .terms { font-size: 11.5px; color: var(--text-3); margin-top: 16px; text-align: center; line-height: 1.5; }
+.lui-root .aform .a-alt { font-size: 13px; color: var(--text-2); margin-top: 22px; text-align: center; }
+.lui-root .auth.boxed { min-height: 0; height: 100%; }
+@media (max-width: 860px) {
+  .lui-root .auth { grid-template-columns: 1fr; }
+  .lui-root .apanel { display: none; }
+}
+
+/* ── Step wizard (Onboarding) ─────────── */
+.lui-root .stepper { display: flex; flex-direction: column; gap: 4px; }
+.lui-root .stepper .step { display: flex; gap: 13px; align-items: flex-start; padding: 6px 0; }
+.lui-root .stepper .step .num { width: 30px; height: 30px; border-radius: 50%; flex: none; display: grid; place-items: center;
+  font-size: 12.5px; font-weight: 700; background: rgba(255, 255, 255, 0.12); color: var(--ink-rev); border: 1px solid rgba(255, 255, 255, 0.18); }
+.lui-root .stepper .step .num svg { width: 15px; height: 15px; }
+.lui-root .stepper .step.active .num { background: #fff; color: var(--navy); border-color: #fff; }
+.lui-root .stepper .step.done .num { background: var(--ok); color: #fff; border-color: var(--ok); }
+.lui-root .stepper .step .lbl b { display: block; font-size: 13.5px; font-weight: 600; color: #fff; }
+.lui-root .stepper .step .lbl span { font-size: 12px; color: var(--ink-rev-dim); }
+.lui-root .stepper .step.active .lbl span { color: var(--ink-rev); }
+.lui-root .ob-top { height: 4px; border-radius: 999px; background: var(--divider); overflow: hidden; margin-bottom: 26px; }
+.lui-root .ob-top .bar { height: 100%; border-radius: 999px; background: var(--brand); transition: width 0.25s ease; }
+.lui-root .ob-kicker { font-size: 12px; font-weight: 600; color: var(--brand); letter-spacing: 0.02em; }
+.lui-root .ob-h { font-family: var(--serif); font-weight: 500; font-size: 26px; letter-spacing: -0.015em; color: #121620; margin: 8px 0 4px; }
+.lui-root .ob-lead { font-size: 13.5px; color: var(--text-2); margin-bottom: 22px; }
+.lui-root .ob-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 26px; }
+
+/* ── Toggle switch (Organization preferences) ─────────── */
+.lui-root .toggle { width: 42px; height: 24px; border-radius: 999px; background: var(--border-strong); position: relative; cursor: pointer; border: 0; flex: none; transition: background 0.16s; }
+.lui-root .toggle::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: var(--sh-sm); transition: transform 0.16s; }
+.lui-root .toggle.on { background: var(--brand); }
+.lui-root .toggle.on::after { transform: translateX(18px); }
+/* Icon-carrying knob (e.g. public/private access) replaces the plain ::after dot. */
+.lui-root .toggle.has-icon::after { content: none; }
+.lui-root .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: var(--sh-sm);
+  display: flex; align-items: center; justify-content: center; color: var(--text-3); transition: transform 0.16s, color 0.16s; }
+.lui-root .toggle.on .toggle-thumb { transform: translateX(18px); color: var(--brand); }
+.lui-root .settings-list { display: flex; flex-direction: column; }
+.lui-root .settings-list .row { display: flex; align-items: center; gap: 14px; padding: 15px 0; border-bottom: 1px solid var(--divider); }
+.lui-root .settings-list .row:last-child { border-bottom: 0; }
+.lui-root .settings-list .row .txt { flex: 1; min-width: 0; }
+.lui-root .settings-list .row .txt b { display: block; font-size: 13.5px; font-weight: 600; }
+.lui-root .settings-list .row .txt span { font-size: 12.5px; color: var(--text-3); }
+
+/* ── Inline contributor add (private-access case creation) ─────────── */
+.lui-root .cd-add-row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+.lui-root .cd-add-row .field { margin-bottom: 0; }
+.lui-root .cd-add-row .field.cd-member { flex: 1 1 220px; min-width: 0; }
+.lui-root .cd-add-row .field.cd-access-field { flex: 0 1 160px; min-width: 0; }
+.lui-root .contributor-drafts { display: flex; flex-direction: column; gap: 8px; }
+.lui-root .contributor-draft-row { display: flex; align-items: center; gap: 10px; padding: 9px 12px;
+  border: 1px solid var(--border); border-radius: 10px; background: var(--bg); }
+.lui-root .contributor-draft-row .cd-name { font-size: 13px; font-weight: 600; color: var(--text); flex: 1; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lui-root .contributor-draft-row .cd-access { font-size: 12px; font-weight: 600; color: var(--text-3);
+  padding: 2px 8px; border-radius: 999px; background: var(--brand-soft); }
+.lui-root .contributor-draft-row .cd-remove { border: 0; background: transparent; cursor: pointer; color: var(--text-3);
+  display: inline-flex; padding: 4px; border-radius: 7px; transition: background 0.12s, color 0.12s; }
+.lui-root .contributor-draft-row .cd-remove:hover { background: var(--danger-soft, #fee2e2); color: var(--danger, #dc2626); }
+
+/* ── State primitives: spinner + skeleton ─────────── */
+.lui-root .lui-spinner { display: inline-block; border-radius: 50%; border: 2.5px solid var(--brand-soft); border-top-color: var(--brand); animation: lui-spin 0.7s linear infinite; }
+.lui-root .lui-spinner.sm { width: 16px; height: 16px; border-width: 2px; }
+.lui-root .lui-spinner.md { width: 26px; height: 26px; }
+.lui-root .lui-spinner.lg { width: 40px; height: 40px; border-width: 3px; }
+.lui-root .lui-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 48px 24px; color: var(--text-2); font-size: 13.5px; }
+.lui-root .lui-skeleton { display: block; border-radius: 8px; background: linear-gradient(90deg, #eef0f3 25%, #f6f7f9 37%, #eef0f3 63%); background-size: 400% 100%; animation: lui-shimmer 1.4s ease infinite; }
+.lui-root .lui-skel-row { height: 44px; border-radius: 8px; margin-bottom: 10px; }
+@keyframes lui-spin { to { transform: rotate(360deg); } }
+@keyframes lui-shimmer { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .lui-root .lui-spinner { animation-duration: 1.4s; }
+  .lui-root .lui-skeleton { animation: none; }
+}
+
+/* ── Dashboard hero band (org header) ─────────── */
+.lui-root .hero-band { background: linear-gradient(135deg, var(--sidebar) 0%, var(--navy) 55%, #22305a 100%);
+  border-radius: var(--r-lg); padding: 24px 26px; color: #fff; display: flex; align-items: center; gap: 20px;
+  flex-wrap: wrap; box-shadow: var(--sh); margin-bottom: 22px; position: relative; overflow: hidden; }
+.lui-root .hero-band::after { content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px;
+  border-radius: 50%; background: rgba(127, 160, 245, 0.14); }
+.lui-root .hero-band .hb-main { display: flex; align-items: center; gap: 20px; flex: 1 1 320px; min-width: 0; position: relative; z-index: 1; }
+.lui-root .hero-band .org-mark { width: 56px; height: 56px; border-radius: 14px; flex: none; display: grid; place-items: center;
+  background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.16); }
+.lui-root .hero-band .org-mark svg { width: 26px; height: 26px; color: #fff; }
+.lui-root .hero-band h1 { font-family: var(--serif); font-weight: 600; font-size: 26px; letter-spacing: -0.01em; color: #fff; margin: 0; }
+.lui-root .hero-band .meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px; font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.72); }
+.lui-root .hero-band .meta .pill-line { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.9); }
+.lui-root .hero-band .meta-toggle { display: inline-flex; align-items: center; gap: 4px; background: none; border: 0; padding: 0; font: inherit;
+  font-size: 12.5px; font-weight: 600; color: rgba(255, 255, 255, 0.9); cursor: pointer; }
+.lui-root .hero-band .meta-toggle:hover { color: #fff; text-decoration: underline; }
+.lui-root .hero-band .hb-actions { margin-left: auto; display: flex; gap: 10px; position: relative; z-index: 1; flex-wrap: wrap; }
+.lui-root .hero-band .btn-secondary { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); color: #fff; box-shadow: none; }
+.lui-root .hero-band .btn-secondary:hover { background: rgba(255, 255, 255, 0.18); }
+.lui-root .hero-band .icon-btn { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; }
+.lui-root .hero-band .icon-btn:hover { background: rgba(255, 255, 255, 0.18); }
+.lui-root .hero-details-card { margin: -6px 0 22px; }
+.lui-root .hero-details { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 32px; margin: 0; }
+.lui-root .hero-details .grp .lbl { font-weight: 600; color: var(--text-3); font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 8px; }
+.lui-root .hero-details .grp .kv { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-2); margin-bottom: 6px; }
+.lui-root .hero-details .grp .kv svg { width: 14px; height: 14px; color: var(--text-3); flex: none; }
+.lui-root .hero-details .grp.full { grid-column: 1 / -1; }
+@media (max-width: 720px) { .lui-root .hero-details { grid-template-columns: 1fr; } }
+
+/* ── Case workspace ─────────── */
+.lui-root .lui-ws-tabs { margin-top: 16px; }
+.lui-root .lui-ws-tabs .tabs-row { padding: 0 8px; }
+
+/* ── Form sheet cards + sticky action bar (Add/Edit Case) ─────────── */
+.lui-root .form-sheet { max-width: 920px; }
+.lui-root .fcard { background: var(--panel); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--sh-sm); padding: 24px; }
+.lui-root .fcard + .fcard { margin-top: 18px; }
+.lui-root .fcard-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.lui-root .fcard-head .ic { width: 34px; height: 34px; border-radius: 10px; flex: none; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand); }
+.lui-root .fcard-head .ic svg { width: 18px; height: 18px; }
+.lui-root .fcard-head .t b { display: block; font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+.lui-root .fcard-head .t span { font-size: 12.5px; color: var(--text-3); }
+.lui-root .action-bar { position: sticky; bottom: 0; margin-top: 22px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 15px 22px; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(8px); border: 1px solid var(--border);
+  border-radius: var(--r-lg); box-shadow: var(--sh); }
+.lui-root .action-bar .grow { flex: 1; }
+.lui-root .action-bar .hint { font-size: 12.5px; color: var(--text-3); display: flex; align-items: center; gap: 7px; margin: 0; }
+.lui-root .action-bar .hint svg { width: 15px; height: 15px; }
+.lui-root .form-alert { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; margin-bottom: 18px; border-radius: 10px;
+  background: var(--danger-soft); color: var(--danger-ink); font-size: 13px; border: 1px solid var(--danger); }
+.lui-root .form-alert svg { width: 16px; height: 16px; flex: none; margin-top: 1px; }
+
+/* ── Cases table row title + card view ─────────── */
+.lui-root .case-row-title { display: flex; flex-direction: column; gap: 3px; }
+.lui-root .case-row-title b { font-weight: 600; font-size: 13.5px; }
+.lui-root .case-row-title span { font-size: 12px; color: var(--text-3); }
+.lui-root .cgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+.lui-root .cgrid > .card + .card { margin-top: 0; }
+.lui-root .ovcard { display: flex; flex-direction: column; height: 100%; }
+.lui-root .ovcard-top { flex: 1 1 auto; }
+.lui-root .ccard { background: var(--panel); border: 1px solid var(--border); border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm); padding: 18px; cursor: pointer; transition: box-shadow 0.15s, transform 0.15s, border-color 0.15s; }
+.lui-root .ccard:hover { box-shadow: var(--sh); transform: translateY(-2px); border-color: var(--border-strong); }
+.lui-root .ccard .ct-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.lui-root .ccard .ct-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand); }
+.lui-root .ccard h3 { font-family: var(--serif); font-weight: 500; font-size: 18px; line-height: 1.2; margin-top: 8px; letter-spacing: -0.01em; }
+.lui-root .ccard .cnr { display: inline-flex; align-items: center; gap: 6px; margin-top: 11px; font-size: 12px; color: var(--text-3); }
+.lui-root .ccard .cnr svg { width: 13px; height: 13px; flex: none; }
+.lui-root .ccard .ct-foot { display: flex; align-items: center; gap: 10px; margin-top: 15px; padding-top: 14px;
+  border-top: 1px solid var(--divider); font-size: 12.5px; color: var(--text-2); }
+.lui-root .ccard .ct-foot .who2 { margin-left: auto; }
+@media (max-width: 1100px) { .lui-root .cgrid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 720px) { .lui-root .cgrid { grid-template-columns: 1fr; } }
+
+/* ── Segmented control (chart period toggle) ─────────── */
+.lui-root .seg { display: inline-flex; gap: 3px; padding: 3px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; }
+.lui-root .seg-btn { border: 0; background: transparent; color: var(--text-2); font: inherit; font-size: 12.5px; font-weight: 600;
+  padding: 5px 11px; border-radius: 7px; cursor: pointer; transition: background 0.14s, color 0.14s; }
+.lui-root .seg-btn:hover { color: var(--text); }
+.lui-root .seg-btn.on { background: var(--brand); color: #fff; }
+
+/* ── eCourts details (CNR court-record renderer) ─────────── */
+.lui-root .ec-updated { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-3); white-space: nowrap; }
+.lui-root .ec-updated svg { width: 14px; height: 14px; color: var(--ok); flex: none; }
+.lui-root .subhead { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-3); margin: 22px 0 12px; }
+.lui-root .subhead:first-child { margin-top: 0; }
+.lui-root .prose { font-size: 14px; line-height: 1.68; color: #2b3340; margin: 0; }
+.lui-root .prose + .prose { margin-top: 12px; }
+.lui-root .prose ul, .lui-root .prose ol { margin: 6px 0 0; padding-left: 20px; }
+.lui-root .prose li { margin-bottom: 5px; }
+.lui-root .arg-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.lui-root .arg { border: 1px solid var(--border); border-radius: var(--r); padding: 16px 18px; background: #fcfcfd; }
+.lui-root .arg .ah { font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.lui-root .arg .ah svg { width: 15px; height: 15px; }
+.lui-root .arg.pet .ah { color: var(--brand); }
+.lui-root .arg.res .ah { color: #a25a12; }
+.lui-root .arg p { font-size: 13.5px; line-height: 1.6; color: #2b3340; margin: 0; }
+.lui-root .score { margin: 14px 0; }
+.lui-root .score .sh { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 7px; }
+.lui-root .score .sh .n { color: var(--brand); font-weight: 700; }
+.lui-root .kw { display: flex; flex-wrap: wrap; gap: 8px; }
+.lui-root .kw span { font-size: 12px; font-weight: 500; padding: 5px 11px; border-radius: 999px; background: var(--brand-soft); color: var(--brand-ink); }
+.lui-root .cite-list { display: flex; flex-direction: column; gap: 10px; }
+.lui-root .cite-item { border: 1px solid var(--border); border-radius: var(--r); padding: 13px 16px; }
+.lui-root .cite-item .ct { font-weight: 600; font-size: 13.5px; display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.lui-root .cite-item .cm { font-size: 12.5px; color: var(--text-2); margin-top: 5px; line-height: 1.5; }
+.lui-root .jgrid { display: flex; flex-direction: column; gap: 12px; }
+.lui-root .jfile { display: flex; align-items: center; gap: 13px; border: 1px solid var(--border); border-radius: var(--r); padding: 14px 16px; flex-wrap: wrap; }
+.lui-root .jfile .fi { width: 40px; height: 40px; border-radius: 10px; flex: none; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand); }
+.lui-root .jfile .fi svg { width: 20px; height: 20px; }
+.lui-root .jfile .jt { flex: 1; min-width: 160px; }
+.lui-root .jfile .jt b { font-size: 13.5px; font-weight: 600; word-break: break-word; }
+.lui-root .jfile .jt span { display: block; font-size: 12px; color: var(--text-3); }
+.lui-root .suggest { display: flex; flex-direction: column; gap: 10px; }
+.lui-root .suggest .s { display: flex; gap: 11px; align-items: flex-start; font-size: 13.5px; line-height: 1.55; color: var(--text); }
+.lui-root .suggest .s .si { width: 30px; height: 30px; border-radius: 8px; flex: none; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand); }
+.lui-root .suggest .s .si svg { width: 16px; height: 16px; }
+/* Markdown-rendered judgment text */
+.lui-root .prose-md { font-size: 13.5px; line-height: 1.7; color: #2b3340; word-break: break-word; }
+.lui-root .prose-md h1, .lui-root .prose-md h2, .lui-root .prose-md h3, .lui-root .prose-md h4 { color: var(--navy); margin: 18px 0 10px; }
+.lui-root .prose-md p { margin: 0 0 11px; }
+.lui-root .prose-md table { border-collapse: collapse; width: 100%; margin-bottom: 16px; }
+.lui-root .prose-md td, .lui-root .prose-md th { border: 1px solid var(--border); padding: 6px 10px; font-size: 13px; text-align: left; }
+.lui-root .prose-md ul, .lui-root .prose-md ol { padding-left: 20px; margin: 0 0 11px; }
+.lui-root .prose-md img { max-width: 100%; height: auto; }
+/* eCourts detail sub-tiles: allow a flexible column count */
+.lui-root .tiles.tiles-auto { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+.lui-root .ec-collapse-btn { margin-left: auto; }
+@media (max-width: 720px) { .lui-root .arg-cols { grid-template-columns: 1fr; } }
+
+/* ── eCourts hub (search form, quota, result cards) ─────────── */
+.lui-root .ec-quota { display: flex; flex-direction: column; gap: 7px; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--r); background: #fcfcfd; margin-bottom: 20px; }
+.lui-root .ec-quota .qh { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 12px; }
+.lui-root .ec-quota .qh .lbl { font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-3); display: inline-flex; gap: 8px; align-items: center; }
+.lui-root .ec-searchform { display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 18px 0 6px; }
+.lui-root .ec-searchform .subhead { text-align: center; }
+.lui-root .ec-searchrow { display: flex; gap: 14px; align-items: flex-end; justify-content: center; flex-wrap: wrap; }
+.lui-root .ec-searchrow .field { margin-bottom: 0; min-width: 220px; }
+.lui-root .ec-searchrow .field.ec-status { min-width: 0; }
+.lui-root .ec-jurisdiction-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
+.lui-root .ec-jurisdiction-row .field { flex: 1 1 200px; margin-bottom: 0; min-width: 0; }
+/* Tighter vertical rhythm inside the fixed-height Add-case dialog (step 1) so
+   the step never needs its own scroll — the standalone eCourts page keeps the
+   roomier defaults above. */
+.lui-root .ec-search-step .card.card-pad { padding: 16px 20px; }
+.lui-root .ec-search-step .tabs-row { margin-bottom: 14px; }
+.lui-root .ec-search-step .ec-searchform { padding: 10px 0 0; gap: 10px; }
+.lui-root .ec-results-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 4px 0 14px; font-size: 13px; font-weight: 600; color: var(--text-2); }
+.lui-root .ec-result { border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--panel); box-shadow: var(--sh-sm); padding: 14px 18px; cursor: pointer; transition: box-shadow 0.15s, border-color 0.15s; }
+.lui-root .ec-result + .ec-result { margin-top: 12px; }
+.lui-root .ec-result:hover { border-color: var(--border-strong); box-shadow: var(--sh); }
+.lui-root .ec-result .rtop { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.lui-root .ec-result .rmono { font-weight: 700; font-size: 12.5px; color: var(--brand); letter-spacing: 0.02em; }
+.lui-root .ec-result .rparties { font-size: 14px; font-weight: 600; color: var(--text); }
+.lui-root .ec-result .rparties .rvs { font-size: 12px; font-weight: 700; color: var(--text-3); padding: 0 6px; }
+.lui-root .ec-result .rmeta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--divider); font-size: 12px; color: var(--text-3); }
+.lui-root .ec-result .rmeta .mi { display: inline-flex; align-items: center; gap: 5px; }
+.lui-root .ec-result .rmeta .mi svg { width: 12px; height: 12px; }
+.lui-root .ec-result .rmeta b { color: var(--text-2); font-weight: 600; }
+.lui-root .ec-bulkbar { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: var(--brand-soft); border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 14px; }
+.lui-root .ec-bulkbar .cnt { font-size: 13px; font-weight: 600; color: var(--brand-ink); }
+.lui-root .ec-picklist { display: flex; flex-direction: column; max-height: 300px; overflow-y: auto; }
+.lui-root .ec-picklist button { display: flex; flex-direction: column; gap: 2px; align-items: flex-start; text-align: left; width: 100%; padding: 10px 12px; background: none; border: 0; border-bottom: 1px solid var(--divider); cursor: pointer; font: inherit; }
+.lui-root .ec-picklist button:last-child { border-bottom: 0; }
+.lui-root .ec-picklist button:hover, .lui-root .ec-picklist button.sel { background: var(--brand-soft); }
+.lui-root .ec-picklist button b { font-size: 13px; font-weight: 600; color: var(--text); }
+.lui-root .ec-picklist button span { font-size: 12px; color: var(--text-3); }
+
+/* ── List card (upcoming hearings) ─────────── */
+.lui-root .listcard .li { display: flex; align-items: center; gap: 13px; padding: 13px 0; border-bottom: 1px solid var(--divider); }
+.lui-root .listcard .li:last-child { border-bottom: 0; padding-bottom: 0; }
+.lui-root .listcard .li .ldate { text-align: center; width: 46px; flex: none; }
+.lui-root .listcard .li .ldate .d { font-family: var(--serif); font-weight: 600; font-size: 19px; line-height: 1; color: #121620; }
+.lui-root .listcard .li .ldate .mo { font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--brand); margin-top: 3px; }
+.lui-root .listcard .li .lbody { flex: 1; min-width: 0; }
+.lui-root .listcard .li .lbody b { font-size: 13.5px; font-weight: 600; display: block; }
+.lui-root .listcard .li .lbody span { font-size: 12px; color: var(--text-3); }
+.lui-root .listcard .li.click { cursor: pointer; margin: 0 -8px; padding-left: 8px; padding-right: 8px; border-radius: 8px; }
+.lui-root .listcard .li.click:hover { background: var(--bg); }
+.lui-root .branchlist .br { display: flex; align-items: center; gap: 12px; padding: 12px 8px; margin: 0 -8px; border-radius: 8px;
+  border-bottom: 1px solid var(--divider); cursor: pointer; }
+.lui-root .branchlist .br:last-child { border-bottom: 0; }
+.lui-root .branchlist .br:hover { background: var(--bg); }
+.lui-root .branchlist .br .bi { width: 34px; height: 34px; border-radius: 9px; flex: none; display: grid; place-items: center;
+  background: var(--brand-soft); color: var(--brand); }
+.lui-root .branchlist .br .bi svg { width: 17px; height: 17px; }
+.lui-root .branchlist .br .bbody { flex: 1; min-width: 0; }
+.lui-root .branchlist .br .bbody b { font-size: 13.5px; font-weight: 600; display: block; }
+.lui-root .branchlist .br .bbody span { font-size: 12px; color: var(--text-3); }

@@ -1,0 +1,13 @@
+.profile {
+    background-image: url("/profile-bg.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+.profileContent{
+  background-image: url("/price-location-bg.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}

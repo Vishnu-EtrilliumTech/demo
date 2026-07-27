@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lawsome — Case Workspace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.js"></script>
+<link rel="icon" href="public/favicon.png" />
+<link rel="stylesheet" href="lawsome-ui.css" />
+<!-- All shared styles now live in lawsome-ui.css (the Lawsome design system). This screen carries no inline styles; edit tokens/components there so every screen stays consistent. -->
+</head>
+<body>
+<div class="app">
+  <!-- ══ Sidebar ══ -->
+  <aside class="sidebar" data-screen-label="Sidebar">
+    <div class="brand">
+      <span class="logo-chip"><img src="public/logo-white.png" alt="Lawsome" /></span>
+      <span class="logo-mini"><img src="public/logo-mark.png" alt="Lawsome" /></span>
+    </div>
+    <nav class="nav-group">
+      <div class="lbl">Firm</div>
+      <a class="navitem" href="#"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a class="navitem active" href="#"><i data-lucide="folder-open"></i><span>Cases</span></a>
+      <a class="navitem" href="#"><i data-lucide="building-2"></i><span>Branches</span></a>
+      <a class="navitem" href="#"><i data-lucide="users"></i><span>Lawyers</span></a>
+      <a class="navitem" href="#"><i data-lucide="contact"></i><span>Clients</span></a>
+    </nav>
+    <nav class="nav-group">
+      <div class="lbl">Practice</div>
+      <a class="navitem" href="#"><i data-lucide="landmark"></i><span>eCourts</span></a>
+      <a class="navitem" href="#"><i data-lucide="calendar-days"></i><span>Cause List</span></a>
+      <a class="navitem" href="#"><i data-lucide="receipt-indian-rupee"></i><span>Billing</span></a>
+    </nav>
+    <div class="spacer"></div>
+    <nav class="nav-group">
+      <a class="navitem" href="#"><i data-lucide="settings"></i><span>Settings</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="userchip">
+        <span class="ava">RN</span>
+        <span class="who"><b>Adv. Ritika Nair</b><span>Partner · Delhi</span></span>
+        <i data-lucide="chevrons-up-down"></i>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══ Main ══ -->
+  <div class="main">
+    <header class="topbar">
+      <div class="crumbs">
+        <a href="#">Cases</a><i data-lucide="chevron-right"></i>
+        <a href="#">Commercial</a><i data-lucide="chevron-right"></i>
+        <span class="cur">Mehra Textiles v. State Bank of India</span>
+      </div>
+      <div class="grow"></div>
+      <div class="searchbox">
+        <i data-lucide="search"></i>
+        <input placeholder="Search cases, CNR, parties…" />
+        <kbd>⌘K</kbd>
+      </div>
+      <button class="icon-btn" aria-label="Notifications"><i data-lucide="bell"></i><span class="badge">3</span></button>
+    </header>
+
+    <div class="scroll">
+      <div class="sheet" data-screen-label="Case Workspace">
+
+        <!-- Case header -->
+        <div class="casehead">
+          <div class="lead">
+            <div class="eyebrow"><i data-lucide="folder-open"></i> Commercial Suit <span class="sep">·</span> <span class="muted">Delhi Branch</span></div>
+            <h1 class="title">Mehra Textiles Pvt. Ltd. <em>v.</em> State Bank of India</h1>
+            <div class="subline">
+              <span class="chip-mono"><i data-lucide="fingerprint"></i> CNR <b>DLHC01-013245-2024</b></span>
+              <span class="chip-mono"><i data-lucide="hash"></i> <b>CS(COMM) 842/2024</b></span>
+              <span class="chip-mono sync"><i data-lucide="refresh-cw"></i> eCourts synced <b>2 hrs ago</b></span>
+            </div>
+          </div>
+          <div class="head-actions" style="margin-left:auto">
+            <span class="pill pill-warn" style="align-self:center"><span class="d"></span> In Progress</span>
+            <button class="btn btn-secondary"><i data-lucide="pencil"></i> Edit</button>
+            <button class="btn btn-secondary"><i data-lucide="share-2"></i> Share</button>
+            <button class="btn btn-primary"><i data-lucide="landmark"></i> eCourts Details</button>
+          </div>
+        </div>
+
+        <!-- KPI strip: hero hearing + icon cards -->
+        <div class="kstrip">
+          <div class="hero-h">
+            <div class="toprow"><div class="k"><i data-lucide="calendar-clock"></i> Next Hearing</div><span class="cd"><i data-lucide="hourglass"></i> in 6 days</span></div>
+            <div class="date">17 Jul 2026</div>
+            <div class="meta">10:30 AM &middot; Court No. 21 &middot; Justice A. Bhandari<br>Purpose: Framing of Issues</div>
+          </div>
+          <div class="kcards">
+            <div class="kpi"><div class="ic"><i data-lucide="landmark"></i></div><div class="k">Court</div><div class="v">High Court of Delhi<small>Commercial Div.</small></div></div>
+            <div class="kpi"><div class="ic"><i data-lucide="gavel"></i></div><div class="k">Presiding</div><div class="v">Justice A. Bhandari<small>Court No. 21</small></div></div>
+            <div class="kpi"><div class="ic"><i data-lucide="milestone"></i></div><div class="k">Stage</div><div class="v">Framing of Issues</div></div>
+            <div class="kpi"><div class="ic"><i data-lucide="calendar"></i></div><div class="k">Filed</div><div class="v">14 Feb 2024<small>Reg. 19 Feb</small></div></div>
+            <div class="kpi"><div class="ic"><i data-lucide="hash"></i></div><div class="k">Case No.</div><div class="v">CS(COMM) 842/2024</div></div>
+            <div class="kpi"><div class="ic"><i data-lucide="user"></i></div><div class="k">Lead Lawyer</div><div class="v">Adv. Ritika Nair</div></div>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="body-grid">
+          <!-- Left -->
+          <div class="case-content">
+            <div class="tabs" role="tablist">
+              <button class="tab active" data-tab="overview"><i data-lucide="layout-panel-left"></i> Overview</button>
+              <button class="tab" data-tab="tasks"><i data-lucide="circle-check-big"></i> Tasks <span class="count">6</span></button>
+              <button class="tab" data-tab="docs"><i data-lucide="file-text"></i> Documents <span class="count">14</span></button>
+              <button class="tab" data-tab="hearings"><i data-lucide="gavel"></i> Hearings <span class="count">8</span></button>
+              <button class="tab" data-tab="references"><i data-lucide="book-marked"></i> References <span class="count">4</span></button>
+              <button class="tab" data-tab="clients"><i data-lucide="contact"></i> Clients</button>
+              <button class="tab" data-tab="billing"><i data-lucide="receipt-indian-rupee"></i> Billing</button>
+              <button class="tab" data-tab="comments"><i data-lucide="message-square"></i> Comments <span class="count">5</span></button>
+              <button class="tab" data-tab="ecourts"><i data-lucide="landmark"></i> eCourts</button>
+            </div>
+
+            <!-- Overview -->
+            <section class="panel active" data-panel="overview">
+              <div class="card card-pad">
+                <div class="sec-head"><h3><span class="ic"><i data-lucide="users"></i></span> Parties</h3></div>
+                <div class="parties">
+                  <div class="party">
+                    <div class="role">Petitioner</div>
+                    <div class="person"><span class="ava org av1">MT</span><span class="nm">Mehra Textiles Pvt. Ltd.<small>Through Dir. Sanjay Mehra</small></span></div>
+                    <div class="person"><span class="ava av3">RN</span><span class="nm">Adv. Ritika Nair<small>Counsel · AOR</small></span></div>
+                    <div class="person"><span class="ava av4">VK</span><span class="nm">Sr. Adv. V. Krishnan<small>Arguing counsel</small></span></div>
+                  </div>
+                  <div class="vs"><span>VS</span></div>
+                  <div class="party">
+                    <div class="role">Respondent</div>
+                    <div class="person"><span class="ava org av2">SB</span><span class="nm">State Bank of India<small>Through Regional Manager</small></span></div>
+                    <div class="person"><span class="ava av5">PD</span><span class="nm">Adv. P. Desai<small>Standing counsel</small></span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card card-pad">
+                <div class="sec-head"><h3><span class="ic"><i data-lucide="users-round"></i></span> Contributors</h3><button class="btn btn-ghost">Manage <i data-lucide="settings-2"></i></button></div>
+                <div class="team-grid">
+                  <div class="tm"><span class="ava av3">RN</span><span class="tnm"><b>Adv. Ritika Nair</b><small>Partner · Lead</small></span></div>
+                  <div class="tm"><span class="ava av4">VK</span><span class="tnm"><b>Sr. Adv. V. Krishnan</b><small>Arguing counsel</small></span></div>
+                  <div class="tm"><span class="ava av1">KR</span><span class="tnm"><b>K. Raman</b><small>Associate</small></span></div>
+                  <div class="tm"><span class="ava av5">AP</span><span class="tnm"><b>A. Prasad</b><small>Paralegal</small></span></div>
+                </div>
+              </div>
+
+              <div class="card card-pad">
+                <div class="sec-head"><h3><span class="ic"><i data-lucide="bar-chart-3"></i></span> Proceedings</h3></div>
+                <div class="tiles">
+                  <div class="tile"><div class="n">8</div><div class="l">Hearings held</div></div>
+                  <div class="tile"><div class="n">3</div><div class="l">Interim orders</div></div>
+                  <div class="tile"><div class="n">2</div><div class="l">IAs pending</div></div>
+                  <div class="tile"><div class="n">874</div><div class="l">Days elapsed</div></div>
+                </div>
+              </div>
+
+              <div class="card card-pad">
+                <div class="sec-head"><h3><span class="ic"><i data-lucide="history"></i></span> Recent Activity</h3><button class="btn btn-ghost">View all <i data-lucide="arrow-right"></i></button></div>
+                <div class="tl">
+                  <div class="ev"><div class="when">02 Jul 2026 · eCourts</div><div class="what">Matter listed for <b>Framing of Issues</b> on 17 Jul 2026. <small>Auto-imported from cause list.</small></div></div>
+                  <div class="ev"><div class="when">28 Jun 2026 · Document</div><div class="what">Rejoinder to written statement filed by Adv. Nair. <small>rejoinder-final.pdf</small></div></div>
+                  <div class="ev muted"><div class="when">11 Jun 2026 · Order</div><div class="what">Interim injunction continued; IA 4471/2026 disposed. <small>Order uploaded.</small></div></div>
+                  <div class="ev muted"><div class="when">30 May 2026 · Task</div><div class="what">Brief for Sr. Counsel completed by Assoc. K. Raman.</div></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Tasks -->
+            <section class="panel" data-panel="tasks">
+              <div class="card">
+                <div class="sec-head pd"><h3><span class="ic"><i data-lucide="circle-check-big"></i></span> Tasks &amp; Deadlines</h3><button class="btn btn-primary"><i data-lucide="plus"></i> New Task</button></div>
+                <table class="tbl">
+                  <thead><tr><th style="width:20px"></th><th>Task</th><th>Assignee</th><th>Due</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td class="checkcell"><i data-lucide="circle"></i></td><td class="task-t">Draft counter-affidavit for IA 5120/2026</td><td><div class="who2"><span class="a av1">KR</span> K. Raman</div></td><td>15 Jul 2026</td><td><span class="pill pill-warn">Due soon</span></td></tr>
+                    <tr><td class="checkcell"><i data-lucide="circle"></i></td><td class="task-t">Compile exhibits for framing of issues</td><td><div class="who2"><span class="a av3">RN</span> R. Nair</div></td><td>16 Jul 2026</td><td><span class="pill pill-neutral">Open</span></td></tr>
+                    <tr><td class="checkcell"><i data-lucide="circle"></i></td><td class="task-t">Brief Sr. Adv. Krishnan on rejoinder</td><td><div class="who2"><span class="a av3">RN</span> R. Nair</div></td><td>16 Jul 2026</td><td><span class="pill pill-neutral">Open</span></td></tr>
+                    <tr class="done"><td class="checkcell"><i data-lucide="circle-check-big"></i></td><td class="task-t">File rejoinder to written statement</td><td><div class="who2"><span class="a av1">KR</span> K. Raman</div></td><td>28 Jun 2026</td><td><span class="pill pill-ok">Done</span></td></tr>
+                    <tr class="done"><td class="checkcell"><i data-lucide="circle-check-big"></i></td><td class="task-t">Serve notice on respondent bank</td><td><div class="who2"><span class="a av4">AP</span> A. Prasad</div></td><td>05 Jun 2026</td><td><span class="pill pill-ok">Done</span></td></tr>
+                    <tr class="done"><td class="checkcell"><i data-lucide="circle-check-big"></i></td><td class="task-t">Pay court fee &amp; process fee</td><td><div class="who2"><span class="a av4">AP</span> A. Prasad</div></td><td>20 Feb 2024</td><td><span class="pill pill-ok">Done</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- Documents -->
+            <section class="panel" data-panel="docs">
+              <div class="card">
+                <div class="sec-head pd"><h3><span class="ic"><i data-lucide="file-text"></i></span> Case Documents</h3><button class="btn btn-primary"><i data-lucide="upload"></i> Upload</button></div>
+                <table class="tbl">
+                  <thead><tr><th>Document</th><th>Type</th><th>Added by</th><th>Date</th><th class="r">Size</th><th class="r"></th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="file-text"></i></span> Rejoinder — final.pdf</div></td><td><span class="pill pill-line">Pleading</span></td><td>K. Raman</td><td>28 Jun 2026</td><td class="r">412 KB</td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="file-text"></i></span> Interim order 11-06-2026.pdf</div></td><td><span class="pill pill-brand">Order</span></td><td>eCourts sync</td><td>11 Jun 2026</td><td class="r">288 KB</td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="file-text"></i></span> Written statement — SBI.pdf</div></td><td><span class="pill pill-line">Pleading</span></td><td>P. Desai</td><td>02 May 2026</td><td class="r">1.1 MB</td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="file-text"></i></span> Loan sanction letter (Exh. P-3).pdf</div></td><td><span class="pill pill-neutral">Exhibit</span></td><td>R. Nair</td><td>14 Feb 2024</td><td class="r">640 KB</td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="file-text"></i></span> Plaint &amp; annexures.pdf</div></td><td><span class="pill pill-line">Pleading</span></td><td>R. Nair</td><td>14 Feb 2024</td><td class="r">2.4 MB</td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- Hearings -->
+            <section class="panel" data-panel="hearings">
+              <div class="banner brand" style="margin-bottom:20px">
+                <span class="bi"><i data-lucide="calendar-clock"></i></span>
+                <div class="t"><b>Next hearing — 17 Jul 2026, 10:30 AM</b><span>Court No. 21 · Hon'ble Justice A. Bhandari · Purpose: Framing of Issues</span></div>
+                <button class="btn btn-secondary"><i data-lucide="calendar-plus"></i> Add to calendar</button>
+              </div>
+              <div class="card">
+                <div class="sec-head pd"><h3><span class="ic"><i data-lucide="gavel"></i></span> Hearing History</h3></div>
+                <table class="tbl">
+                  <thead><tr><th>Date</th><th>Purpose</th><th>Judge</th><th>Outcome</th></tr></thead>
+                  <tbody>
+                    <tr><td>11 Jun 2026</td><td>Interim application</td><td>A. Bhandari</td><td>Injunction continued; IA disposed</td></tr>
+                    <tr><td>02 May 2026</td><td>Written statement</td><td>A. Bhandari</td><td>WS taken on record</td></tr>
+                    <tr><td>18 Mar 2026</td><td>Reply / arguments</td><td>A. Bhandari</td><td>Adjourned on request</td></tr>
+                    <tr><td>22 Jan 2026</td><td>Appearance</td><td>S. Iyer</td><td>Notice served, matter listed</td></tr>
+                    <tr><td>19 Feb 2024</td><td>Registration</td><td>—</td><td>Suit registered</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- References -->
+            <section class="panel" data-panel="references">
+              <div class="card">
+                <div class="sec-head pd"><h3><span class="ic"><i data-lucide="book-marked"></i></span> Related Matters &amp; References</h3><button class="btn btn-primary"><i data-lucide="plus"></i> Add reference</button></div>
+                <table class="tbl">
+                  <thead><tr><th>Reference</th><th>Type</th><th>Citation / No.</th><th>Relevance</th><th class="r"></th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="scale"></i></span> ICICI Bank v. Ravindra Textiles</div></td><td><span class="pill pill-brand">Precedent</span></td><td>(2022) 4 SCC 611</td><td>NPA classification during dispute</td><td class="r"><button class="rowbtn"><i data-lucide="external-link"></i></button></td></tr>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="folder-open"></i></span> Mehra Textiles v. SBI (arbitration)</div></td><td><span class="pill pill-line">Related case</span></td><td>ARB.P. 210/2025</td><td>Same restructuring agreement</td><td class="r"><button class="rowbtn"><i data-lucide="arrow-right"></i></button></td></tr>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="scale"></i></span> Dena Bank v. C. Shivakumar Reddy</div></td><td><span class="pill pill-brand">Precedent</span></td><td>(2021) 10 SCC 330</td><td>Limitation &amp; acknowledgement of debt</td><td class="r"><button class="rowbtn"><i data-lucide="external-link"></i></button></td></tr>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="book"></i></span> RBI Master Circular — IRAC norms</div></td><td><span class="pill pill-neutral">Statute / rule</span></td><td>DBR.No.BP.BC 2/2015</td><td>Asset classification framework</td><td class="r"><button class="rowbtn"><i data-lucide="external-link"></i></button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- Clients -->
+            <section class="panel" data-panel="clients">
+              <div class="card card-pad">
+                <div class="sec-head"><h3><span class="ic"><i data-lucide="contact"></i></span> Client on this matter</h3><a class="btn btn-secondary" href="Clients.html"><i data-lucide="external-link"></i> Client profile</a></div>
+                <div class="person" style="border:0;padding:4px 0 14px"><span class="ava org av1">MT</span><span class="nm">Mehra Textiles Pvt. Ltd.<small>Corporate client &middot; Client since Feb 2024</small></span></div>
+                <div class="kv">
+                  <div class="row"><span class="k">Primary contact</span><span class="v">Sanjay Mehra &middot; Managing Director</span></div>
+                  <div class="row"><span class="k">Phone</span><span class="v">+91 98100 44221</span></div>
+                  <div class="row"><span class="k">Email</span><span class="v">sanjay@mehratextiles.co</span></div>
+                  <div class="row"><span class="k">GSTIN</span><span class="v">07AABCM1234F1Z5</span></div>
+                  <div class="row"><span class="k">Billing address</span><span class="v">14 Okhla Industrial Estate, New Delhi</span></div>
+                  <div class="row"><span class="k">Relationship partner</span><span class="v">Adv. Ritika Nair</span></div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="sec-head pd"><h3><span class="ic"><i data-lucide="folder-open"></i></span> Other matters for this client</h3><span class="pill pill-neutral">3 total</span></div>
+                <table class="tbl">
+                  <thead><tr><th>Matter</th><th>Type</th><th>Stage</th><th>Status</th><th class="r"></th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="folder-open"></i></span> Mehra Textiles v. SBI (arbitration)</div></td><td>Arbitration</td><td>Pleadings</td><td><span class="pill pill-warn">In progress</span></td><td class="r"><button class="rowbtn"><i data-lucide="arrow-right"></i></button></td></tr>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="folder-open"></i></span> Mehra Textiles &mdash; GST appeal</div></td><td>Tax / regulatory</td><td>Hearing</td><td><span class="pill pill-warn">In progress</span></td><td class="r"><button class="rowbtn"><i data-lucide="arrow-right"></i></button></td></tr>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="folder-open"></i></span> Vendor contract review 2025</div></td><td>Advisory</td><td>Completed</td><td><span class="pill pill-ok">Closed</span></td><td class="r"><button class="rowbtn"><i data-lucide="arrow-right"></i></button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- Billing -->
+            <section class="panel" data-panel="billing">
+              <div class="banner brand" style="margin-bottom:20px">
+                <span class="bi"><i data-lucide="receipt-indian-rupee"></i></span>
+                <div class="t"><b>Billed &#8377;8,40,000 &middot; Outstanding &#8377;2,15,000</b><span>3 invoices raised on this matter &middot; last payment 20 Jun 2026</span></div>
+                <a class="btn btn-secondary" href="Billing.html"><i data-lucide="external-link"></i> View in Billing</a>
+              </div>
+              <div class="card">
+                <div class="sec-head pd"><h3><span class="ic"><i data-lucide="receipt-indian-rupee"></i></span> Invoices for this matter</h3><button class="btn btn-primary"><i data-lucide="plus"></i> New invoice</button></div>
+                <table class="tbl">
+                  <thead><tr><th>Invoice</th><th>Raised</th><th>Period</th><th class="r">Amount</th><th>Status</th><th class="r"></th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="file-text"></i></span> INV-2026-118</div></td><td>20 Jun 2026</td><td>May&ndash;Jun 2026</td><td class="r">&#8377;2,15,000</td><td><span class="pill pill-warn">Outstanding</span></td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="file-text"></i></span> INV-2026-071</div></td><td>28 Mar 2026</td><td>Feb&ndash;Mar 2026</td><td class="r">&#8377;3,40,000</td><td><span class="pill pill-ok">Paid</span></td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+                    <tr><td><div class="doc"><span class="fi"><i data-lucide="file-text"></i></span> INV-2025-402</div></td><td>18 Dec 2025</td><td>Retainer &amp; filing</td><td class="r">&#8377;2,85,000</td><td><span class="pill pill-ok">Paid</span></td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- Comments -->
+            <section class="panel" data-panel="comments">
+              <div class="card card-pad">
+                <div class="sec-head"><h3><span class="ic"><i data-lucide="message-square"></i></span> Case Discussion</h3><span class="pill pill-neutral">Internal · 5 members</span></div>
+                <div class="composer">
+                  <span class="ava av3">RN</span>
+                  <div class="box">
+                    <textarea placeholder="Add a comment&hellip; use @ to mention a team member"></textarea>
+                    <div class="crow">
+                      <div class="tools">
+                        <button class="tb" aria-label="Attach file"><i data-lucide="paperclip"></i></button>
+                        <button class="tb" aria-label="Mention"><i data-lucide="at-sign"></i></button>
+                        <button class="tb" aria-label="Link document"><i data-lucide="link"></i></button>
+                      </div>
+                      <button class="btn btn-primary"><i data-lucide="send"></i> Post comment</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="thread">
+                  <div class="cmt">
+                    <span class="ava av4">VK</span>
+                    <div class="c">
+                      <div class="hd"><b>Sr. Adv. V. Krishnan</b><span class="rl">Arguing Counsel</span><span class="time">2 days ago</span></div>
+                      <div class="bd">Reviewed the rejoinder. Para 12 must explicitly plead the 2023 restructuring letter as estoppel against the bank&rsquo;s recovery. <span class="mn">@K. Raman</span> please revise before we file, and keep Exh. P-3 handy for the framing of issues.</div>
+                      <div class="acts"><button><i data-lucide="corner-down-right"></i> Reply</button><button><i data-lucide="thumbs-up"></i> 2</button></div>
+                    </div>
+                  </div>
+
+                  <div class="cmt reply">
+                    <span class="ava av1">KR</span>
+                    <div class="c">
+                      <div class="hd"><b>K. Raman</b><span class="rl">Associate</span><span class="time">1 day ago</span></div>
+                      <div class="bd">Done &mdash; added the estoppel plea at para 12 and cross-referenced the sanction letter. Updated draft attached.</div>
+                      <div class="att"><span class="fi"><i data-lucide="file-text"></i></span> rejoinder-final-v2.pdf <span class="sz">· 428 KB</span></div>
+                      <div class="acts"><button><i data-lucide="corner-down-right"></i> Reply</button><button><i data-lucide="thumbs-up"></i> 1</button></div>
+                    </div>
+                  </div>
+
+                  <div class="cmt">
+                    <span class="ava av3">RN</span>
+                    <div class="c">
+                      <div class="hd"><b>Adv. Ritika Nair</b><span class="rl">Partner</span><span class="time">1 day ago</span></div>
+                      <div class="bd">eCourts shows the matter listed for framing of issues on 17 Jul. Let&rsquo;s align on the exact issues we want framed by 15 Jul. <span class="mn">@V. Krishnan</span> can we do a 20-min call Monday?</div>
+                      <div class="acts"><button><i data-lucide="corner-down-right"></i> Reply</button><button><i data-lucide="thumbs-up"></i> 3</button></div>
+                    </div>
+                  </div>
+
+                  <div class="cmt">
+                    <span class="ava av5">AP</span>
+                    <div class="c">
+                      <div class="hd"><b>A. Prasad</b><span class="rl">Paralegal</span><span class="time">6 hrs ago</span></div>
+                      <div class="bd">Court fee receipt and process fee acknowledgement uploaded to Documents. Also flagged that the respondent&rsquo;s counsel changed &mdash; now Adv. P. Desai on record.</div>
+                      <div class="att"><span class="fi"><i data-lucide="file-text"></i></span> court-fee-receipt.pdf <span class="sz">· 96 KB</span></div>
+                      <div class="acts"><button><i data-lucide="corner-down-right"></i> Reply</button><button><i data-lucide="thumbs-up"></i> 1</button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- eCourts -->
+            <section class="panel" data-panel="ecourts">
+              <div class="banner brand" style="margin-bottom:20px">
+                <span class="bi"><i data-lucide="badge-check"></i></span>
+                <div class="t"><b>Linked to eCourts India · CNR DLHC01-013245-2024</b><span>Live record last fetched 11 Jul 2026, 2:41 PM · Cause-list monitoring active</span></div>
+                <button class="btn btn-primary"><i data-lucide="refresh-cw"></i> Sync now</button>
+              </div>
+              <div class="card card-pad">
+                <div class="sec-head"><h3><span class="ic"><i data-lucide="landmark"></i></span> Court Record</h3></div>
+                <div class="kv">
+                  <div class="row"><span class="k">Case type</span><span class="v">Commercial Suit</span></div>
+                  <div class="row"><span class="k">Filing number</span><span class="v">F/2024/00842</span></div>
+                  <div class="row"><span class="k">Registration</span><span class="v">CS(COMM) 842/2024</span></div>
+                  <div class="row"><span class="k">Nature of disposal</span><span class="v">Pending</span></div>
+                  <div class="row"><span class="k">Judicial branch</span><span class="v">Commercial Division</span></div>
+                  <div class="row"><span class="k">Contested / uncontested</span><span class="v">Contested</span></div>
+                  <div class="row"><span class="k">First hearing</span><span class="v">22 Jan 2026</span></div>
+                  <div class="row"><span class="k">Last hearing</span><span class="v">11 Jun 2026</span></div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="sec-head pd"><h3><span class="ic"><i data-lucide="gavel"></i></span> Interim Orders &amp; Judgments</h3></div>
+                <table class="tbl">
+                  <thead><tr><th>Date</th><th>Type</th><th>Summary</th><th class="r"></th></tr></thead>
+                  <tbody>
+                    <tr><td>11 Jun 2026</td><td><span class="pill pill-brand">Interim</span></td><td>Injunction restraining recovery continued</td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+                    <tr><td>18 Mar 2026</td><td><span class="pill pill-brand">Interim</span></td><td>Status quo on classification of account</td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+                    <tr><td>22 Jan 2026</td><td><span class="pill pill-neutral">Procedural</span></td><td>Notice issued; reply sought in 4 weeks</td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+
+          <!-- Right: AI rail -->
+          <aside class="rail" aria-label="AI assistant">
+            <div class="ai-card lead">
+              <div class="ai-head">
+                <span class="spark"><i data-lucide="sparkles"></i></span>
+                <b>AI Case Brief</b>
+                <span class="soon"><i data-lucide="sparkles"></i> Preview</span>
+              </div>
+              <div class="ai-body">
+                <p>Mehra Textiles seeks to restrain SBI from classifying its account as an <span class="cite" title="Loan sanction letter (Exh. P-3), Plaint ¶14">NPA</span> and initiating recovery, pending adjudication of a disputed restructuring agreement. An interim injunction has held since Jan 2026 and was <span class="cite" title="Interim order 11-06-2026.pdf">continued on 11 Jun</span>.</p>
+                <p>The matter is at framing of issues. The core dispute turns on whether the 2023 restructuring letter bound SBI's recovery rights.</p>
+              </div>
+              <div class="ai-note"><i data-lucide="route"></i> AI case intelligence is a roadmap preview — not part of the first release.</div>
+              <div class="ai-foot"><button class="btn btn-secondary" style="width:100%"><i data-lucide="file-down"></i> Export brief</button></div>
+            </div>
+
+            <div class="ai-card">
+              <div class="ai-head"><span class="spark"><i data-lucide="bell-ring"></i></span><b>Actionable Alerts</b></div>
+              <div class="alert danger"><span class="ic"><i data-lucide="alarm-clock"></i></span><div class="m"><b>Counter-affidavit to IA 5120/2026</b> not yet filed.<span class="due">DUE 15 JUL · BEFORE NEXT HEARING</span></div></div>
+              <div class="alert warn"><span class="ic"><i data-lucide="hourglass"></i></span><div class="m">Hearing in <b>6 days</b> — exhibits for framing of issues pending compilation.<span class="due">17 JUL 2026</span></div></div>
+              <div class="alert"><span class="ic"><i data-lucide="scale"></i></span><div class="m">Limitation to appeal the 11 Jun interim order lapses soon.<span class="due">ADVISORY · 10 AUG 2026</span></div></div>
+            </div>
+
+            <div class="ai-card">
+              <div class="ai-head"><span class="spark"><i data-lucide="list-checks"></i></span><b>Suggested Next Actions</b></div>
+              <div class="suggest">
+                <div class="s"><span class="si"><i data-lucide="file-pen"></i></span> Draft counter-affidavit citing the 2023 restructuring letter <span class="go"><i data-lucide="arrow-right"></i></span></div>
+                <div class="s"><span class="si"><i data-lucide="folder-plus"></i></span> Tag Exh. P-3 &amp; P-7 as issue-framing exhibits <span class="go"><i data-lucide="arrow-right"></i></span></div>
+                <div class="s"><span class="si"><i data-lucide="user-plus"></i></span> Confer with Sr. Adv. Krishnan before 16 Jul <span class="go"><i data-lucide="arrow-right"></i></span></div>
+              </div>
+            </div>
+
+            <div class="ai-card">
+              <div class="ai-head"><span class="spark"><i data-lucide="message-square-text"></i></span><b>Ask about this case</b></div>
+              <div class="ask">
+                <div class="chips">
+                  <button class="chip">Summarise the 11 Jun order</button>
+                  <button class="chip">What are the likely issues?</button>
+                  <button class="chip">List all pending IAs</button>
+                </div>
+                <div class="field">
+                  <input placeholder="Ask across all case documents…" aria-label="Ask about this case" />
+                  <button class="send" aria-label="Send"><i data-lucide="arrow-up"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="disc"><i data-lucide="info"></i><span>AI output is drafting assistance grounded in this case's filings. Verify against the record before relying on it.</span></div>
+          </aside>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(function (t) {
+    t.addEventListener('click', function () {
+      var name = t.getAttribute('data-tab');
+      document.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('active', x === t); });
+      document.querySelectorAll('.panel').forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-panel') === name); });
+    });
+  });
+  document.querySelectorAll('.ask .chip').forEach(function (c) {
+    c.addEventListener('click', function () {
+      var input = document.querySelector('.ask .field input');
+      input.value = c.textContent.trim(); input.focus();
+    });
+  });
+  document.querySelectorAll('.checkcell').forEach(function (c) {
+    c.addEventListener('click', function () {
+      var row = c.closest('tr'); row.classList.toggle('done');
+      var icon = row.classList.contains('done') ? 'circle-check-big' : 'circle';
+      c.innerHTML = '<i data-lucide="' + icon + '"></i>';
+      lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });
+    });
+  });
+  lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });
+</script>
+</body>
+</html>

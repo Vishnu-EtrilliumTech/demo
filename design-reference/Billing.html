@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lawsome — Billing</title>
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.js"></script>
+<link rel="icon" href="public/favicon.png" />
+<link rel="stylesheet" href="lawsome-ui.css" />
+<style>
+  .inv { display: flex; align-items: center; gap: 11px; font-weight: 600; }
+  .inv .fi { width: 32px; height: 32px; border-radius: 8px; flex: none; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand); }
+  .inv .fi [data-lucide] { width: 16px; height: 16px; }
+  .amt { font-family: var(--serif); font-weight: 600; font-size: 15px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" data-screen-label="Sidebar">
+    <div class="brand"><span class="logo-chip"><img src="public/logo-white.png" alt="Lawsome" /></span><span class="logo-mini"><img src="public/logo-mark.png" alt="Lawsome" /></span></div>
+    <nav class="nav-group">
+      <div class="lbl">Firm</div>
+      <a class="navitem" href="Dashboard.html"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a class="navitem" href="Cases.html"><i data-lucide="folder-open"></i><span>Cases</span></a>
+      <a class="navitem" href="Branches.html"><i data-lucide="building-2"></i><span>Branches</span></a>
+      <a class="navitem" href="Lawyers.html"><i data-lucide="users"></i><span>Lawyers</span></a>
+      <a class="navitem" href="Clients.html"><i data-lucide="contact"></i><span>Clients</span></a>
+    </nav>
+    <nav class="nav-group">
+      <div class="lbl">Practice</div>
+      <a class="navitem" href="eCourts.html"><i data-lucide="landmark"></i><span>eCourts</span></a>
+      <a class="navitem" href="Cause List.html"><i data-lucide="calendar-days"></i><span>Cause List</span></a>
+      <a class="navitem active" href="Billing.html"><i data-lucide="receipt-indian-rupee"></i><span>Billing</span></a>
+    </nav>
+    <div class="spacer"></div>
+    <nav class="nav-group"><a class="navitem" href="Organization.html"><i data-lucide="settings"></i><span>Settings</span></a></nav>
+    <div class="sidebar-foot">
+      <div class="userchip"><span class="ava">RN</span><span class="who"><b>Adv. Ritika Nair</b><span>Partner · Delhi</span></span><i data-lucide="chevrons-up-down"></i></div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="crumbs"><a href="Dashboard.html">Practice</a><i data-lucide="chevron-right"></i><span class="cur">Billing</span></div>
+      <div class="grow"></div>
+      <div class="searchbox"><i data-lucide="search"></i><input placeholder="Search invoices…" /><kbd>⌘K</kbd></div>
+      <button class="icon-btn" aria-label="Notifications"><i data-lucide="bell"></i><span class="badge">3</span></button>
+    </header>
+
+    <div class="scroll">
+      <div class="sheet" data-screen-label="Billing">
+        <div class="page-head">
+          <div class="ph-lead">
+            <div class="eyebrow"><i data-lucide="receipt-indian-rupee"></i> Orders &amp; payments</div>
+            <h1>Billing</h1>
+            <div class="sub">Client invoices, receipts and payment status across your matters.</div>
+          </div>
+          <div class="ph-actions">
+            <button class="btn btn-secondary"><i data-lucide="download"></i> Export</button>
+            <button class="btn btn-primary"><i data-lucide="plus"></i> New Invoice</button>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="statcard"><div class="st-top"><span class="st-ic ok"><i data-lucide="indian-rupee"></i></span><span class="st-delta"><i data-lucide="trending-up"></i> +8%</span></div><div class="st-n">₹42.6L</div><div class="st-l">Billed this quarter</div></div>
+          <div class="statcard"><div class="st-top"><span class="st-ic"><i data-lucide="wallet"></i></span></div><div class="st-n">₹31.2L</div><div class="st-l">Collected</div></div>
+          <div class="statcard"><div class="st-top"><span class="st-ic warn"><i data-lucide="hourglass"></i></span></div><div class="st-n">₹9.1L</div><div class="st-l">Outstanding</div></div>
+          <div class="statcard"><div class="st-top"><span class="st-ic violet"><i data-lucide="alarm-clock"></i></span><span class="st-delta down"><i data-lucide="trending-up"></i> 3</span></div><div class="st-n">₹2.3L</div><div class="st-l">Overdue</div></div>
+        </div>
+
+        <div class="card card-pad" style="margin-bottom:22px">
+          <div class="sec-head"><h3><span class="ic"><i data-lucide="target"></i></span> Collection progress — this quarter</h3><span class="pill pill-neutral">73% collected</span></div>
+          <div class="linebar" style="height:12px"><div class="f" style="width:73%"></div></div>
+          <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:12.5px;color:var(--text-2)"><span>₹31.2L collected</span><span>₹42.6L billed</span></div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search"><i data-lucide="search"></i><input placeholder="Search by invoice no., client or case…" /></div>
+          <div class="selectbox"><select><option>All status</option><option>Paid</option><option>Pending</option><option>Overdue</option></select></div>
+          <div class="selectbox"><select><option>All branches</option><option>Delhi (HQ)</option><option>Mumbai</option><option>Pune</option><option>Bengaluru</option></select></div>
+        </div>
+
+        <div class="card" style="overflow:hidden">
+          <table class="tbl">
+            <thead><tr><th>Invoice</th><th>Client</th><th>Case</th><th>Issued</th><th>Due</th><th class="r">Amount</th><th>Status</th><th class="r"></th></tr></thead>
+            <tbody>
+              <tr><td><div class="inv"><span class="fi"><i data-lucide="receipt-indian-rupee"></i></span> INV-2026-0142</div></td><td>Mehra Textiles</td><td>v. SBI</td><td>01 Jul 2026</td><td>31 Jul 2026</td><td class="r amt">₹4,50,000</td><td><span class="pill pill-warn">Pending</span></td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+              <tr><td><div class="inv"><span class="fi"><i data-lucide="receipt-indian-rupee"></i></span> INV-2026-0139</div></td><td>Deccan Power</td><td>v. MSEDCL</td><td>24 Jun 2026</td><td>24 Jul 2026</td><td class="r amt">₹6,20,000</td><td><span class="pill pill-warn">Pending</span></td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+              <tr><td><div class="inv"><span class="fi"><i data-lucide="receipt-indian-rupee"></i></span> INV-2026-0131</div></td><td>Kohli Estates</td><td>Rao v. Kohli</td><td>10 Jun 2026</td><td>10 Jul 2026</td><td class="r amt">₹2,30,000</td><td><span class="pill pill-danger">Overdue</span></td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+              <tr><td><div class="inv"><span class="fi"><i data-lucide="receipt-indian-rupee"></i></span> INV-2026-0128</div></td><td>Priya Iyer</td><td>v. Metro Realty</td><td>02 Jun 2026</td><td>02 Jul 2026</td><td class="r amt">₹1,10,000</td><td><span class="pill pill-ok">Paid</span></td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+              <tr><td><div class="inv"><span class="fi"><i data-lucide="receipt-indian-rupee"></i></span> INV-2026-0119</div></td><td>Arjun Verma</td><td>Estate probate</td><td>18 May 2026</td><td>18 Jun 2026</td><td class="r amt">₹85,000</td><td><span class="pill pill-ok">Paid</span></td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+              <tr><td><div class="inv"><span class="fi"><i data-lucide="receipt-indian-rupee"></i></span> INV-2026-0112</div></td><td>Mehra Textiles</td><td>Retainer Q1</td><td>05 Apr 2026</td><td>05 May 2026</td><td class="r amt">₹3,00,000</td><td><span class="pill pill-ok">Paid</span></td><td class="r"><button class="rowbtn"><i data-lucide="download"></i></button></td></tr>
+            </tbody>
+          </table>
+          <div class="tbl-foot">
+            <span class="cnt">Showing 1–6 of 84 invoices</span>
+            <div class="pager"><button disabled><i data-lucide="chevron-left"></i></button><button class="active">1</button><button>2</button><button>3</button><button>…</button><button>14</button><button><i data-lucide="chevron-right"></i></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body>
+</html>

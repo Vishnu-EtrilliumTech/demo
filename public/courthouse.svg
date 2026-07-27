@@ -1,0 +1,66 @@
+<svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="courthouseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1f2937;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#374151;stop-opacity:0.95" />
+      <stop offset="70%" style="stop-color:#6b7280;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#9ca3af;stop-opacity:0.85" />
+    </linearGradient>
+    <radialGradient id="roofGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#374151;stop-opacity:0.95" />
+      <stop offset="60%" style="stop-color:#4b5563;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#6b7280;stop-opacity:0.8" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Base/Foundation -->
+  <rect x="15" y="120" width="120" height="15" fill="url(#courthouseGradient)" rx="2"/>
+  
+  <!-- Main Building Structure -->
+  <rect x="25" y="80" width="100" height="40" fill="url(#courthouseGradient)" opacity="0.9"/>
+  
+  <!-- Columns -->
+  <rect x="30" y="60" width="8" height="60" fill="url(#courthouseGradient)"/>
+  <rect x="42" y="60" width="8" height="60" fill="url(#courthouseGradient)"/>
+  <rect x="54" y="60" width="8" height="60" fill="url(#courthouseGradient)"/>
+  <rect x="66" y="60" width="8" height="60" fill="url(#courthouseGradient)"/>
+  <rect x="78" y="60" width="8" height="60" fill="url(#courthouseGradient)"/>
+  <rect x="90" y="60" width="8" height="60" fill="url(#courthouseGradient)"/>
+  <rect x="102" y="60" width="8" height="60" fill="url(#courthouseGradient)"/>
+  <rect x="114" y="60" width="8" height="60" fill="url(#courthouseGradient)"/>
+  
+  <!-- Column Capitals -->
+  <rect x="28" y="55" width="12" height="8" fill="url(#courthouseGradient)" rx="1"/>
+  <rect x="40" y="55" width="12" height="8" fill="url(#courthouseGradient)" rx="1"/>
+  <rect x="52" y="55" width="12" height="8" fill="url(#courthouseGradient)" rx="1"/>
+  <rect x="64" y="55" width="12" height="8" fill="url(#courthouseGradient)" rx="1"/>
+  <rect x="76" y="55" width="12" height="8" fill="url(#courthouseGradient)" rx="1"/>
+  <rect x="88" y="55" width="12" height="8" fill="url(#courthouseGradient)" rx="1"/>
+  <rect x="100" y="55" width="12" height="8" fill="url(#courthouseGradient)" rx="1"/>
+  <rect x="112" y="55" width="12" height="8" fill="url(#courthouseGradient)" rx="1"/>
+  
+  <!-- Pediment/Triangular Roof -->
+  <polygon points="20,55 75,25 130,55" fill="url(#roofGradient)"/>
+  
+  <!-- Central Steps -->
+  <rect x="20" y="115" width="110" height="5" fill="url(#courthouseGradient)" opacity="0.7"/>
+  <rect x="25" y="110" width="100" height="5" fill="url(#courthouseGradient)" opacity="0.8"/>
+  <rect x="30" y="105" width="90" height="5" fill="url(#courthouseGradient)" opacity="0.9"/>
+  
+  <!-- Central Entrance -->
+  <rect x="65" y="80" width="20" height="35" fill="url(#roofGradient)" opacity="0.8" rx="10"/>
+  
+  <!-- Windows -->
+  <rect x="35" y="85" width="6" height="8" fill="url(#courthouseGradient)" opacity="0.6" rx="1"/>
+  <rect x="45" y="85" width="6" height="8" fill="url(#courthouseGradient)" opacity="0.6" rx="1"/>
+  <rect x="95" y="85" width="6" height="8" fill="url(#courthouseGradient)" opacity="0.6" rx="1"/>
+  <rect x="105" y="85" width="6" height="8" fill="url(#courthouseGradient)" opacity="0.6" rx="1"/>
+  
+  <!-- Decorative Elements on Pediment -->
+  <circle cx="75" cy="40" r="8" fill="url(#courthouseGradient)" opacity="0.9"/>
+  <polygon points="72,38 78,38 75,32" fill="url(#roofGradient)"/>
+  
+  <!-- Justice Symbol in Center -->
+  <rect x="73" y="35" width="4" height="12" fill="url(#roofGradient)" opacity="0.8"/>
+  <circle cx="75" cy="33" r="3" fill="url(#courthouseGradient)"/>
+</svg>

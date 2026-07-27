@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lawsome — Add Case</title>
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.js"></script>
+<link rel="icon" href="public/favicon.png" />
+<link rel="stylesheet" href="lawsome-ui.css" />
+<style>
+  .form-sheet { max-width: 920px; }
+  .fcard { background: var(--panel); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--sh-sm); padding: 24px; }
+  .fcard + .fcard { margin-top: 18px; }
+  .fcard-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .fcard-head .ic { width: 34px; height: 34px; border-radius: 10px; flex: none; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand); }
+  .fcard-head .ic [data-lucide] { width: 18px; height: 18px; }
+  .fcard-head .t b { display: block; font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+  .fcard-head .t span { font-size: 12.5px; color: var(--text-3); }
+  .form-3col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 18px; }
+  .form-3col .field.full { grid-column: 1 / -1; }
+  .form-3col .field.two { grid-column: span 2; }
+  @media (max-width: 720px){ .form-3col, .form-2col { grid-template-columns: 1fr; } }
+
+  /* eCourts link status */
+  .cnr-status { display: flex; align-items: center; gap: 10px; margin-top: 4px; padding: 12px 14px; border-radius: var(--r); background: var(--bg); border: 1px solid var(--border); font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+  .cnr-status [data-lucide] { width: 16px; flex: none; color: var(--brand); }
+
+  /* party toggle */
+  .side-lbl { font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--text-3); margin: 4px 0 12px; }
+
+  /* sticky action bar */
+  .action-bar { position: sticky; bottom: 0; margin-top: 22px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 15px 22px; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--sh); }
+  .action-bar .grow { flex: 1; }
+  .action-bar .hint { font-size: 12.5px; color: var(--text-3); display: flex; align-items: center; gap: 7px; }
+  .action-bar .hint [data-lucide] { width: 15px; }
+  @media (max-width: 560px) { .action-bar .hint { display: none; } .action-bar .grow { display: none; } .action-bar .btn { flex: 1 1 auto; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" data-screen-label="Sidebar">
+    <div class="brand"><span class="logo-chip"><img src="public/logo-white.png" alt="Lawsome" /></span><span class="logo-mini"><img src="public/logo-mark.png" alt="Lawsome" /></span></div>
+    <nav class="nav-group">
+      <div class="lbl">Firm</div>
+      <a class="navitem" href="Dashboard.html"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a class="navitem active" href="Cases.html"><i data-lucide="folder-open"></i><span>Cases</span></a>
+      <a class="navitem" href="Branches.html"><i data-lucide="building-2"></i><span>Branches</span></a>
+      <a class="navitem" href="Lawyers.html"><i data-lucide="users"></i><span>Lawyers</span></a>
+      <a class="navitem" href="Clients.html"><i data-lucide="contact"></i><span>Clients</span></a>
+    </nav>
+    <nav class="nav-group">
+      <div class="lbl">Practice</div>
+      <a class="navitem" href="eCourts.html"><i data-lucide="landmark"></i><span>eCourts</span></a>
+      <a class="navitem" href="Cause List.html"><i data-lucide="calendar-days"></i><span>Cause List</span></a>
+      <a class="navitem" href="Billing.html"><i data-lucide="receipt-indian-rupee"></i><span>Billing</span></a>
+    </nav>
+    <div class="spacer"></div>
+    <nav class="nav-group"><a class="navitem" href="Organization.html"><i data-lucide="settings"></i><span>Settings</span></a></nav>
+    <div class="sidebar-foot">
+      <div class="userchip"><span class="ava">RN</span><span class="who"><b>Adv. Ritika Nair</b><span>Partner · Delhi</span></span><i data-lucide="chevrons-up-down"></i></div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="crumbs"><a href="Dashboard.html">Firm</a><i data-lucide="chevron-right"></i><a href="Cases.html">Cases</a><i data-lucide="chevron-right"></i><span class="cur" id="crumbCur">Add case</span></div>
+      <div class="grow"></div>
+      <div class="searchbox"><i data-lucide="search"></i><input placeholder="Search cases, CNR, parties…" /><kbd>⌘K</kbd></div>
+      <button class="icon-btn" aria-label="Notifications"><i data-lucide="bell"></i><span class="badge">3</span></button>
+    </header>
+
+    <div class="scroll">
+      <div class="sheet form-sheet" data-screen-label="Add Case">
+        <div class="page-head">
+          <div class="ph-lead">
+            <div class="eyebrow"><i data-lucide="folder-plus"></i> <span id="ebLabel">New matter</span></div>
+            <h1 id="pageTitle">Add a case</h1>
+            <div class="sub">Create a matter in the register. Fields marked <span class="req">*</span> are required — the rest can be filled in later.</div>
+          </div>
+          <div class="ph-actions">
+            <a class="btn btn-secondary" href="Cases.html"><i data-lucide="x"></i> Cancel</a>
+          </div>
+        </div>
+
+        <form onsubmit="event.preventDefault(); location.href='Case Workspace - Modern.html';">
+          <!-- Case details -->
+          <div class="fcard">
+            <div class="fcard-head"><span class="ic"><i data-lucide="file-text"></i></span><div class="t"><b>Case details</b><span>Title, number and type of matter</span></div></div>
+            <div class="field"><label>Case title <span class="req">*</span></label><input class="input" id="fTitle" placeholder="e.g. Mehra Textiles Pvt. Ltd. v. State Bank of India" required /></div>
+            <div class="form-3col">
+              <div class="field two"><label>Case number <span class="req">*</span></label><input class="input" id="fNo" placeholder="CS(COMM) 842/2024" required /></div>
+              <div class="field"><label>Filing year</label><input class="input" id="fYear" placeholder="2026" /></div>
+              <div class="field"><label>Case type</label>
+                <select class="input" id="fType"><option>Commercial Suit</option><option>Civil Appeal</option><option>Criminal (Sessions)</option><option>Writ Petition</option><option>Consumer</option><option>Regulatory / Tribunal</option><option>Probate</option><option>Arbitration</option></select>
+              </div>
+              <div class="field"><label>Stage</label>
+                <select class="input"><option>Filing / Institution</option><option>Pleadings</option><option>Evidence</option><option>Arguments</option><option>Judgment reserved</option></select>
+              </div>
+              <div class="field"><label>Priority</label>
+                <select class="input"><option>Normal</option><option>High</option><option>Urgent</option></select>
+              </div>
+              <div class="field full"><label>Description</label><textarea class="input" placeholder="Short summary of the matter, relief sought, background…"></textarea></div>
+            </div>
+          </div>
+
+          <!-- Court & eCourts -->
+          <div class="fcard">
+            <div class="fcard-head"><span class="ic"><i data-lucide="landmark"></i></span><div class="t"><b>Court &amp; eCourts</b><span>Where the matter is filed, and its record link</span></div></div>
+            <div class="form-2col">
+              <div class="field"><label>Court / forum</label><input class="input" placeholder="e.g. Delhi High Court" /></div>
+              <div class="field"><label>Court complex / bench</label><input class="input" placeholder="e.g. Commercial Division" /></div>
+              <div class="field"><label>Presiding judge</label><input class="input" placeholder="Hon'ble Justice …" /></div>
+              <div class="field"><label>Filing date</label><input class="input" type="date" /></div>
+            </div>
+            <div class="field" style="margin-bottom:0"><label>CNR number (eCourts)</label><input class="input" placeholder="16-digit CNR — e.g. DLHC010132452024" /></div>
+            <div class="cnr-status"><i data-lucide="link"></i> Adding a CNR links this matter to the eCourts record for live cause-list and hearing sync. You can add or change it later from the case workspace.</div>
+          </div>
+
+          <!-- Parties -->
+          <div class="fcard">
+            <div class="fcard-head"><span class="ic"><i data-lucide="users-round"></i></span><div class="t"><b>Parties</b><span>Petitioner / plaintiff and respondent / defendant</span></div></div>
+            <div class="form-2col">
+              <div>
+                <div class="side-lbl">Petitioner / Plaintiff</div>
+                <div class="field"><label>Name <span class="req">*</span></label><input class="input" placeholder="e.g. Mehra Textiles Pvt. Ltd." required /></div>
+                <div class="field" style="margin-bottom:0"><label>Advocate for petitioner</label><input class="input" placeholder="Adv. …" /></div>
+              </div>
+              <div>
+                <div class="side-lbl">Respondent / Defendant</div>
+                <div class="field"><label>Name <span class="req">*</span></label><input class="input" placeholder="e.g. State Bank of India" required /></div>
+                <div class="field" style="margin-bottom:0"><label>Opposing counsel</label><input class="input" placeholder="Adv. …" /></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assignment & client -->
+          <div class="fcard">
+            <div class="fcard-head"><span class="ic"><i data-lucide="briefcase"></i></span><div class="t"><b>Assignment &amp; client</b><span>Branch, lead advocate and linked client</span></div></div>
+            <div class="form-3col">
+              <div class="field"><label>Branch <span class="req">*</span></label>
+                <select class="input"><option>Delhi (HQ)</option><option>Mumbai</option><option>Pune</option><option>Bengaluru</option></select>
+              </div>
+              <div class="field"><label>Lead advocate <span class="req">*</span></label>
+                <select class="input"><option>Adv. Ritika Nair</option><option>K. Raman</option><option>S. Mehta</option><option>A. Prasad</option><option>D. Shah</option></select>
+              </div>
+              <div class="field"><label>Client</label>
+                <select class="input"><option>— Select client —</option><option>Mehra Textiles Pvt. Ltd.</option><option>Deccan Power Ltd.</option><option>Kohli Estates</option><option>+ Add new client</option></select>
+              </div>
+              <div class="field full"><label>Team members (contributors)</label><input class="input" placeholder="Add colleagues who'll work on this matter…" /><div class="hint">Contributors can view and update tasks, documents and hearings for this case.</div></div>
+            </div>
+          </div>
+
+          <!-- Action bar -->
+          <div class="action-bar">
+            <span class="hint"><i data-lucide="save"></i> <span id="saveHint">Draft not saved yet</span></span>
+            <div class="grow"></div>
+            <a class="btn btn-secondary" href="Cases.html">Cancel</a>
+            <button type="button" class="btn btn-secondary" onclick="location.href='Cases.html'"><i data-lucide="file"></i> Save as draft</button>
+            <button type="submit" class="btn btn-primary" id="submitBtn"><i data-lucide="check"></i> Create case</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Edit mode: Add Case.html?mode=edit&title=...
+  var params = new URLSearchParams(location.search);
+  if (params.get('mode') === 'edit') {
+    var title = params.get('title') || 'Mehra Textiles Pvt. Ltd. v. State Bank of India';
+    document.title = 'Lawsome — Edit Case';
+    document.getElementById('pageTitle').textContent = 'Edit case';
+    document.getElementById('ebLabel').textContent = 'Edit matter';
+    document.getElementById('crumbCur').textContent = 'Edit case';
+    document.getElementById('submitBtn').innerHTML = '<i data-lucide="check"></i> Save changes';
+    document.getElementById('saveHint').textContent = 'Editing existing matter';
+    document.getElementById('fTitle').value = title;
+    document.getElementById('fNo').value = 'CS(COMM) 842/2024';
+    document.getElementById('fYear').value = '2024';
+  }
+  lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });
+</script>
+</body>
+</html>

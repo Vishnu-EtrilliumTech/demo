@@ -1,0 +1,41 @@
+<svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 297 325" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_bd_1_480)">
+<g clip-path="url(#clip0_1_480)">
+<rect x="0" y="0" width="100%" height="100%" rx="20" fill="white"/>
+<g opacity="0.3" filter="url(#filter1_f_1_480)">
+<circle cx="257.75" cy="319" r="109" fill="#EA4234"/>
+</g>
+<g opacity="0.2" filter="url(#filter2_f_1_480)">
+<circle cx="79.75" cy="380" r="109" fill="#EA4234"/>
+</g>
+</g>
+<rect x="0.5" y="0.5" width="296" height="324" rx="19.5" stroke="#333333" stroke-opacity="0.1"/>
+</g>
+<defs>
+<filter id="filter0_bd_1_480" x="-70" y="-62" width="437" height="465" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feGaussianBlur in="BackgroundImageFix" stdDeviation="14"/>
+<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_1_480"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="8"/>
+<feGaussianBlur stdDeviation="35"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+<feBlend mode="normal" in2="effect1_backgroundBlur_1_480" result="effect2_dropShadow_1_480"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_1_480" result="shape"/>
+</filter>
+<filter id="filter1_f_1_480" x="69.55" y="130.8" width="376.4" height="376.4" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="39.6" result="effect1_foregroundBlur_1_480"/>
+</filter>
+<filter id="filter2_f_1_480" x="-108.45" y="191.8" width="376.4" height="376.4" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="39.6" result="effect1_foregroundBlur_1_480"/>
+</filter>
+<clipPath id="clip0_1_480">
+<rect x="0" y="0" width="297" height="325" rx="20" fill="white"/>
+</clipPath>
+</defs>
+</svg>

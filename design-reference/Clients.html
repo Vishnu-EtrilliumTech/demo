@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lawsome — Clients</title>
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.js"></script>
+<link rel="icon" href="public/favicon.png" />
+<link rel="stylesheet" href="lawsome-ui.css" />
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" data-screen-label="Sidebar">
+    <div class="brand"><span class="logo-chip"><img src="public/logo-white.png" alt="Lawsome" /></span><span class="logo-mini"><img src="public/logo-mark.png" alt="Lawsome" /></span></div>
+    <nav class="nav-group">
+      <div class="lbl">Firm</div>
+      <a class="navitem" href="Dashboard.html"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a class="navitem" href="Cases.html"><i data-lucide="folder-open"></i><span>Cases</span></a>
+      <a class="navitem" href="Branches.html"><i data-lucide="building-2"></i><span>Branches</span></a>
+      <a class="navitem" href="Lawyers.html"><i data-lucide="users"></i><span>Lawyers</span></a>
+      <a class="navitem active" href="Clients.html"><i data-lucide="contact"></i><span>Clients</span></a>
+    </nav>
+    <nav class="nav-group">
+      <div class="lbl">Practice</div>
+      <a class="navitem" href="eCourts.html"><i data-lucide="landmark"></i><span>eCourts</span></a>
+      <a class="navitem" href="Cause List.html"><i data-lucide="calendar-days"></i><span>Cause List</span></a>
+      <a class="navitem" href="Billing.html"><i data-lucide="receipt-indian-rupee"></i><span>Billing</span></a>
+    </nav>
+    <div class="spacer"></div>
+    <nav class="nav-group"><a class="navitem" href="Organization.html"><i data-lucide="settings"></i><span>Settings</span></a></nav>
+    <div class="sidebar-foot">
+      <div class="userchip"><span class="ava">RN</span><span class="who"><b>Adv. Ritika Nair</b><span>Partner · Delhi</span></span><i data-lucide="chevrons-up-down"></i></div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="crumbs"><a href="Dashboard.html">Firm</a><i data-lucide="chevron-right"></i><span class="cur">Clients</span></div>
+      <div class="grow"></div>
+      <div class="searchbox"><i data-lucide="search"></i><input placeholder="Search clients…" /><kbd>⌘K</kbd></div>
+      <button class="icon-btn" aria-label="Notifications"><i data-lucide="bell"></i><span class="badge">3</span></button>
+    </header>
+
+    <div class="scroll">
+      <div class="sheet" data-screen-label="Clients">
+        <div class="page-head">
+          <div class="ph-lead">
+            <div class="eyebrow"><i data-lucide="contact"></i> Client directory</div>
+            <h1>Clients</h1>
+            <div class="sub">Individuals and organizations your firm represents, with linked matters and contacts.</div>
+          </div>
+          <div class="ph-actions"><button class="btn btn-primary" onclick="openDialog('addClient')"><i data-lucide="plus"></i> Add Client</button></div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search"><i data-lucide="search"></i><input placeholder="Search by name, company or email…" /></div>
+          <div class="selectbox"><select><option>All types</option><option>Individual</option><option>Company</option><option>Government</option></select></div>
+          <div class="selectbox"><select><option>All branches</option><option>Delhi (HQ)</option><option>Mumbai</option><option>Pune</option><option>Bengaluru</option></select></div>
+        </div>
+
+        <div class="grid-cards">
+          <div class="ecard">
+            <div class="ec-top"><span class="ec-av av1"><i data-lucide="building"></i></span><div><div class="ec-name">Mehra Textiles Pvt. Ltd.</div><div class="ec-sub">Company · Delhi</div></div><div class="ec-menu"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></div></div>
+            <div class="ec-meta"><div class="r"><i data-lucide="user"></i> Sanjay Mehra (Director)</div><div class="r"><i data-lucide="mail"></i> accounts@mehratextiles.in</div><div class="r"><i data-lucide="phone"></i> +91 98110 22334</div></div>
+            <div class="ec-foot"><div class="ec-stat"><b>3</b><span>Cases</span></div><div class="ec-actions"><button class="rowbtn" onclick="openDialog('editClient')"><i data-lucide="pencil"></i></button><button class="rowbtn" onclick="openDialog('delClient')"><i data-lucide="trash-2"></i></button></div></div>
+          </div>
+          <div class="ecard">
+            <div class="ec-top"><span class="ec-av av3"><i data-lucide="user"></i></span><div><div class="ec-name">Meenakshi Rao</div><div class="ec-sub">Individual · Mumbai</div></div><div class="ec-menu"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></div></div>
+            <div class="ec-meta"><div class="r"><i data-lucide="mail"></i> m.rao@gmail.com</div><div class="r"><i data-lucide="phone"></i> +91 99870 45612</div></div>
+            <div class="ec-foot"><div class="ec-stat"><b>1</b><span>Cases</span></div><div class="ec-actions"><button class="rowbtn" onclick="openDialog('editClient')"><i data-lucide="pencil"></i></button><button class="rowbtn" onclick="openDialog('delClient')"><i data-lucide="trash-2"></i></button></div></div>
+          </div>
+          <div class="ecard">
+            <div class="ec-top"><span class="ec-av av2"><i data-lucide="building"></i></span><div><div class="ec-name">Deccan Power Ltd.</div><div class="ec-sub">Company · Pune</div></div><div class="ec-menu"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></div></div>
+            <div class="ec-meta"><div class="r"><i data-lucide="user"></i> Legal Dept.</div><div class="r"><i data-lucide="mail"></i> legal@deccanpower.co.in</div><div class="r"><i data-lucide="phone"></i> +91 20 6612 8800</div></div>
+            <div class="ec-foot"><div class="ec-stat"><b>2</b><span>Cases</span></div><div class="ec-actions"><button class="rowbtn" onclick="openDialog('editClient')"><i data-lucide="pencil"></i></button><button class="rowbtn" onclick="openDialog('delClient')"><i data-lucide="trash-2"></i></button></div></div>
+          </div>
+          <div class="ecard">
+            <div class="ec-top"><span class="ec-av av4"><i data-lucide="user"></i></span><div><div class="ec-name">Arjun Verma</div><div class="ec-sub">Individual · Bengaluru</div></div><div class="ec-menu"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></div></div>
+            <div class="ec-meta"><div class="r"><i data-lucide="mail"></i> arjun.verma@outlook.com</div><div class="r"><i data-lucide="phone"></i> +91 90080 12378</div></div>
+            <div class="ec-foot"><div class="ec-stat"><b>1</b><span>Cases</span></div><div class="ec-actions"><button class="rowbtn" onclick="openDialog('editClient')"><i data-lucide="pencil"></i></button><button class="rowbtn" onclick="openDialog('delClient')"><i data-lucide="trash-2"></i></button></div></div>
+          </div>
+          <div class="ecard">
+            <div class="ec-top"><span class="ec-av av5"><i data-lucide="user"></i></span><div><div class="ec-name">Priya Iyer</div><div class="ec-sub">Individual · Mumbai</div></div><div class="ec-menu"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></div></div>
+            <div class="ec-meta"><div class="r"><i data-lucide="mail"></i> priya.iyer@gmail.com</div><div class="r"><i data-lucide="phone"></i> +91 98920 66554</div></div>
+            <div class="ec-foot"><div class="ec-stat"><b>1</b><span>Cases</span></div><div class="ec-actions"><button class="rowbtn" onclick="openDialog('editClient')"><i data-lucide="pencil"></i></button><button class="rowbtn" onclick="openDialog('delClient')"><i data-lucide="trash-2"></i></button></div></div>
+          </div>
+          <div class="ecard">
+            <div class="ec-top"><span class="ec-av av1"><i data-lucide="building"></i></span><div><div class="ec-name">Kohli Estates LLP</div><div class="ec-sub">Company · Mumbai</div></div><div class="ec-menu"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></div></div>
+            <div class="ec-meta"><div class="r"><i data-lucide="user"></i> Rohan Kohli (Partner)</div><div class="r"><i data-lucide="mail"></i> office@kohliestates.in</div><div class="r"><i data-lucide="phone"></i> +91 22 4098 1177</div></div>
+            <div class="ec-foot"><div class="ec-stat"><b>2</b><span>Cases</span></div><div class="ec-actions"><button class="rowbtn" onclick="openDialog('editClient')"><i data-lucide="pencil"></i></button><button class="rowbtn" onclick="openDialog('delClient')"><i data-lucide="trash-2"></i></button></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dialog-backdrop" id="addClient" onclick="if(event.target===this)closeDialog('addClient')">
+  <div class="dialog">
+    <div class="dialog-head"><span class="di"><i data-lucide="contact"></i></span><div class="dt"><b>Add client</b><span>Create a client record</span></div><button class="x" onclick="closeDialog('addClient')"><i data-lucide="x"></i></button></div>
+    <div class="dialog-body">
+      <div class="form-2col">
+        <div class="field"><label>Client type <span class="req">*</span></label><select class="input"><option>Individual</option><option>Company</option><option>Government</option></select></div>
+        <div class="field"><label>Branch <span class="req">*</span></label><select class="input"><option>Delhi (HQ)</option><option>Mumbai</option><option>Pune</option><option>Bengaluru</option></select></div>
+        <div class="field full"><label>Name / company <span class="req">*</span></label><input class="input" placeholder="e.g. Mehra Textiles Pvt. Ltd." /></div>
+        <div class="field"><label>Contact person</label><input class="input" placeholder="For companies" /></div>
+        <div class="field"><label>Phone <span class="req">*</span></label><input class="input" placeholder="+91 …" /></div>
+        <div class="field full"><label>Email <span class="req">*</span></label><input class="input" placeholder="name@example.com" /></div>
+        <div class="field full"><label>Address</label><textarea class="input" placeholder="Optional"></textarea></div>
+      </div>
+    </div>
+    <div class="dialog-foot"><button class="btn btn-secondary" onclick="closeDialog('addClient')">Cancel</button><button class="btn btn-primary"><i data-lucide="check"></i> Create client</button></div>
+  </div>
+</div>
+
+<div class="dialog-backdrop" id="editClient" onclick="if(event.target===this)closeDialog('editClient')">
+  <div class="dialog">
+    <div class="dialog-head"><span class="di"><i data-lucide="pencil"></i></span><div class="dt"><b>Edit client — Mehra Textiles Pvt. Ltd.</b><span>Update client record</span></div><button class="x" onclick="closeDialog('editClient')"><i data-lucide="x"></i></button></div>
+    <div class="dialog-body">
+      <div class="form-2col">
+        <div class="field"><label>Client type <span class="req">*</span></label><select class="input"><option>Company</option><option>Individual</option><option>Government</option></select></div>
+        <div class="field"><label>Branch <span class="req">*</span></label><select class="input"><option>Delhi (HQ)</option><option>Mumbai</option></select></div>
+        <div class="field full"><label>Name / company <span class="req">*</span></label><input class="input" value="Mehra Textiles Pvt. Ltd." /></div>
+        <div class="field"><label>Contact person</label><input class="input" value="Sanjay Mehra" /></div>
+        <div class="field"><label>Phone <span class="req">*</span></label><input class="input" value="+91 98110 22334" /></div>
+        <div class="field full"><label>Email <span class="req">*</span></label><input class="input" value="accounts@mehratextiles.in" /></div>
+      </div>
+    </div>
+    <div class="dialog-foot"><button class="btn btn-secondary" onclick="closeDialog('editClient')">Cancel</button><button class="btn btn-primary"><i data-lucide="check"></i> Save changes</button></div>
+  </div>
+</div>
+
+<div class="dialog-backdrop" id="delClient" onclick="if(event.target===this)closeDialog('delClient')">
+  <div class="dialog sm">
+    <div class="dialog-head"><span class="di danger"><i data-lucide="trash-2"></i></span><div class="dt"><b>Delete client?</b><span>This action cannot be undone</span></div><button class="x" onclick="closeDialog('delClient')"><i data-lucide="x"></i></button></div>
+    <div class="dialog-body"><p class="lead">Deleting <b>Mehra Textiles Pvt. Ltd.</b> removes the client record. Linked cases will remain but lose their client association. This cannot be undone.</p></div>
+    <div class="dialog-foot"><button class="btn btn-secondary" onclick="closeDialog('delClient')">Cancel</button><button class="btn btn-danger"><i data-lucide="trash-2"></i> Delete client</button></div>
+  </div>
+</div>
+
+<script>
+  function openDialog(id){ document.getElementById(id).classList.add('open'); }
+  function closeDialog(id){ document.getElementById(id).classList.remove('open'); }
+  lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });
+</script>
+</body>
+</html>

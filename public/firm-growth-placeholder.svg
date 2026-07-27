@@ -1,0 +1,61 @@
+<svg width="200" height="170" viewBox="0 0 200 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Chart area background -->
+  <rect x="20" y="20" width="160" height="110" rx="8" fill="white" opacity="0.6"/>
+
+  <!-- Y-axis -->
+  <line x1="38" y1="28" x2="38" y2="120" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- X-axis -->
+  <line x1="38" y1="120" x2="170" y2="120" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Grid lines (horizontal) -->
+  <line x1="38" y1="97" x2="170" y2="97" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="38" y1="74" x2="170" y2="74" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="38" y1="51" x2="170" y2="51" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Area fill under the growth line -->
+  <path d="M 50 108 L 74 96 L 98 82 L 122 64 L 146 46 L 158 36 L 158 120 L 50 120 Z"
+        fill="url(#growthFill)" opacity="0.35"/>
+
+  <!-- Growth trend line -->
+  <polyline points="50,108 74,96 98,82 122,64 146,46 158,36"
+            stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Data point dots -->
+  <circle cx="50"  cy="108" r="3.5" fill="white" stroke="#22c55e" stroke-width="2"/>
+  <circle cx="74"  cy="96"  r="3.5" fill="white" stroke="#22c55e" stroke-width="2"/>
+  <circle cx="98"  cy="82"  r="3.5" fill="white" stroke="#22c55e" stroke-width="2"/>
+  <circle cx="122" cy="64"  r="3.5" fill="white" stroke="#22c55e" stroke-width="2"/>
+  <circle cx="146" cy="46"  r="3.5" fill="white" stroke="#22c55e" stroke-width="2"/>
+  <!-- Highlighted last point -->
+  <circle cx="158" cy="36"  r="5"   fill="#22c55e" stroke="white" stroke-width="2"/>
+
+  <!-- Up-arrow badge on last point -->
+  <circle cx="158" cy="20" r="8" fill="#22c55e" opacity="0.15"/>
+  <path d="M155 22 L158 17 L161 22" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- X-axis tick labels (placeholder bars) -->
+  <rect x="46"  y="123" width="12" height="4" rx="2" fill="#e2e8f0"/>
+  <rect x="70"  y="123" width="12" height="4" rx="2" fill="#e2e8f0"/>
+  <rect x="94"  y="123" width="12" height="4" rx="2" fill="#e2e8f0"/>
+  <rect x="118" y="123" width="12" height="4" rx="2" fill="#e2e8f0"/>
+  <rect x="142" y="123" width="12" height="4" rx="2" fill="#e2e8f0"/>
+
+  <!-- Y-axis tick labels -->
+  <rect x="8"  y="95" width="22" height="4" rx="2" fill="#e2e8f0"/>
+  <rect x="8"  y="72" width="22" height="4" rx="2" fill="#e2e8f0"/>
+  <rect x="8"  y="49" width="22" height="4" rx="2" fill="#e2e8f0"/>
+
+  <!-- Legend pill -->
+  <rect x="38" y="140" width="124" height="22" rx="11" fill="white" opacity="0.7"/>
+  <circle cx="60" cy="151" r="4.5" fill="#22c55e"/>
+  <rect x="70" y="147" width="40" height="8" rx="4" fill="#e2e8f0"/>
+  <rect x="116" y="147" width="34" height="8" rx="4" fill="#e2e8f0"/>
+
+  <!-- Gradient definition -->
+  <defs>
+    <linearGradient id="growthFill" x1="50" y1="36" x2="50" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

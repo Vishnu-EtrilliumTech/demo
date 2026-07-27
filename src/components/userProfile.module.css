@@ -1,0 +1,62 @@
+.profileCard {
+  
+}
+.profileImage{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileImage img {
+  border-radius: 8px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.profileDetails {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center; 
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+
+
+.consultationStatus {
+  color: #2FBD59;
+  font-weight: 500;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 8px;
+
+}
+.officeAddress{
+margin-top: 8px;
+margin-bottom:  8px;
+width: 250px;
+}
+.officeAddress p{
+  font-size: 14px;
+  margin-left: 21px;
+}
+
+.consultationFees {
+  display: flex;
+  align-items: center;
+  color: #333;
+}
+
+.feesIcon {
+  margin-right: 5px;
+}
+
+
+.feesamt{
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 10px;
+}

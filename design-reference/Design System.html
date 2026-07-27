@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lawsome — Design System</title>
+<link rel="stylesheet" href="lawsome-ui.css" />
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.js"></script>
+<style>
+  /* page-specific layout only — all components come from lawsome-ui.css */
+  .ds { max-width: 1080px; margin: 0 auto; padding: 48px 32px 80px; }
+  .ds-hero { margin-bottom: 40px; }
+  .ds-hero .eyebrow { margin-bottom: 4px; }
+  .ds-hero h1 { font-family: var(--serif); font-weight: 600; font-size: 40px; letter-spacing: -.02em; color: #121620; }
+  .ds-hero p { color: var(--text-2); font-size: 15px; max-width: 60ch; margin-top: 8px; }
+  section.blk { margin-top: 40px; }
+  section.blk > h2 { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .grid-sw { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 14px; }
+  .sw { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; background: #fff; box-shadow: var(--sh-sm); }
+  .sw .chip { height: 64px; } .sw .cap { padding: 9px 11px; font-size: 12px; }
+  .sw .cap b { display: block; font-weight: 600; } .sw .cap span { color: var(--text-3); font-size: 11px; }
+  .type-row { display: flex; align-items: baseline; gap: 18px; padding: 12px 0; border-bottom: 1px solid var(--divider); }
+  .type-row .lbl { width: 130px; flex: none; font-size: 12px; color: var(--text-3); }
+  .card-demo { max-width: 420px; }
+</style>
+</head>
+<body>
+<div class="ds">
+  <div class="ds-hero">
+    <div class="eyebrow"><i data-lucide="scale"></i> Lawsome Design System</div>
+    <h1>Modern-elegant, enterprise-grade.</h1>
+    <p>The shared visual language for every Lawsome screen. Everything on this page is styled by <b>lawsome-ui.css</b> — link that file and use these classes.</p>
+  </div>
+
+  <section class="blk">
+    <h2>Color</h2>
+    <div class="grid-sw">
+      <div class="sw"><div class="chip" style="background:var(--brand)"></div><div class="cap"><b>Brand</b><span>#2b57d6</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--brand-strong)"></div><div class="cap"><b>Brand strong</b><span>#1f45b3</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--navy)"></div><div class="cap"><b>Navy</b><span>#1d2740</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--sidebar)"></div><div class="cap"><b>Sidebar</b><span>#131a2b</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--brand-soft)"></div><div class="cap"><b>Brand soft</b><span>#eef2fe</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--ok)"></div><div class="cap"><b>Success</b><span>#0e8a5f</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--warn)"></div><div class="cap"><b>Warn</b><span>#b06f16</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--danger)"></div><div class="cap"><b>Danger</b><span>#c0362c</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--bg);border-bottom:1px solid var(--border)"></div><div class="cap"><b>Ground</b><span>#f5f6f8</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--text)"></div><div class="cap"><b>Text</b><span>#161a20</span></div></div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2>Typography</h2>
+    <div class="type-row"><span class="lbl">Serif display</span><span style="font-family:var(--serif);font-weight:600;font-size:34px;letter-spacing:-.02em">Mehra Textiles v. SBI</span></div>
+    <div class="type-row"><span class="lbl">H3 / section</span><h3 style="font-size:20px">Case documents</h3></div>
+    <div class="type-row"><span class="lbl">Body</span><span style="font-size:14px">Plus Jakarta Sans — the workhorse UI face for labels, tables and copy.</span></div>
+    <div class="type-row"><span class="lbl">Small / meta</span><span style="font-size:12px;color:var(--text-2)">Uppercase labels &amp; metadata, 11–12px, tracked.</span></div>
+  </section>
+
+  <section class="blk">
+    <h2>Buttons</h2>
+    <div class="row">
+      <button class="btn btn-primary"><i data-lucide="plus"></i> Primary action</button>
+      <button class="btn btn-secondary"><i data-lucide="pencil"></i> Secondary</button>
+      <button class="btn btn-ghost">Ghost link <i data-lucide="arrow-right"></i></button>
+      <button class="icon-btn"><i data-lucide="bell"></i></button>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2>Status pills &amp; tags</h2>
+    <div class="row">
+      <span class="pill pill-brand">Order</span>
+      <span class="pill pill-ok">Done</span>
+      <span class="pill pill-warn"><span class="d"></span> In Progress</span>
+      <span class="pill pill-danger">Overdue</span>
+      <span class="pill pill-neutral">Open</span>
+      <span class="pill pill-line">Pleading</span>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2>Form fields</h2>
+    <div class="row" style="align-items:flex-start;gap:20px">
+      <div class="field" style="width:240px;margin:0"><label>Case title <span class="req">*</span></label><input class="input" placeholder="e.g. Mehra Textiles v. SBI" /></div>
+      <div class="field" style="width:200px;margin:0"><label>Status</label><select class="input"><option>Open</option><option>In Progress</option><option>On Hold</option><option>Closed</option></select><div class="hint">Synced with eCourts where linked.</div></div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2>Card</h2>
+    <div class="card card-pad card-demo">
+      <div class="sec-head" style="margin-bottom:14px"><h3><span class="ic"><i data-lucide="bar-chart-3"></i></span> Proceedings</h3></div>
+      <div class="tiles" style="grid-template-columns:repeat(3,1fr)">
+        <div class="tile"><div class="n">8</div><div class="l">Hearings</div></div>
+        <div class="tile"><div class="n">3</div><div class="l">Orders</div></div>
+        <div class="tile"><div class="n">2</div><div class="l">IAs</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2>Table</h2>
+    <div class="card" style="overflow:hidden">
+      <table class="tbl">
+        <thead><tr><th>Document</th><th>Type</th><th>Added by</th><th class="r">Size</th></tr></thead>
+        <tbody>
+          <tr><td><div class="doc"><span class="fi"><i data-lucide="file-text"></i></span> Rejoinder — final.pdf</div></td><td><span class="pill pill-line">Pleading</span></td><td><div class="who2"><span class="a av1">KR</span> K. Raman</div></td><td class="r">412 KB</td></tr>
+          <tr><td><div class="doc"><span class="fi"><i data-lucide="file-text"></i></span> Interim order.pdf</div></td><td><span class="pill pill-brand">Order</span></td><td><div class="who2"><span class="a av2">EC</span> eCourts</div></td><td class="r">288 KB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2>AI patterns</h2>
+    <div class="ai-card lead" style="max-width:360px">
+      <div class="ai-head"><span class="spark"><i data-lucide="sparkles"></i></span><b>AI Case Brief</b><span class="conf">High</span></div>
+      <div class="ai-body"><p>Grounded summaries with <span class="cite">source citations</span>, severity alerts, next-action suggestions and document Q&amp;A — always with a verify-the-record disclaimer.</p></div>
+    </div>
+  </section>
+</div>
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body>
+</html>

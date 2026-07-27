@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lawsome — eCourts Details</title>
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.js"></script>
+<link rel="icon" href="public/favicon.png" />
+<link rel="stylesheet" href="lawsome-ui.css" />
+<style>
+  .ec-updated { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-3); }
+  .ec-updated [data-lucide] { width: 14px; height: 14px; color: var(--ok); }
+  .subhead { font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--text-3); margin: 26px 0 12px; }
+  .subhead:first-child { margin-top: 0; }
+  .prose { font-size: 14px; line-height: 1.68; color: #2b3340; }
+  .prose + .prose { margin-top: 12px; }
+  .arg-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .arg { border: 1px solid var(--border); border-radius: var(--r); padding: 16px 18px; background: #fcfcfd; }
+  .arg .ah { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .arg.pet .ah { color: var(--brand); } .arg.res .ah { color: #a25a12; }
+  .arg p { font-size: 13.5px; line-height: 1.6; color: #2b3340; margin: 0; }
+  .score { margin: 14px 0; }
+  .score .sh { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 7px; }
+  .score .sh .n { color: var(--brand); font-weight: 700; }
+  .kw { display: flex; flex-wrap: wrap; gap: 8px; }
+  .kw span { font-size: 12px; font-weight: 500; padding: 5px 11px; border-radius: 999px; background: var(--brand-soft); color: var(--brand-ink); }
+  .cite-list { display: flex; flex-direction: column; gap: 10px; }
+  .cite-item { border: 1px solid var(--border); border-radius: var(--r); padding: 13px 16px; }
+  .cite-item .ct { font-weight: 600; font-size: 13.5px; display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+  .cite-item .cm { font-size: 12.5px; color: var(--text-2); margin-top: 5px; line-height: 1.5; }
+  .jgrid { display: flex; flex-direction: column; gap: 12px; }
+  .jfile { display: flex; align-items: center; gap: 13px; border: 1px solid var(--border); border-radius: var(--r); padding: 14px 16px; }
+  .jfile .fi { width: 40px; height: 40px; border-radius: 10px; flex: none; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand); }
+  .jfile .jt { flex: 1; min-width: 0; } .jfile .jt b { font-size: 13.5px; font-weight: 600; } .jfile .jt span { display: block; font-size: 12px; color: var(--text-3); }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" data-screen-label="Sidebar">
+    <div class="brand"><span class="logo-chip"><img src="public/logo-white.png" alt="Lawsome" /></span><span class="logo-mini"><img src="public/logo-mark.png" alt="Lawsome" /></span></div>
+    <nav class="nav-group">
+      <div class="lbl">Firm</div>
+      <a class="navitem" href="Dashboard.html"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a class="navitem" href="Cases.html"><i data-lucide="folder-open"></i><span>Cases</span></a>
+      <a class="navitem" href="Branches.html"><i data-lucide="building-2"></i><span>Branches</span></a>
+      <a class="navitem" href="Lawyers.html"><i data-lucide="users"></i><span>Lawyers</span></a>
+      <a class="navitem" href="Clients.html"><i data-lucide="contact"></i><span>Clients</span></a>
+    </nav>
+    <nav class="nav-group">
+      <div class="lbl">Practice</div>
+      <a class="navitem active" href="eCourts.html"><i data-lucide="landmark"></i><span>eCourts</span></a>
+      <a class="navitem" href="Cause List.html"><i data-lucide="calendar-days"></i><span>Cause List</span></a>
+      <a class="navitem" href="Billing.html"><i data-lucide="receipt-indian-rupee"></i><span>Billing</span></a>
+    </nav>
+    <div class="spacer"></div>
+    <nav class="nav-group"><a class="navitem" href="Organization.html"><i data-lucide="settings"></i><span>Settings</span></a></nav>
+    <div class="sidebar-foot">
+      <div class="userchip"><span class="ava">RN</span><span class="who"><b>Adv. Ritika Nair</b><span>Partner · Delhi</span></span><i data-lucide="chevrons-up-down"></i></div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="crumbs"><a href="Cases.html">Cases</a><i data-lucide="chevron-right"></i><a href="Case Workspace - Modern.html">Mehra Textiles v. SBI</a><i data-lucide="chevron-right"></i><span class="cur">eCourts Details</span></div>
+      <div class="grow"></div>
+      <div class="searchbox"><i data-lucide="search"></i><input placeholder="Search cases, CNR…" /><kbd>⌘K</kbd></div>
+      <button class="icon-btn" aria-label="Notifications"><i data-lucide="bell"></i><span class="badge">3</span></button>
+    </header>
+
+    <div class="scroll">
+      <div class="sheet" data-screen-label="eCourts Details">
+
+        <div class="page-head">
+          <div class="ph-lead">
+            <div class="eyebrow"><i data-lucide="landmark"></i> eCourts India · Live record</div>
+            <h1>Mehra Textiles v. State Bank of India</h1>
+            <div class="subline">
+              <span class="chip-mono"><i data-lucide="fingerprint"></i> CNR <b>DLHC01-013245-2024</b></span>
+              <span class="chip-mono sync"><i data-lucide="badge-check"></i> <b>Verified record</b></span>
+            </div>
+          </div>
+          <div class="ph-actions">
+            <span class="ec-updated"><i data-lucide="refresh-cw"></i> Last updated 2 hours ago</span>
+            <button class="btn btn-secondary" onclick="location.href='Case Workspace - Modern.html'"><i data-lucide="arrow-left"></i> Back to case</button>
+            <button class="btn btn-primary"><i data-lucide="refresh-cw"></i> Update</button>
+          </div>
+        </div>
+
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-tab="info"><i data-lucide="scale"></i> Case Info</button>
+          <button class="tab" data-tab="summary"><i data-lucide="sparkles"></i> AI Summary</button>
+          <button class="tab" data-tab="legal"><i data-lucide="gavel"></i> Legal Analysis</button>
+          <button class="tab" data-tab="args"><i data-lucide="messages-square"></i> Arguments</button>
+          <button class="tab" data-tab="insights"><i data-lucide="trending-up"></i> Insights</button>
+          <button class="tab" data-tab="judgment"><i data-lucide="file-text"></i> Judgment</button>
+        </div>
+
+        <!-- Case Info -->
+        <section class="panel active" data-panel="info">
+          <div class="card card-pad">
+            <div class="sec-head"><h3><span class="ic"><i data-lucide="info"></i></span> Case snapshot</h3></div>
+            <div class="kv">
+              <div class="row"><span class="k">Court</span><span class="v">High Court of Delhi</span></div>
+              <div class="row"><span class="k">Case type</span><span class="v">Commercial Suit</span></div>
+              <div class="row"><span class="k">Case number</span><span class="v">CS(COMM) 842/2024</span></div>
+              <div class="row"><span class="k">Status</span><span class="v">Pending</span></div>
+              <div class="row"><span class="k">Judicial branch</span><span class="v">Commercial Division</span></div>
+              <div class="row"><span class="k">Court no.</span><span class="v">21</span></div>
+              <div class="row"><span class="k">State / district</span><span class="v">Delhi / New Delhi</span></div>
+              <div class="row"><span class="k">Contested</span><span class="v">Contested</span></div>
+            </div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="sec-head"><h3><span class="ic"><i data-lucide="calendar"></i></span> Key dates</h3></div>
+            <div class="kv">
+              <div class="row"><span class="k">Filing number</span><span class="v">F/2024/00842</span></div>
+              <div class="row"><span class="k">Filing date</span><span class="v">14 Feb 2024</span></div>
+              <div class="row"><span class="k">Registration date</span><span class="v">19 Feb 2024</span></div>
+              <div class="row"><span class="k">First hearing</span><span class="v">22 Jan 2026</span></div>
+              <div class="row"><span class="k">Last hearing</span><span class="v">11 Jun 2026</span></div>
+              <div class="row"><span class="k">Next hearing</span><span class="v">17 Jul 2026</span></div>
+              <div class="row"><span class="k">Case duration</span><span class="v">874 days</span></div>
+              <div class="row"><span class="k">Decision date</span><span class="v">—</span></div>
+            </div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="sec-head"><h3><span class="ic"><i data-lucide="bar-chart-3"></i></span> Proceedings</h3></div>
+            <div class="tiles">
+              <div class="tile"><div class="n">8</div><div class="l">Hearings</div></div>
+              <div class="tile"><div class="n">3</div><div class="l">Interim orders</div></div>
+              <div class="tile"><div class="n">2</div><div class="l">IAs pending</div></div>
+              <div class="tile"><div class="n">0</div><div class="l">Judgments</div></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="sec-head pd"><h3><span class="ic"><i data-lucide="gavel"></i></span> Interim orders</h3></div>
+            <table class="tbl">
+              <thead><tr><th>Date</th><th>Description</th><th class="r"></th></tr></thead>
+              <tbody>
+                <tr><td>11 Jun 2026</td><td>Injunction restraining recovery continued; IA 4471/2026 disposed</td><td class="r"><button class="btn btn-secondary" style="padding:7px 12px"><i data-lucide="download"></i> PDF</button></td></tr>
+                <tr><td>18 Mar 2026</td><td>Status quo on classification of account maintained</td><td class="r"><button class="btn btn-secondary" style="padding:7px 12px"><i data-lucide="download"></i> PDF</button></td></tr>
+                <tr><td>22 Jan 2026</td><td>Notice issued; reply sought within 4 weeks</td><td class="r"><button class="btn btn-secondary" style="padding:7px 12px"><i data-lucide="download"></i> PDF</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <div class="sec-head pd"><h3><span class="ic"><i data-lucide="file-stack"></i></span> Interlocutory applications</h3></div>
+            <table class="tbl">
+              <thead><tr><th>Reg. no.</th><th>Filed by</th><th>Filed on</th><th>Remark</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>IA 5120/2026</td><td>Petitioner</td><td>02 Jul 2026</td><td>Amendment of plaint</td><td><span class="pill pill-warn">Pending</span></td></tr>
+                <tr><td>IA 4471/2026</td><td>Respondent</td><td>21 May 2026</td><td>Vacation of injunction</td><td><span class="pill pill-ok">Disposed</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- AI Summary -->
+        <section class="panel" data-panel="summary">
+          <div class="card ai-card lead">
+            <div class="ai-head"><span class="spark"><i data-lucide="sparkles"></i></span><b>AI Executive Summary</b><span class="soon"><i data-lucide="sparkles"></i> Preview</span></div>
+            <div class="ai-body">
+              <p>Mehra Textiles Pvt. Ltd. has moved the Commercial Division of the Delhi High Court to restrain the State Bank of India from classifying its loan account as a <span class="cite" title="Plaint ¶14">non-performing asset</span> and from initiating recovery under the SARFAESI Act, pending adjudication of a disputed 2023 restructuring agreement.</p>
+              <p>An interim injunction granted in January 2026 has held throughout and was <span class="cite" title="Interim order 11-06-2026">continued on 11 June 2026</span>. The matter is presently at the framing-of-issues stage, listed for 17 July 2026.</p>
+            </div>
+            <div class="ai-note"><i data-lucide="route"></i> AI case intelligence is a roadmap preview — not part of the first release.</div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="subhead">Plain-language summary for litigants</div>
+            <p class="prose">The company says the bank agreed to restructure its loan in 2023 and cannot now treat the account as defaulted. Until the court decides whether that agreement is binding, the bank has been told not to take recovery action. The next step is for the court to define the exact questions it will decide.</p>
+            <div class="subhead">Auto-generated search keywords</div>
+            <div class="kw"><span>NPA classification</span><span>SARFAESI injunction</span><span>loan restructuring</span><span>estoppel</span><span>commercial suit</span><span>interim relief</span></div>
+          </div>
+
+          <div class="card">
+            <div class="ai-head" style="padding:15px 22px"><span class="spark"><i data-lucide="bell-ring"></i></span><b>Actionable alerts</b></div>
+            <div class="alert danger"><span class="ic"><i data-lucide="alarm-clock"></i></span><div class="m"><b>Counter-affidavit to IA 5120/2026</b> not yet filed.<span class="due">DUE 15 JUL · BEFORE NEXT HEARING</span></div></div>
+            <div class="alert warn"><span class="ic"><i data-lucide="hourglass"></i></span><div class="m">Exhibits for framing of issues pending compilation.<span class="due">17 JUL 2026</span></div></div>
+            <div class="alert"><span class="ic"><i data-lucide="scale"></i></span><div class="m">Limitation to appeal the 11 Jun interim order lapses soon.<span class="due">ADVISORY · 10 AUG 2026</span></div></div>
+          </div>
+        </section>
+
+        <!-- Legal Analysis -->
+        <section class="panel" data-panel="legal">
+          <div class="card card-pad">
+            <div class="sec-head"><h3><span class="ic"><i data-lucide="target"></i></span> Legal issues</h3></div>
+            <div class="subhead">Primary issue</div>
+            <p class="prose">Whether the 2023 restructuring letter constitutes a binding, concluded agreement that estops SBI from classifying the account as an NPA and enforcing recovery.</p>
+            <div class="subhead">Secondary issues</div>
+            <p class="prose">Whether interim protection ought to continue pending trial; and whether the dispute is arbitrable given the facility agreement's arbitration clause.</p>
+          </div>
+
+          <div class="card card-pad">
+            <div class="sec-head"><h3><span class="ic"><i data-lucide="book-marked"></i></span> Statutes cited &amp; applied</h3></div>
+            <div class="cite-list">
+              <div class="cite-item"><div class="ct">SARFAESI Act, 2002 <span class="pill pill-line">§ 13(2), 13(4)</span></div><div class="cm">Recovery mechanism whose invocation is sought to be restrained pending adjudication.</div></div>
+              <div class="cite-item"><div class="ct">Specific Relief Act, 1963 <span class="pill pill-line">§ 41</span></div><div class="cm">Governs grant of injunctive relief; respondent argues bar on restraining statutory action.</div></div>
+              <div class="cite-item"><div class="ct">Indian Contract Act, 1872 <span class="pill pill-line">§ 25, 62</span></div><div class="cm">Relied on by petitioner for novation via the restructuring letter.</div></div>
+            </div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="sec-head"><h3><span class="ic"><i data-lucide="library"></i></span> Case laws cited</h3></div>
+            <div class="cite-list">
+              <div class="cite-item"><div class="ct">Mardia Chemicals v. Union of India <span class="pill pill-brand">Followed</span></div><div class="cm">SC (2004) · On scope of judicial review of SARFAESI proceedings.</div></div>
+              <div class="cite-item"><div class="ct">ICICI Bank v. Official Liquidator <span class="pill pill-neutral">Distinguished</span></div><div class="cm">SC (2010) · Respondent's reliance on limits to injunctions against banks.</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Arguments -->
+        <section class="panel" data-panel="args">
+          <div class="card card-pad">
+            <div class="sec-head"><h3><span class="ic"><i data-lucide="messages-square"></i></span> Arguments &amp; reasoning</h3></div>
+            <div class="arg-cols">
+              <div class="arg pet"><div class="ah"><i data-lucide="user"></i> Petitioner</div><p>The 2023 restructuring letter novated the original facility; the bank accepted revised instalments, and is estopped from reclassifying the account. Recovery before adjudication would cause irreparable harm to a going concern.</p></div>
+              <div class="arg res"><div class="ah"><i data-lucide="landmark"></i> Respondent</div><p>The letter was a without-prejudice proposal that lapsed for non-compliance. Statutory recovery under SARFAESI cannot be injuncted, and the balance of convenience favours the secured creditor.</p></div>
+            </div>
+            <div class="subhead">Court's reasoning</div>
+            <p class="prose">The Court found a triable issue on whether the restructuring was concluded, and held the balance of convenience favoured preserving status quo given the disputed factual matrix around instalment acceptance.</p>
+          </div>
+
+          <div class="card card-pad">
+            <div class="sec-head"><h3><span class="ic"><i data-lucide="scale"></i></span> Ratio &amp; philosophy</h3></div>
+            <div class="score"><div class="sh"><span>Ratio decidendi confidence</span><span class="n">86%</span></div><div class="linebar"><div class="f" style="width:86%"></div></div></div>
+            <p class="prose"><b>Ratio:</b> Interim protection is warranted where a bona fide, triable dispute exists over the very default that founds a SARFAESI action.</p>
+            <div class="subhead">Obiter dicta</div>
+            <p class="prose">The Court observed that banks ought to record restructuring decisions unambiguously to avoid precisely this class of dispute.</p>
+          </div>
+        </section>
+
+        <!-- Insights -->
+        <section class="panel" data-panel="insights">
+          <div class="card card-pad">
+            <div class="sec-head"><h3><span class="ic"><i data-lucide="trending-up"></i></span> Impact &amp; precedential value</h3></div>
+            <div class="score"><div class="sh"><span>Precedential value</span><span class="n">Moderate · 62%</span></div><div class="linebar"><div class="f" style="width:62%"></div></div></div>
+            <p class="prose">An interim order at High Court level; persuasive within the Commercial Division but not a binding precedent until final adjudication.</p>
+          </div>
+
+          <div class="card card-pad">
+            <div class="sec-head"><h3><span class="ic"><i data-lucide="list-checks"></i></span> Practice points</h3></div>
+            <div class="suggest">
+              <div class="s"><span class="si"><i data-lucide="file-pen"></i></span> Plead novation explicitly and produce the acceptance of revised instalments as documentary proof.</div>
+              <div class="s"><span class="si"><i data-lucide="folder-plus"></i></span> Tag Exh. P-3 (sanction letter) &amp; P-7 (restructuring letter) as issue-framing exhibits.</div>
+              <div class="s"><span class="si"><i data-lucide="clock"></i></span> Track the limitation window for appealing the 11 Jun interim order.</div>
+            </div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="sec-head"><h3><span class="ic"><i data-lucide="shield-check"></i></span> Quality review</h3></div>
+            <div class="kv">
+              <div class="row"><span class="k">OCR accuracy</span><span class="v">98.2%</span></div>
+              <div class="row"><span class="k">Extraction confidence</span><span class="v">High</span></div>
+              <div class="row"><span class="k">Ambiguity flags</span><span class="v">1 (party alias)</span></div>
+              <div class="row"><span class="k">Source documents</span><span class="v">3 orders</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Judgment -->
+        <section class="panel" data-panel="judgment">
+          <div class="card card-pad">
+            <div class="sec-head"><h3><span class="ic"><i data-lucide="file-text"></i></span> Orders &amp; documents</h3></div>
+            <div class="jgrid">
+              <div class="jfile"><span class="fi"><i data-lucide="file-text"></i></span><div class="jt"><b>Interim order — 11 Jun 2026.pdf</b><span>Injunction continued · 288 KB</span></div><button class="btn btn-secondary"><i data-lucide="download"></i> PDF</button><button class="btn btn-ghost"><i data-lucide="file-code"></i> .md</button></div>
+              <div class="jfile"><span class="fi"><i data-lucide="file-text"></i></span><div class="jt"><b>Interim order — 18 Mar 2026.pdf</b><span>Status quo maintained · 214 KB</span></div><button class="btn btn-secondary"><i data-lucide="download"></i> PDF</button><button class="btn btn-ghost"><i data-lucide="file-code"></i> .md</button></div>
+              <div class="jfile"><span class="fi"><i data-lucide="file-text"></i></span><div class="jt"><b>Order — 22 Jan 2026.pdf</b><span>Notice issued · 96 KB</span></div><button class="btn btn-secondary"><i data-lucide="download"></i> PDF</button><button class="btn btn-ghost"><i data-lucide="file-code"></i> .md</button></div>
+            </div>
+          </div>
+          <div class="banner brand">
+            <span class="bi"><i data-lucide="info"></i></span>
+            <div class="t"><b>No final judgment yet</b><span>This matter is pending. Final judgment text and AI analysis will appear here once the suit is disposed.</span></div>
+          </div>
+        </section>
+
+        <div class="disc" style="margin-top:20px"><i data-lucide="info"></i><span>AI analysis is generated from the live eCourts record and uploaded orders. Verify against the certified record before relying on it in filings.</span></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(function (t) {
+    t.addEventListener('click', function () {
+      var name = t.getAttribute('data-tab');
+      document.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('active', x === t); });
+      document.querySelectorAll('.panel').forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-panel') === name); });
+    });
+  });
+  lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });
+</script>
+</body>
+</html>

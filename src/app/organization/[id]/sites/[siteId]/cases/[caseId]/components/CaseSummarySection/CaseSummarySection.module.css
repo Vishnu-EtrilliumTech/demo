@@ -1,0 +1,116 @@
+.summaryCard {
+  margin-bottom: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(156, 39, 176, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(156, 39, 176, 0.02) 100%);
+}
+
+.summaryContent {
+  padding: 20px;
+}
+
+.summaryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.summaryTitle {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.summaryContentBox {
+  margin-top: 16px;
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.markdownContent {
+  line-height: 1.7;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.markdownContent h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  margin-top: 24px;
+  color: #1a237e;
+}
+
+.markdownContent h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  margin-top: 20px;
+  color: #283593;
+}
+
+.markdownContent h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 16px;
+  color: #3949ab;
+}
+
+.markdownContent p {
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+
+.markdownContent ul,
+.markdownContent ol {
+  padding-left: 24px;
+  margin-bottom: 12px;
+}
+
+.markdownContent li {
+  margin-bottom: 4px;
+  line-height: 1.6;
+}
+
+.markdownContent strong {
+  font-weight: 700;
+  color: #1a237e;
+}
+
+.markdownContent em {
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.markdownContent blockquote {
+  border-left: 4px solid #9c27b0;
+  padding-left: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin: 16px 0;
+  background-color: rgba(156, 39, 176, 0.04);
+  border-radius: 0 8px 8px 0;
+}
+
+.markdownContent code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+}
+
+.markdownContent pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 12px;
+}
+
+.markdownContent pre code {
+  background-color: transparent;
+  padding: 0;
+}

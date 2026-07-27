@@ -1,0 +1,20 @@
+<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1099_1168)">
+<path d="M4.27652 24.4753C5.5101 24.4753 6.51007 23.4753 6.51007 22.2418V15.9951H2.51264C2.25324 15.9951 2.04297 16.2054 2.04297 16.4648V22.2418C2.04297 23.4753 3.04294 24.4753 4.27652 24.4753Z" stroke="#003995" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.51089 15.7393V2.12602C6.51089 1.78171 6.85445 1.54316 7.17707 1.66349L9.15756 2.40228L11.8043 1.41504L14.4511 2.40233L17.0979 1.41504L19.7449 2.40233L21.7259 1.66349C22.0485 1.54316 22.392 1.78171 22.392 2.12602V21.7213C22.392 23.2425 21.1588 24.4757 19.6376 24.4757H4.27734" stroke="#003995" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.78906 5.67969H19.2116" stroke="#003995" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.78906 7.84668H19.2116" stroke="#003995" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.78906 10.0137H19.2116" stroke="#003995" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.78906 12.1807H19.2116" stroke="#003995" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.78906 14.3477H17.1053" stroke="#003995" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15.5297 17.1973C15.5297 17.1973 14.8846 16.6634 14.1031 16.8988C13.3856 17.115 13.2074 18.0967 13.695 18.4791C13.975 18.6987 14.3962 18.8793 14.964 19.08C16.2347 19.5292 15.765 21.3212 14.4724 21.3298C13.968 21.3332 13.7321 21.3011 13.2891 21.0113" stroke="#003995" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.4727 21.9841V21.3301" stroke="#003995" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.4727 16.8338V16.2275" stroke="#003995" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="19.2119" cy="14.3476" r="0.469667" fill="#003995"/>
+</g>
+<defs>
+<clipPath id="clip0_1099_1168">
+<rect width="24" height="24" fill="white" transform="translate(0.214844 0.945312)"/>
+</clipPath>
+</defs>
+</svg>

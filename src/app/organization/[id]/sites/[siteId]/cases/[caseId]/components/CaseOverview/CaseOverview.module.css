@@ -1,0 +1,148 @@
+.overviewContainer {
+  padding: 16px;
+}
+
+@media (max-width: 600px) {
+  .overviewContainer {
+    padding: 8px 4px;
+  }
+
+  .descriptionContent {
+    padding: 12px;
+  }
+
+  .cardContent {
+    padding: 12px;
+  }
+}
+
+.descriptionCard {
+  margin-bottom: 16px;
+  border-radius: 16px;
+}
+
+.descriptionContent {
+  padding: 16px;
+}
+
+.descriptionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.descriptionTitle {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.descriptionEditor {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid rgb(209, 213, 219);
+  border-radius: 12px;
+  min-height: 100px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.descriptionEditor:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+.descriptionDisplay {
+  padding: 12px;
+  background: rgba(25, 118, 210, 0.04);
+  border-radius: 12px;
+  white-space: pre-line;
+  border: 1px solid rgba(25, 118, 210, 0.08);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 16px;
+}
+
+.overviewCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.overviewCard {
+  height: 100%;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.overviewCard:hover {
+  transform: translateY(-2px);
+}
+
+.cardContent {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.cardAvatar {
+  margin-right: 16px;
+}
+
+.cardTitle {
+  font-weight: 600;
+}
+
+.cardStats {
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.chipContainer {
+  margin-bottom: 16px;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.chip {
+  cursor: pointer;
+  font-size: 0.75rem;
+  height: 24px;
+  border-radius: 12px;
+}
+
+.cardActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+.actionButton {
+  text-transform: none;
+  font-weight: 500;
+  border-radius: 16px;
+  padding: 6px 16px;
+  transition: all 0.2s ease-in-out;
+}
+
+.actionButton:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}

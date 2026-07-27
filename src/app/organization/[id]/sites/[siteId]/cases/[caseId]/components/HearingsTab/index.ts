@@ -1,0 +1,1 @@
+export { HearingsTab } from './HearingsTab';

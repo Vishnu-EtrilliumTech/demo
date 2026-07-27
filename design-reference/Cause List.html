@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lawsome — Cause List</title>
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.js"></script>
+<link rel="icon" href="public/favicon.png" />
+<link rel="stylesheet" href="lawsome-ui.css" />
+<style>
+  .day-head { display: flex; align-items: center; gap: 12px; margin: 26px 0 14px; }
+  .day-head:first-of-type { margin-top: 4px; }
+  .day-head .dd { font-family: var(--serif); font-weight: 600; font-size: 20px; color: #121620; }
+  .day-head .dm { font-size: 12.5px; color: var(--text-3); }
+  .day-head .line { flex: 1; height: 1px; background: var(--border); }
+  .day-head .cnt { font-size: 12px; font-weight: 600; color: var(--text-2); }
+  .hitem { display: flex; align-items: center; gap: 16px; padding: 15px 20px; border-bottom: 1px solid var(--divider); }
+  .hitem:last-child { border-bottom: 0; }
+  .hitem:hover { background: #fafbfe; }
+  .hitem .tm { width: 74px; flex: none; }
+  .hitem .tm b { font-size: 14px; font-weight: 700; display: block; }
+  .hitem .tm span { font-size: 11.5px; color: var(--text-3); }
+  .hitem .hb { flex: 1; min-width: 0; }
+  .hitem .hb b { font-size: 14px; font-weight: 600; }
+  .hitem .hb .sub { font-size: 12.5px; color: var(--text-2); margin-top: 3px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+  .hitem .hb .sub [data-lucide] { width: 13px; height: 13px; color: var(--text-3); }
+  .hitem .assignee { flex: none; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" data-screen-label="Sidebar">
+    <div class="brand"><span class="logo-chip"><img src="public/logo-white.png" alt="Lawsome" /></span><span class="logo-mini"><img src="public/logo-mark.png" alt="Lawsome" /></span></div>
+    <nav class="nav-group">
+      <div class="lbl">Firm</div>
+      <a class="navitem" href="Dashboard.html"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a class="navitem" href="Cases.html"><i data-lucide="folder-open"></i><span>Cases</span></a>
+      <a class="navitem" href="Branches.html"><i data-lucide="building-2"></i><span>Branches</span></a>
+      <a class="navitem" href="Lawyers.html"><i data-lucide="users"></i><span>Lawyers</span></a>
+      <a class="navitem" href="Clients.html"><i data-lucide="contact"></i><span>Clients</span></a>
+    </nav>
+    <nav class="nav-group">
+      <div class="lbl">Practice</div>
+      <a class="navitem" href="eCourts.html"><i data-lucide="landmark"></i><span>eCourts</span></a>
+      <a class="navitem active" href="Cause List.html"><i data-lucide="calendar-days"></i><span>Cause List</span></a>
+      <a class="navitem" href="Billing.html"><i data-lucide="receipt-indian-rupee"></i><span>Billing</span></a>
+    </nav>
+    <div class="spacer"></div>
+    <nav class="nav-group"><a class="navitem" href="Organization.html"><i data-lucide="settings"></i><span>Settings</span></a></nav>
+    <div class="sidebar-foot">
+      <div class="userchip"><span class="ava">RN</span><span class="who"><b>Adv. Ritika Nair</b><span>Partner · Delhi</span></span><i data-lucide="chevrons-up-down"></i></div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="crumbs"><a href="Dashboard.html">Practice</a><i data-lucide="chevron-right"></i><span class="cur">Cause List</span></div>
+      <div class="grow"></div>
+      <div class="searchbox"><i data-lucide="search"></i><input placeholder="Search hearings…" /><kbd>⌘K</kbd></div>
+      <button class="icon-btn" aria-label="Notifications"><i data-lucide="bell"></i><span class="badge">3</span></button>
+    </header>
+
+    <div class="scroll">
+      <div class="sheet" data-screen-label="Cause List">
+        <div class="page-head">
+          <div class="ph-lead">
+            <div class="eyebrow"><i data-lucide="calendar-days"></i> eCourts monitoring · Active</div>
+            <h1>Cause List</h1>
+            <div class="sub">Upcoming hearings for your linked cases, auto-imported from daily eCourts cause lists.</div>
+          </div>
+          <div class="ph-actions">
+            <span class="chip-mono sync"><i data-lucide="refresh-cw"></i> Synced <b>2 hrs ago</b></span>
+            <button class="btn btn-secondary"><i data-lucide="calendar-plus"></i> Export .ics</button>
+          </div>
+        </div>
+
+        <div class="stat-row" style="grid-template-columns:repeat(3,1fr)">
+          <div class="statcard"><div class="st-top"><span class="st-ic warn"><i data-lucide="calendar-clock"></i></span></div><div class="st-n">14</div><div class="st-l">Hearings this week</div></div>
+          <div class="statcard"><div class="st-top"><span class="st-ic"><i data-lucide="landmark"></i></span></div><div class="st-n">6</div><div class="st-l">Courts across 4 branches</div></div>
+          <div class="statcard"><div class="st-top"><span class="st-ic ok"><i data-lucide="badge-check"></i></span></div><div class="st-n">231</div><div class="st-l">Cases monitored</div></div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search"><i data-lucide="search"></i><input placeholder="Filter by case, court or judge…" /></div>
+          <div class="selectbox"><select><option>All branches</option><option>Delhi (HQ)</option><option>Mumbai</option><option>Pune</option><option>Bengaluru</option></select></div>
+          <div class="selectbox"><select><option>Next 7 days</option><option>Today</option><option>This month</option></select></div>
+        </div>
+
+        <div class="card" style="overflow:hidden">
+          <div class="day-head" style="padding:0 20px"><span class="dd">17</span><span class="dm">Thu · Jul 2026</span><span class="line"></span><span class="cnt">3 hearings</span></div>
+          <div class="hitem"><div class="tm"><b>10:30</b><span>AM</span></div><div class="hb"><b>Mehra Textiles v. State Bank of India</b><div class="sub"><i data-lucide="landmark"></i> HC Delhi · Court 21 <span>·</span> Justice A. Bhandari <span>·</span> Framing of issues</div></div><span class="pill pill-warn assignee">Delhi</span><div class="who2 assignee"><span class="a av3">RN</span></div></div>
+          <div class="hitem"><div class="tm"><b>11:15</b><span>AM</span></div><div class="hb"><b>State v. Gupta</b><div class="sub"><i data-lucide="landmark"></i> Sessions, Tis Hazari · Court 4 <span>·</span> Evidence</div></div><span class="pill pill-warn assignee">Delhi</span><div class="who2 assignee"><span class="a av4">AP</span></div></div>
+          <div class="hitem"><div class="tm"><b>02:00</b><span>PM</span></div><div class="hb"><b>Bhatia v. Municipal Corp.</b><div class="sub"><i data-lucide="landmark"></i> HC Delhi · Court 9 <span>·</span> Writ · Final hearing</div></div><span class="pill pill-warn assignee">Delhi</span><div class="who2 assignee"><span class="a av1">KR</span></div></div>
+
+          <div class="day-head" style="padding:0 20px"><span class="dd">18</span><span class="dm">Fri · Jul 2026</span><span class="line"></span><span class="cnt">2 hearings</span></div>
+          <div class="hitem"><div class="tm"><b>10:00</b><span>AM</span></div><div class="hb"><b>Rao v. Kohli Estates</b><div class="sub"><i data-lucide="landmark"></i> Bombay HC · Court 14 <span>·</span> Final arguments</div></div><span class="pill pill-brand assignee">Mumbai</span><div class="who2 assignee"><span class="a av2">SM</span></div></div>
+          <div class="hitem"><div class="tm"><b>12:30</b><span>PM</span></div><div class="hb"><b>Iyer v. Metro Realty (review)</b><div class="sub"><i data-lucide="landmark"></i> State Consumer Comm. <span>·</span> Mumbai <span>·</span> Directions</div></div><span class="pill pill-brand assignee">Mumbai</span><div class="who2 assignee"><span class="a av2">SM</span></div></div>
+
+          <div class="day-head" style="padding:0 20px"><span class="dd">21</span><span class="dm">Mon · Jul 2026</span><span class="line"></span><span class="cnt">1 hearing</span></div>
+          <div class="hitem"><div class="tm"><b>11:00</b><span>AM</span></div><div class="hb"><b>Deccan Power v. MSEDCL</b><div class="sub"><i data-lucide="landmark"></i> APTEL, New Delhi <span>·</span> Admission</div></div><span class="pill pill-neutral assignee">Pune</span><div class="who2 assignee"><span class="a av2">KR</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body>
+</html>

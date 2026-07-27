@@ -1,0 +1,189 @@
+/* Task table row click hint */
+.taskTableHint {
+  background: linear-gradient(90deg, rgba(25, 118, 210, 0.05) 0%, rgba(25, 118, 210, 0.1) 50%, rgba(25, 118, 210, 0.05) 100%);
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border-left: 3px solid #1976d2;
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.7);
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Full page background */
+.caseContainer {
+  background-image: url("/reg form bg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 90vh;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+/* Content wrapper */
+.contentWrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 98%;
+}
+
+/* Card styles */
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+
+/* Task row styles */
+.taskRow {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.taskRow:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.taskRowSelected {
+  background-color: rgba(25, 118, 210, 0.08) !important;
+  border-left: 3px solid #1976d2;
+}
+
+/* Task detail view styles */
+.taskDetailView {
+  background: linear-gradient(135deg, rgba(25, 118, 210, 0.04) 0%, rgba(25, 118, 210, 0.02) 100%);
+  border-top: 1px solid rgba(25, 118, 210, 0.2);
+  animation: slideDown 0.3s ease-out;
+}
+
+.taskDetailCard {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(25, 118, 210, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.taskDetailCard:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Task detail grid styles */
+.taskDetailField {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.taskDetailField:last-child {
+  border-bottom: none;
+}
+
+/* Animation keyframes */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button hover enhancements */
+.taskActionButton {
+  transition: all 0.2s ease-in-out;
+}
+
+.taskActionButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Status chip enhancements */
+.taskStatusChip {
+  font-weight: 500;
+  border-radius: 12px;
+  transition: all 0.2s ease-in-out;
+}
+
+.taskStatusChip:hover {
+  transform: scale(1.05);
+}
+
+/* Page animations */
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.caseContainer {
+  animation: pageLoad 0.5s ease-out;
+}
+
+/* Tab content animations */
+.tabContent {
+}
+
+/* Enhanced hover effects */
+.interactiveElement {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactiveElement:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .caseContainer {
+    padding: 16px 8px;
+  }
+  
+  .contentWrapper {
+    width: 100%;
+  }
+  
+  .card {
+    margin-bottom: 16px;
+    border-radius: 12px;
+  }
+  
+  .taskDetailCard {
+    margin: 0 -8px;
+    border-radius: 12px;
+  }
+  
+  .taskRow:hover {
+    transform: none;
+  }
+
+}

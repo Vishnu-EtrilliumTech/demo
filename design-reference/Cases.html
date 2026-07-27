@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lawsome — Cases</title>
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.js"></script>
+<link rel="icon" href="public/favicon.png" />
+<link rel="stylesheet" href="lawsome-ui.css" />
+<style>
+  .case-row-title { display: flex; flex-direction: column; gap: 3px; }
+  .case-row-title b { font-weight: 600; font-size: 13.5px; }
+  .case-row-title span { font-size: 12px; color: var(--text-3); }
+  /* card view */
+  .cgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .ccard { background: var(--panel); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--sh-sm); padding: 18px; cursor: pointer; transition: box-shadow .15s, transform .15s, border-color .15s; }
+  .ccard:hover { box-shadow: var(--sh); transform: translateY(-2px); border-color: var(--border-strong); }
+  .ccard .ct-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .ccard .ct-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--brand); }
+  .ccard h3 { font-family: var(--serif); font-weight: 500; font-size: 18px; line-height: 1.2; margin-top: 8px; letter-spacing: -.01em; }
+  .ccard .cnr { display: inline-flex; align-items: center; gap: 6px; margin-top: 11px; font-size: 12px; color: var(--text-3); }
+  .ccard .cnr [data-lucide] { width: 13px; height: 13px; }
+  .ccard .ct-foot { display: flex; align-items: center; gap: 10px; margin-top: 15px; padding-top: 14px; border-top: 1px solid var(--divider); font-size: 12.5px; color: var(--text-2); }
+  .ccard .ct-foot .who2 { margin-left: auto; }
+  #cardView { display: none; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" data-screen-label="Sidebar">
+    <div class="brand"><span class="logo-chip"><img src="public/logo-white.png" alt="Lawsome" /></span><span class="logo-mini"><img src="public/logo-mark.png" alt="Lawsome" /></span></div>
+    <nav class="nav-group">
+      <div class="lbl">Firm</div>
+      <a class="navitem" href="Dashboard.html"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a class="navitem active" href="Cases.html"><i data-lucide="folder-open"></i><span>Cases</span></a>
+      <a class="navitem" href="Branches.html"><i data-lucide="building-2"></i><span>Branches</span></a>
+      <a class="navitem" href="Lawyers.html"><i data-lucide="users"></i><span>Lawyers</span></a>
+      <a class="navitem" href="Clients.html"><i data-lucide="contact"></i><span>Clients</span></a>
+    </nav>
+    <nav class="nav-group">
+      <div class="lbl">Practice</div>
+      <a class="navitem" href="eCourts.html"><i data-lucide="landmark"></i><span>eCourts</span></a>
+      <a class="navitem" href="Cause List.html"><i data-lucide="calendar-days"></i><span>Cause List</span></a>
+      <a class="navitem" href="Billing.html"><i data-lucide="receipt-indian-rupee"></i><span>Billing</span></a>
+    </nav>
+    <div class="spacer"></div>
+    <nav class="nav-group"><a class="navitem" href="Organization.html"><i data-lucide="settings"></i><span>Settings</span></a></nav>
+    <div class="sidebar-foot">
+      <div class="userchip"><span class="ava">RN</span><span class="who"><b>Adv. Ritika Nair</b><span>Partner · Delhi</span></span><i data-lucide="chevrons-up-down"></i></div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="crumbs"><a href="Dashboard.html">Firm</a><i data-lucide="chevron-right"></i><span class="cur">Cases</span></div>
+      <div class="grow"></div>
+      <div class="searchbox"><i data-lucide="search"></i><input placeholder="Search cases, CNR, parties…" /><kbd>⌘K</kbd></div>
+      <button class="icon-btn" aria-label="Notifications"><i data-lucide="bell"></i><span class="badge">3</span></button>
+    </header>
+
+    <div class="scroll">
+      <div class="sheet" data-screen-label="Cases">
+        <div class="page-head">
+          <div class="ph-lead">
+            <div class="eyebrow"><i data-lucide="folder-open"></i> Case register</div>
+            <h1>Cases</h1>
+            <div class="sub">All matters across your firm's branches, synced with eCourts India.</div>
+          </div>
+          <div class="ph-actions">
+            <button class="btn btn-secondary"><i data-lucide="download"></i> Export</button>
+            <button class="btn btn-secondary" onclick="openDialog('addCase')"><i data-lucide="zap"></i> Quick add</button>
+            <a class="btn btn-primary" href="Add Case.html"><i data-lucide="plus"></i> Add Case</a>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search"><i data-lucide="search"></i><input placeholder="Search by title, case number or party…" /></div>
+          <div class="selectbox"><select><option>All branches</option><option>Delhi (HQ)</option><option>Mumbai</option><option>Pune</option><option>Bengaluru</option></select></div>
+          <div class="selectbox"><select><option>All status</option><option>Open</option><option>In Progress</option><option>On Hold</option><option>Closed</option></select></div>
+          <div class="grow"></div>
+          <div class="viewtoggle">
+            <button class="active" id="tblBtn" aria-label="Table view" onclick="setView('tbl')"><i data-lucide="list"></i></button>
+            <button id="cardBtn" aria-label="Card view" onclick="setView('card')"><i data-lucide="layout-grid"></i></button>
+          </div>
+        </div>
+
+        <div class="card" id="tblView" style="overflow:hidden">
+          <table class="tbl">
+            <thead><tr><th>Case</th><th>Case No.</th><th>Branch</th><th>Status</th><th>Assigned to</th><th>Next hearing</th><th class="r"></th></tr></thead>
+            <tbody>
+              <tr onclick="location.href='Case Workspace - Modern.html'" style="cursor:pointer">
+                <td><div class="case-row-title"><b>Mehra Textiles Pvt. Ltd. v. State Bank of India</b><span>Commercial Suit</span></div></td>
+                <td>CS(COMM) 842/2024</td><td>Delhi</td><td><span class="pill pill-warn"><span class="d"></span> In Progress</span></td>
+                <td><div class="who2"><span class="a av3">RN</span> R. Nair</div></td><td>17 Jul 2026</td>
+                <td class="r"><button class="rowbtn" onclick="event.stopPropagation()"><i data-lucide="ellipsis-vertical"></i></button></td>
+              </tr>
+              <tr>
+                <td><div class="case-row-title"><b>Rao v. Kohli Estates</b><span>Civil Appeal</span></div></td>
+                <td>FA 231/2025</td><td>Mumbai</td><td><span class="pill pill-brand"><span class="d"></span> Open</span></td>
+                <td><div class="who2"><span class="a av1">SM</span> S. Mehta</div></td><td>18 Jul 2026</td>
+                <td class="r"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></td>
+              </tr>
+              <tr>
+                <td><div class="case-row-title"><b>Deccan Power Ltd. v. MSEDCL</b><span>Regulatory / APTEL</span></div></td>
+                <td>APL 88/2025</td><td>Pune</td><td><span class="pill pill-warn"><span class="d"></span> In Progress</span></td>
+                <td><div class="who2"><span class="a av2">KR</span> K. Raman</div></td><td>23 Jul 2026</td>
+                <td class="r"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></td>
+              </tr>
+              <tr>
+                <td><div class="case-row-title"><b>State v. Gupta</b><span>Criminal (Sessions)</span></div></td>
+                <td>SC 412/2024</td><td>Delhi</td><td><span class="pill pill-neutral"><span class="d"></span> On Hold</span></td>
+                <td><div class="who2"><span class="a av4">AP</span> A. Prasad</div></td><td>21 Jul 2026</td>
+                <td class="r"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></td>
+              </tr>
+              <tr>
+                <td><div class="case-row-title"><b>In re: Estate of Verma</b><span>Probate</span></div></td>
+                <td>PET 55/2026</td><td>Bengaluru</td><td><span class="pill pill-brand"><span class="d"></span> Open</span></td>
+                <td><div class="who2"><span class="a av5">DS</span> D. Shah</div></td><td>—</td>
+                <td class="r"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></td>
+              </tr>
+              <tr>
+                <td><div class="case-row-title"><b>Iyer v. Metro Realty</b><span>Consumer</span></div></td>
+                <td>CC 907/2025</td><td>Mumbai</td><td><span class="pill pill-ok"><span class="d"></span> Closed</span></td>
+                <td><div class="who2"><span class="a av1">SM</span> S. Mehta</div></td><td>—</td>
+                <td class="r"><button class="rowbtn"><i data-lucide="ellipsis-vertical"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="tbl-foot">
+            <span class="cnt">Showing 1–6 of 248 cases</span>
+            <div class="pager"><button disabled><i data-lucide="chevron-left"></i></button><button class="active">1</button><button>2</button><button>3</button><button>…</button><button>42</button><button><i data-lucide="chevron-right"></i></button></div>
+          </div>
+        </div>
+
+        <div id="cardView">
+          <div class="cgrid">
+            <div class="ccard" onclick="location.href='Case Workspace - Modern.html'">
+              <div class="ct-head"><span class="ct-eyebrow">Commercial · Delhi</span><span class="pill pill-warn"><span class="d"></span> In Progress</span></div>
+              <h3>Mehra Textiles v. State Bank of India</h3>
+              <div class="cnr"><i data-lucide="fingerprint"></i> DLHC01-013245-2024</div>
+              <div class="ct-foot"><i data-lucide="calendar-clock" style="width:15px;color:var(--brand)"></i> 17 Jul<div class="who2"><span class="a av3">RN</span> R. Nair</div></div>
+            </div>
+            <div class="ccard">
+              <div class="ct-head"><span class="ct-eyebrow">Civil Appeal · Mumbai</span><span class="pill pill-brand"><span class="d"></span> Open</span></div>
+              <h3>Rao v. Kohli Estates</h3>
+              <div class="cnr"><i data-lucide="fingerprint"></i> MHHC02-004410-2025</div>
+              <div class="ct-foot"><i data-lucide="calendar-clock" style="width:15px;color:var(--brand)"></i> 18 Jul<div class="who2"><span class="a av1">SM</span> S. Mehta</div></div>
+            </div>
+            <div class="ccard">
+              <div class="ct-head"><span class="ct-eyebrow">Regulatory · Pune</span><span class="pill pill-warn"><span class="d"></span> In Progress</span></div>
+              <h3>Deccan Power v. MSEDCL</h3>
+              <div class="cnr"><i data-lucide="fingerprint"></i> APTEL-000088-2025</div>
+              <div class="ct-foot"><i data-lucide="calendar-clock" style="width:15px;color:var(--brand)"></i> 23 Jul<div class="who2"><span class="a av2">KR</span> K. Raman</div></div>
+            </div>
+            <div class="ccard">
+              <div class="ct-head"><span class="ct-eyebrow">Criminal · Delhi</span><span class="pill pill-neutral"><span class="d"></span> On Hold</span></div>
+              <h3>State v. Gupta</h3>
+              <div class="cnr"><i data-lucide="fingerprint"></i> DLST05-041200-2024</div>
+              <div class="ct-foot"><i data-lucide="calendar-clock" style="width:15px;color:var(--brand)"></i> 21 Jul<div class="who2"><span class="a av4">AP</span> A. Prasad</div></div>
+            </div>
+            <div class="ccard">
+              <div class="ct-head"><span class="ct-eyebrow">Probate · Bengaluru</span><span class="pill pill-brand"><span class="d"></span> Open</span></div>
+              <h3>In re: Estate of Verma</h3>
+              <div class="cnr"><i data-lucide="fingerprint"></i> KAHC03-005500-2026</div>
+              <div class="ct-foot"><i data-lucide="calendar-clock" style="width:15px;color:var(--text-3)"></i> Not listed<div class="who2"><span class="a av5">DS</span> D. Shah</div></div>
+            </div>
+            <div class="ccard">
+              <div class="ct-head"><span class="ct-eyebrow">Consumer · Mumbai</span><span class="pill pill-ok"><span class="d"></span> Closed</span></div>
+              <h3>Iyer v. Metro Realty</h3>
+              <div class="cnr"><i data-lucide="fingerprint"></i> MHCC09-009070-2025</div>
+              <div class="ct-foot"><i data-lucide="check" style="width:15px;color:var(--ok)"></i> Disposed<div class="who2"><span class="a av1">SM</span> S. Mehta</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Case modal -->
+<div class="dialog-backdrop" id="addCase" onclick="if(event.target===this)closeDialog('addCase')">
+  <div class="dialog">
+    <div class="dialog-head">
+      <span class="di"><i data-lucide="folder-plus"></i></span>
+      <div class="dt"><b>Add case</b><span>Create a new matter in the register</span></div>
+      <button class="x" onclick="closeDialog('addCase')"><i data-lucide="x"></i></button>
+    </div>
+    <div class="dialog-body">
+      <div class="field"><label>Case title <span class="req">*</span></label><input class="input" placeholder="e.g. Mehra Textiles v. State Bank of India" /></div>
+      <div class="form-2col">
+        <div class="field"><label>Case number <span class="req">*</span></label><input class="input" placeholder="CS(COMM) 842/2024" /></div>
+        <div class="field"><label>Branch <span class="req">*</span></label><select class="input"><option>Delhi (HQ)</option><option>Mumbai</option><option>Pune</option><option>Bengaluru</option></select></div>
+        <div class="field"><label>Case type</label><select class="input"><option>Commercial Suit</option><option>Civil Appeal</option><option>Criminal</option><option>Writ Petition</option><option>Consumer</option><option>Probate</option></select></div>
+        <div class="field"><label>Assigned to <span class="req">*</span></label><select class="input"><option>Adv. Ritika Nair</option><option>K. Raman</option><option>S. Mehta</option><option>A. Prasad</option></select></div>
+        <div class="field full"><label>CNR (eCourts)</label><input class="input" placeholder="16-digit CNR — leave blank to link later" /><div class="hint">Linking a CNR enables live cause-list &amp; hearing sync. (AI analysis is on the roadmap.)</div></div>
+        <div class="field full"><label>Description</label><textarea class="input" placeholder="Short summary of the matter…"></textarea></div>
+      </div>
+    </div>
+    <div class="dialog-foot"><a class="btn btn-ghost" href="Add Case.html" style="margin-right:auto"><i data-lucide="maximize-2"></i> Open full form</a><button class="btn btn-secondary" onclick="closeDialog('addCase')">Cancel</button><a class="btn btn-primary" href="Case Workspace - Modern.html"><i data-lucide="check"></i> Create case</a></div>
+  </div>
+</div>
+
+<script>
+  function openDialog(id){ document.getElementById(id).classList.add('open'); }
+  function closeDialog(id){ document.getElementById(id).classList.remove('open'); }
+  function setView(v){
+    document.getElementById('tblView').style.display = v==='tbl' ? 'block':'none';
+    document.getElementById('cardView').style.display = v==='card' ? 'block':'none';
+    document.getElementById('tblBtn').classList.toggle('active', v==='tbl');
+    document.getElementById('cardBtn').classList.toggle('active', v==='card');
+  }
+  lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });
+</script>
+</body>
+</html>

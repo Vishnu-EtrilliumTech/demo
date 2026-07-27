@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lawsome — Lawyers &amp; Staff</title>
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.js"></script>
+<link rel="icon" href="public/favicon.png" />
+<link rel="stylesheet" href="lawsome-ui.css" />
+<style>
+  .rolechips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .who2 .a.big { width: 34px; height: 34px; font-size: 12px; }
+  .who-2line b { display: block; font-weight: 600; font-size: 13.5px; }
+  .who-2line span { font-size: 12px; color: var(--text-3); }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" data-screen-label="Sidebar">
+    <div class="brand"><span class="logo-chip"><img src="public/logo-white.png" alt="Lawsome" /></span><span class="logo-mini"><img src="public/logo-mark.png" alt="Lawsome" /></span></div>
+    <nav class="nav-group">
+      <div class="lbl">Firm</div>
+      <a class="navitem" href="Dashboard.html"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a class="navitem" href="Cases.html"><i data-lucide="folder-open"></i><span>Cases</span></a>
+      <a class="navitem" href="Branches.html"><i data-lucide="building-2"></i><span>Branches</span></a>
+      <a class="navitem active" href="Lawyers.html"><i data-lucide="users"></i><span>Lawyers</span></a>
+      <a class="navitem" href="Clients.html"><i data-lucide="contact"></i><span>Clients</span></a>
+    </nav>
+    <nav class="nav-group">
+      <div class="lbl">Practice</div>
+      <a class="navitem" href="eCourts.html"><i data-lucide="landmark"></i><span>eCourts</span></a>
+      <a class="navitem" href="Cause List.html"><i data-lucide="calendar-days"></i><span>Cause List</span></a>
+      <a class="navitem" href="Billing.html"><i data-lucide="receipt-indian-rupee"></i><span>Billing</span></a>
+    </nav>
+    <div class="spacer"></div>
+    <nav class="nav-group"><a class="navitem" href="Organization.html"><i data-lucide="settings"></i><span>Settings</span></a></nav>
+    <div class="sidebar-foot">
+      <div class="userchip"><span class="ava">RN</span><span class="who"><b>Adv. Ritika Nair</b><span>Partner · Delhi</span></span><i data-lucide="chevrons-up-down"></i></div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="crumbs"><a href="Dashboard.html">Firm</a><i data-lucide="chevron-right"></i><span class="cur">Lawyers &amp; Staff</span></div>
+      <div class="grow"></div>
+      <div class="searchbox"><i data-lucide="search"></i><input placeholder="Search people…" /><kbd>⌘K</kbd></div>
+      <button class="icon-btn" aria-label="Notifications"><i data-lucide="bell"></i><span class="badge">3</span></button>
+    </header>
+
+    <div class="scroll">
+      <div class="sheet" data-screen-label="Lawyers">
+        <div class="page-head">
+          <div class="ph-lead">
+            <div class="eyebrow"><i data-lucide="users"></i> People &amp; access</div>
+            <h1>Lawyers &amp; Staff</h1>
+            <div class="sub">Manage lawyers, clerks and paralegals across your branches, and control their roles &amp; permissions.</div>
+          </div>
+          <div class="ph-actions"><button class="btn btn-primary" onclick="openDialog('invite')"><i data-lucide="user-plus"></i> Invite Member</button></div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search"><i data-lucide="search"></i><input placeholder="Search by name or email…" /></div>
+          <div class="selectbox"><select><option>All branches</option><option>Delhi (HQ)</option><option>Mumbai</option><option>Pune</option><option>Bengaluru</option></select></div>
+          <div class="selectbox"><select><option>All roles</option><option>Organization Admin</option><option>Site Admin</option><option>Sr. Legal Expert</option><option>Legal Expert</option><option>Clerk</option></select></div>
+        </div>
+
+        <div class="card" style="overflow:hidden">
+          <table class="tbl">
+            <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Branch</th><th>Roles</th><th>Registered</th><th class="r"></th></tr></thead>
+            <tbody>
+              <tr>
+                <td><div class="who2"><span class="a big av3">RN</span><span class="who-2line"><b>Adv. Ritika Nair</b><span>AOR · Bar #D/1204/2011</span></span></div></td>
+                <td>ritika@sharma-associates.in</td><td>+91 98100 12345</td><td>Delhi (HQ)</td>
+                <td><div class="rolechips"><span class="pill pill-brand">Org Admin</span></div></td><td>12 Mar 2019</td>
+                <td class="r"><button class="rowbtn" onclick="openDialog('editUser')"><i data-lucide="pencil"></i></button> <button class="rowbtn" onclick="openDialog('delUser')"><i data-lucide="trash-2"></i></button></td>
+              </tr>
+              <tr>
+                <td><div class="who2"><span class="a big av4">VK</span><span class="who-2line"><b>Sr. Adv. V. Krishnan</b><span>Senior counsel</span></span></div></td>
+                <td>krishnan@sharma-associates.in</td><td>+91 98200 44556</td><td>Delhi (HQ)</td>
+                <td><div class="rolechips"><span class="pill pill-neutral">Sr. Legal Expert</span></div></td><td>04 Jan 2020</td>
+                <td class="r"><button class="rowbtn" onclick="openDialog('editUser')"><i data-lucide="pencil"></i></button> <button class="rowbtn" onclick="openDialog('delUser')"><i data-lucide="trash-2"></i></button></td>
+              </tr>
+              <tr>
+                <td><div class="who2"><span class="a big av1">KR</span><span class="who-2line"><b>K. Raman</b><span>Associate</span></span></div></td>
+                <td>raman@sharma-associates.in</td><td>+91 99000 77889</td><td>Delhi (HQ)</td>
+                <td><div class="rolechips"><span class="pill pill-neutral">Legal Expert</span></div></td><td>22 Aug 2022</td>
+                <td class="r"><button class="rowbtn" onclick="openDialog('editUser')"><i data-lucide="pencil"></i></button> <button class="rowbtn" onclick="openDialog('delUser')"><i data-lucide="trash-2"></i></button></td>
+              </tr>
+              <tr>
+                <td><div class="who2"><span class="a big av2">SM</span><span class="who-2line"><b>S. Mehta</b><span>Advocate</span></span></div></td>
+                <td>mehta@sharma-associates.in</td><td>+91 98330 11223</td><td>Mumbai</td>
+                <td><div class="rolechips"><span class="pill pill-brand">Site Admin</span></div></td><td>15 Sep 2021</td>
+                <td class="r"><button class="rowbtn" onclick="openDialog('editUser')"><i data-lucide="pencil"></i></button> <button class="rowbtn" onclick="openDialog('delUser')"><i data-lucide="trash-2"></i></button></td>
+              </tr>
+              <tr>
+                <td><div class="who2"><span class="a big av5">AP</span><span class="who-2line"><b>A. Prasad</b><span>Paralegal</span></span></div></td>
+                <td>prasad@sharma-associates.in</td><td>+91 97400 55667</td><td>Delhi (HQ)</td>
+                <td><div class="rolechips"><span class="pill pill-neutral">Clerk</span></div></td><td>03 Feb 2023</td>
+                <td class="r"><button class="rowbtn" onclick="openDialog('editUser')"><i data-lucide="pencil"></i></button> <button class="rowbtn" onclick="openDialog('delUser')"><i data-lucide="trash-2"></i></button></td>
+              </tr>
+              <tr>
+                <td><div class="who2"><span class="a big av3">DS</span><span class="who-2line"><b>D. Shah</b><span>Advocate</span></span></div></td>
+                <td>shah@sharma-associates.in</td><td>+91 96500 33445</td><td>Bengaluru</td>
+                <td><div class="rolechips"><span class="pill pill-neutral">Legal Expert</span></div></td><td>19 Jun 2023</td>
+                <td class="r"><button class="rowbtn" onclick="openDialog('editUser')"><i data-lucide="pencil"></i></button> <button class="rowbtn" onclick="openDialog('delUser')"><i data-lucide="trash-2"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="tbl-foot">
+            <span class="cnt">Showing 1–6 of 42 members</span>
+            <div class="pager"><button disabled><i data-lucide="chevron-left"></i></button><button class="active">1</button><button>2</button><button>3</button><button>…</button><button>7</button><button><i data-lucide="chevron-right"></i></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Invite modal -->
+<div class="dialog-backdrop" id="invite" onclick="if(event.target===this)closeDialog('invite')">
+  <div class="dialog">
+    <div class="dialog-head"><span class="di"><i data-lucide="user-plus"></i></span><div class="dt"><b>Invite member</b><span>Send an invitation to join your firm on Lawsome</span></div><button class="x" onclick="closeDialog('invite')"><i data-lucide="x"></i></button></div>
+    <div class="dialog-body">
+      <div class="form-2col">
+        <div class="field"><label>Full name <span class="req">*</span></label><input class="input" placeholder="Adv. …" /></div>
+        <div class="field"><label>Email <span class="req">*</span></label><input class="input" placeholder="name@firm.in" /></div>
+        <div class="field"><label>Phone</label><input class="input" placeholder="+91 …" /></div>
+        <div class="field"><label>Branch <span class="req">*</span></label><select class="input"><option>Delhi (HQ)</option><option>Mumbai</option><option>Pune</option><option>Bengaluru</option></select></div>
+        <div class="field full"><label>Role <span class="req">*</span></label><select class="input"><option>Organization Admin</option><option>Site Admin</option><option>Senior Legal Expert</option><option>Legal Expert</option><option>Clerk</option></select><div class="hint">Roles control which cases and actions this member can access.</div></div>
+      </div>
+    </div>
+    <div class="dialog-foot"><button class="btn btn-secondary" onclick="closeDialog('invite')">Cancel</button><button class="btn btn-primary"><i data-lucide="send"></i> Send invite</button></div>
+  </div>
+</div>
+
+<div class="dialog-backdrop" id="editUser" onclick="if(event.target===this)closeDialog('editUser')">
+  <div class="dialog">
+    <div class="dialog-head"><span class="di"><i data-lucide="pencil"></i></span><div class="dt"><b>Edit member — K. Raman</b><span>Update details, branch and roles</span></div><button class="x" onclick="closeDialog('editUser')"><i data-lucide="x"></i></button></div>
+    <div class="dialog-body">
+      <div class="form-2col">
+        <div class="field"><label>Full name <span class="req">*</span></label><input class="input" value="K. Raman" /></div>
+        <div class="field"><label>Email <span class="req">*</span></label><input class="input" value="raman@sharma-associates.in" /></div>
+        <div class="field"><label>Phone</label><input class="input" value="+91 99000 77889" /></div>
+        <div class="field"><label>Branch <span class="req">*</span></label><select class="input"><option>Delhi (HQ)</option><option>Mumbai</option><option>Pune</option><option>Bengaluru</option></select></div>
+        <div class="field full"><label>Role <span class="req">*</span></label><select class="input"><option>Legal Expert</option><option>Senior Legal Expert</option><option>Site Admin</option><option>Clerk</option></select></div>
+      </div>
+    </div>
+    <div class="dialog-foot"><button class="btn btn-secondary" onclick="closeDialog('editUser')">Cancel</button><button class="btn btn-primary"><i data-lucide="check"></i> Save changes</button></div>
+  </div>
+</div>
+
+<div class="dialog-backdrop" id="delUser" onclick="if(event.target===this)closeDialog('delUser')">
+  <div class="dialog sm">
+    <div class="dialog-head"><span class="di danger"><i data-lucide="user-x"></i></span><div class="dt"><b>Remove member?</b><span>This action cannot be undone</span></div><button class="x" onclick="closeDialog('delUser')"><i data-lucide="x"></i></button></div>
+    <div class="dialog-body"><p class="lead">Removing <b>K. Raman</b> revokes their access to Lawsome immediately. Cases assigned to them will need to be reassigned. This cannot be undone.</p></div>
+    <div class="dialog-foot"><button class="btn btn-secondary" onclick="closeDialog('delUser')">Cancel</button><button class="btn btn-danger"><i data-lucide="user-x"></i> Remove member</button></div>
+  </div>
+</div>
+
+<script>
+  function openDialog(id){ document.getElementById(id).classList.add('open'); }
+  function closeDialog(id){ document.getElementById(id).classList.remove('open'); }
+  lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });
+</script>
+</body>
+</html>

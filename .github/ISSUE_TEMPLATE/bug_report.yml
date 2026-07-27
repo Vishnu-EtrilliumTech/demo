@@ -1,0 +1,103 @@
+name: 🐛 Bug/Defect Report (Recommended)
+description: Report bugs, UI/UX issues, or defects found during testing
+title: "[BUG] "
+labels: ["bug"]
+assignees: []
+body:
+  - type: input
+    id: user_role
+    attributes:
+      label: Logged-in User Role
+      description: What user role were you testing with?
+      placeholder: "Organization Admin, Site Manager, Legal Expert, Client, etc."
+    validations:
+      required: false
+
+  - type: textarea
+    id: app_info
+    attributes:
+      label: App Info
+      description: Provide the app version and build info from the footer
+      placeholder: |
+        App Info: 51-a1b2c3
+        
+        To find this info: Scroll to the bottom of any page and look at the footer. Copy the complete "App Info" value as shown above.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity Level
+      description: How severe is this issue?
+      options:
+        - Critical - Application crash, data loss, security vulnerability
+        - High - Feature completely broken, major functionality affected
+        - Medium - Feature partially broken, workaround available
+        - Low - Minor UI issue, cosmetic problem
+    validations:
+      required: true
+
+  - type: input
+    id: page_url
+    attributes:
+      label: Page/Route URL
+      description: What page were you on when the issue occurred?
+      placeholder: "/organization/123/sites/456/cases/789, /dashboard, /profile, etc."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior
+      description: What should happen?
+      placeholder: "Describe what you expected to happen"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: "Describe what actually happened instead"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Detailed steps to reproduce the issue
+      placeholder: |
+        1. Navigate to...
+        2. Click on...
+        3. Fill in the form with...
+        4. Submit/Save...
+        5. Observe the error...
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: error_messages
+    attributes:
+      label: Error Messages/Console Logs
+      description: Any error messages, console errors, or stack traces
+      placeholder: |
+        ```
+        Paste error messages, console logs, or stack traces here
+        ```
+      render: markdown
+
+  - type: textarea
+    id: attachments
+    attributes:
+      label: Attachments
+      description: Screenshots or HAR files
+      placeholder: |
+        Please attach:
+        - Screenshots showing the issue
+        - HAR file if network-related (optional)
+        - Screen recordings if helpful

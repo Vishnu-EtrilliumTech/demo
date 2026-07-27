@@ -1,0 +1,56 @@
+.hero {
+  background-image: url("/hero section background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.count {
+  background-image: url("/count background.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: right;
+}
+
+.experts {
+  background-image: url("/experts section bg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.legal-assistance {
+  background-color: #fff9f5;
+}
+
+.question {
+  background-color: #f5fbf7;
+}
+
+.swiperButtonPrev,
+.swiperButtonNext {
+  position: absolute;
+  bottom: 150; /* Adjust as needed */
+  width: 67px;
+  height: 43px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.swiperButtonPrev {
+  left: 50%;
+  transform: translateX(-150%);
+  border: 1px solid #0c4884;
+  color: #0c4884;
+}
+
+.swiperButtonNext {
+  right: 50%;
+  transform: translateX(150%);
+  background-color: #0c4884;
+  color: #fff;
+}
+

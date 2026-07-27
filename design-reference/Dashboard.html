@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lawsome — Organization Dashboard</title>
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.js"></script>
+<link rel="icon" href="public/favicon.png" />
+<link rel="stylesheet" href="lawsome-ui.css" />
+<style>
+  /* screen-specific layout only */
+  .hero-band { background: linear-gradient(135deg, #16213e, #1d2740 55%, #22305a); border-radius: var(--r-lg); padding: 24px 26px; color: #fff; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; box-shadow: var(--sh); margin-bottom: 22px; position: relative; overflow: hidden; }
+  .hero-band::after { content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; background: rgba(127,160,245,.14); }
+  .hero-band .org-mark { width: 56px; height: 56px; border-radius: 14px; flex: none; display: grid; place-items: center; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); }
+  .hero-band .org-mark [data-lucide] { width: 26px; height: 26px; color: #fff; }
+  .hero-band h1 { font-family: var(--serif); font-weight: 600; font-size: 26px; letter-spacing: -.01em; }
+  .hero-band .meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px; font-size: 12.5px; color: rgba(255,255,255,.72); }
+  .hero-band .meta .pill-line { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18); color: rgba(255,255,255,.9); }
+  .hero-band .hb-actions { margin-left: auto; display: flex; gap: 10px; position: relative; z-index: 1; }
+  .hero-band .btn-secondary { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.2); color: #fff; box-shadow: none; }
+  .hero-band .btn-secondary:hover { background: rgba(255,255,255,.18); }
+  .listcard .li { display: flex; align-items: center; gap: 13px; padding: 13px 0; border-bottom: 1px solid var(--divider); }
+  .listcard .li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .listcard .li .ldate { text-align: center; width: 46px; flex: none; }
+  .listcard .li .ldate .d { font-family: var(--serif); font-weight: 600; font-size: 19px; line-height: 1; color: #121620; }
+  .listcard .li .ldate .mo { font-size: 10.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--brand); margin-top: 3px; }
+  .listcard .li .lbody { flex: 1; min-width: 0; }
+  .listcard .li .lbody b { font-size: 13.5px; font-weight: 600; display: block; }
+  .listcard .li .lbody span { font-size: 12px; color: var(--text-3); }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" data-screen-label="Sidebar">
+    <div class="brand"><span class="logo-chip"><img src="public/logo-white.png" alt="Lawsome" /></span><span class="logo-mini"><img src="public/logo-mark.png" alt="Lawsome" /></span></div>
+    <nav class="nav-group">
+      <div class="lbl">Firm</div>
+      <a class="navitem active" href="Dashboard.html"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a class="navitem" href="Cases.html"><i data-lucide="folder-open"></i><span>Cases</span></a>
+      <a class="navitem" href="Branches.html"><i data-lucide="building-2"></i><span>Branches</span></a>
+      <a class="navitem" href="Lawyers.html"><i data-lucide="users"></i><span>Lawyers</span></a>
+      <a class="navitem" href="Clients.html"><i data-lucide="contact"></i><span>Clients</span></a>
+    </nav>
+    <nav class="nav-group">
+      <div class="lbl">Practice</div>
+      <a class="navitem" href="eCourts.html"><i data-lucide="landmark"></i><span>eCourts</span></a>
+      <a class="navitem" href="Cause List.html"><i data-lucide="calendar-days"></i><span>Cause List</span></a>
+      <a class="navitem" href="Billing.html"><i data-lucide="receipt-indian-rupee"></i><span>Billing</span></a>
+    </nav>
+    <div class="spacer"></div>
+    <nav class="nav-group"><a class="navitem" href="Organization.html"><i data-lucide="settings"></i><span>Settings</span></a></nav>
+    <div class="sidebar-foot">
+      <div class="userchip">
+        <span class="ava">RN</span>
+        <span class="who"><b>Adv. Ritika Nair</b><span>Partner · Delhi</span></span>
+        <i data-lucide="chevrons-up-down"></i>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="crumbs"><a href="#">Sharma &amp; Associates</a><i data-lucide="chevron-right"></i><span class="cur">Dashboard</span></div>
+      <div class="grow"></div>
+      <div class="searchbox"><i data-lucide="search"></i><input placeholder="Search cases, CNR, parties…" /><kbd>⌘K</kbd></div>
+      <button class="icon-btn" aria-label="Notifications"><i data-lucide="bell"></i><span class="badge">3</span></button>
+    </header>
+
+    <div class="scroll">
+      <div class="sheet" data-screen-label="Organization Dashboard">
+
+        <div class="hero-band">
+          <span class="org-mark"><i data-lucide="scale"></i></span>
+          <div>
+            <h1>Sharma &amp; Associates</h1>
+            <div class="meta">
+              <span class="pill pill-line">Full-service law firm</span>
+              <span>·</span><span>Est. 2009</span><span>·</span><span>4 branches</span><span>·</span><span>Bar Council of India</span>
+            </div>
+          </div>
+          <div class="hb-actions">
+            <button class="btn btn-secondary"><i data-lucide="download"></i> Export report</button>
+            <button class="btn btn-primary" onclick="location.href='Cases.html'"><i data-lucide="plus"></i> New Case</button>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="statcard">
+            <div class="st-top"><span class="st-ic"><i data-lucide="folder-open"></i></span><span class="st-delta"><i data-lucide="trending-up"></i> +12</span></div>
+            <div class="st-n">248</div><div class="st-l">Total cases <span style="color:var(--text-3)">· 18 this month</span></div>
+          </div>
+          <div class="statcard">
+            <div class="st-top"><span class="st-ic warn"><i data-lucide="gavel"></i></span><span class="st-delta"><i data-lucide="calendar-clock"></i> 14 this wk</span></div>
+            <div class="st-n">37</div><div class="st-l">Upcoming hearings</div>
+          </div>
+          <div class="statcard">
+            <div class="st-top"><span class="st-ic ok"><i data-lucide="circle-check-big"></i></span><span class="st-delta"><i data-lucide="trending-up"></i> +9</span></div>
+            <div class="st-n">1,214</div><div class="st-l">Resolved cases</div>
+          </div>
+          <div class="statcard">
+            <div class="st-top"><span class="st-ic violet"><i data-lucide="users"></i></span></div>
+            <div class="st-n">42</div><div class="st-l">Lawyers &amp; staff <span style="color:var(--text-3)">· 4 branches</span></div>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <div>
+            <div class="card card-pad">
+              <div class="sec-head"><h3><span class="ic"><i data-lucide="pie-chart"></i></span> Cases by status</h3><span class="pill pill-neutral">248 active matters</span></div>
+              <div class="meter">
+                <div class="m"><div class="mh"><span class="lbl"><span class="dot" style="background:var(--brand)"></span> In Progress</span><span class="val">96</span></div><div class="track"><div class="fill" style="width:39%;background:var(--brand)"></div></div></div>
+                <div class="m"><div class="mh"><span class="lbl"><span class="dot" style="background:#0e8a5f"></span> Open</span><span class="val">72</span></div><div class="track"><div class="fill" style="width:29%;background:#0e8a5f"></div></div></div>
+                <div class="m"><div class="mh"><span class="lbl"><span class="dot" style="background:#b06f16"></span> On Hold</span><span class="val">34</span></div><div class="track"><div class="fill" style="width:14%;background:#b06f16"></div></div></div>
+                <div class="m"><div class="mh"><span class="lbl"><span class="dot" style="background:#8c95a3"></span> Closed (this yr)</span><span class="val">46</span></div><div class="track"><div class="fill" style="width:18%;background:#8c95a3"></div></div></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="sec-head pd"><h3><span class="ic"><i data-lucide="history"></i></span> Recent activity</h3><button class="btn btn-ghost">View all <i data-lucide="arrow-right"></i></button></div>
+              <table class="tbl">
+                <thead><tr><th>Case</th><th>Branch</th><th>Update</th><th>When</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="who2"><span class="a av1">MT</span> Mehra Textiles v. SBI</div></td><td>Delhi</td><td>Listed for framing of issues</td><td>2 hrs ago</td></tr>
+                  <tr><td><div class="who2"><span class="a av2">RK</span> Rao v. Kohli Estates</div></td><td>Mumbai</td><td><span class="pill pill-ok">Order uploaded</span></td><td>5 hrs ago</td></tr>
+                  <tr><td><div class="who2"><span class="a av3">DP</span> Deccan Power v. MSEDCL</div></td><td>Pune</td><td>Rejoinder filed by K. Raman</td><td>Yesterday</td></tr>
+                  <tr><td><div class="who2"><span class="a av4">SG</span> State v. Gupta</div></td><td>Delhi</td><td><span class="pill pill-warn">Adjourned</span></td><td>Yesterday</td></tr>
+                  <tr><td><div class="who2"><span class="a av5">VE</span> Verma Estate (Probate)</div></td><td>Bengaluru</td><td>New client onboarded</td><td>2 days ago</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <div class="card card-pad listcard">
+              <div class="sec-head"><h3><span class="ic"><i data-lucide="calendar-clock"></i></span> Upcoming hearings</h3></div>
+              <div class="li"><div class="ldate"><div class="d">17</div><div class="mo">Jul</div></div><div class="lbody"><b>Mehra Textiles v. SBI</b><span>HC Delhi · Court 21 · Framing of issues</span></div></div>
+              <div class="li"><div class="ldate"><div class="d">18</div><div class="mo">Jul</div></div><div class="lbody"><b>Rao v. Kohli Estates</b><span>Bombay HC · Court 14 · Final arguments</span></div></div>
+              <div class="li"><div class="ldate"><div class="d">21</div><div class="mo">Jul</div></div><div class="lbody"><b>State v. Gupta</b><span>Sessions, Tis Hazari · Evidence</span></div></div>
+              <div class="li"><div class="ldate"><div class="d">23</div><div class="mo">Jul</div></div><div class="lbody"><b>Deccan Power v. MSEDCL</b><span>APTEL · Admission</span></div></div>
+            </div>
+
+            <div class="card">
+              <div class="sec-head pd"><h3><span class="ic"><i data-lucide="building-2"></i></span> Branches</h3></div>
+              <table class="tbl">
+                <thead><tr><th>Branch</th><th class="r">Cases</th><th class="r">Staff</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="who2"><span class="a av1">DL</span> Delhi (HQ)</div></td><td class="r">104</td><td class="r">16</td></tr>
+                  <tr><td><div class="who2"><span class="a av3">MU</span> Mumbai</div></td><td class="r">71</td><td class="r">12</td></tr>
+                  <tr><td><div class="who2"><span class="a av2">PU</span> Pune</div></td><td class="r">42</td><td class="r">8</td></tr>
+                  <tr><td><div class="who2"><span class="a av4">BL</span> Bengaluru</div></td><td class="r">31</td><td class="r">6</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });</script>
+</body>
+</html>
