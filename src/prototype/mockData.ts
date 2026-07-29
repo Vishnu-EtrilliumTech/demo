@@ -9,6 +9,10 @@
  */
 
 import type { PagedResponse } from '@/types/pagination';
+import type { Priority, Note, CaseFavourite, OrgTask, EcourtsImportRowResult } from '@/app/organization/types/calendarTypes';
+
+// Deterministic Priority cycle used to seed variety across Hearings/Tasks/Notes.
+const PRIORITY_CYCLE: Priority[] = ['Critical', 'High', 'Medium', 'Low', null];
 
 // ── Date helpers (deterministic-ish, computed once at module load) ────────────
 const now = Date.now();
@@ -32,6 +36,8 @@ export const organization = {
   createdDate: iso(-540),
   updatedDate: iso(-3),
   enabled: true,
+  // Calendar default item-type filter (Org Settings). null = all types available in this phase.
+  defaultCalendarItemTypes: null as ('Hearing' | 'Task' | 'Note')[] | null,
   currentUser: {
     id: '201',
     fullName: DEMO_NAME,
@@ -113,7 +119,22 @@ export const cases = caseTitles.map((title, i) => ({
   siteName: i % 3 === 2 ? 'Chennai Branch' : 'Bengaluru HQ',
   accessLevel: 'Full',
   hasCnrNumber: i % 4 !== 3,
+  // Case Archive: one seeded pre-archived case (index 11, "Public Bank Loan Recovery")
+  // demonstrates "Include archived" without requiring the user to archive one first.
+  archivedDate: i === 11 ? iso(-45) : null,
 }));
+
+// ── Case Favourites (per-user star) ───────────────────────────────────────────
+// Demo user (id '201') starts with two favourites seeded so "Favourites only" has
+// something to show immediately.
+export const caseFavourites: CaseFavourite[] = [
+  { userId: '201', caseId: cases[0].id, createdDate: iso(-30) },
+  { userId: '201', caseId: cases[2].id, createdDate: iso(-12) },
+];
+
+export function isCaseFavourite(userId: string, caseId: string): boolean {
+  return caseFavourites.some((f) => f.userId === userId && f.caseId === caseId);
+}
 
 // ── Hearings ───────────────────────────────────────────────────────────────────
 export const hearings = cases.slice(0, 8).map((c, i) => ({
@@ -134,6 +155,7 @@ export const hearings = cases.slice(0, 8).map((c, i) => ({
   status: i % 3 === 0 ? 'Scheduled' : 'Upcoming',
   hearingStatus: i % 3 === 0 ? 'Scheduled' : 'Upcoming',
   createdDate: iso(-10 + i),
+  priority: PRIORITY_CYCLE[i % PRIORITY_CYCLE.length],
 }));
 
 // ── Tasks ──────────────────────────────────────────────────────────────────────
@@ -150,7 +172,53 @@ export const tasks = cases.slice(0, 10).map((c, i) => ({
   createdDate: iso(-15 + i),
   modifiedDate: iso(-i),
   closedDate: '',
+  priority: PRIORITY_CYCLE[(i + 2) % PRIORITY_CYCLE.length],
 }));
+
+// ── Org/Site-scope Tasks (created from the Calendar — distinct from case tasks above) ─
+export const orgTasks: OrgTask[] = [
+  {
+    id: 'ot-1', organizationId: ORG_ID, siteId: null, caseId: null,
+    title: 'Prepare quarterly compliance report', description: 'Org-wide task, no case link.',
+    dueDate: iso(4), status: 'Open' as OrgTask['status'], assignedToId: '201', priority: 'High', createdById: '201',
+  },
+  {
+    id: 'ot-2', organizationId: ORG_ID, siteId: '101', caseId: null,
+    title: 'Site audit — Bengaluru HQ', description: 'Site-scoped task, no case link.',
+    dueDate: iso(7), status: 'Open' as OrgTask['status'], assignedToId: '202', priority: 'Medium', createdById: '201',
+  },
+];
+
+// ── Notes ──────────────────────────────────────────────────────────────────────
+export const notes: Note[] = [
+  {
+    id: 'note-1', organizationId: ORG_ID, siteId: null, caseId: null,
+    title: 'Firm-wide holiday notice', body: 'Office closed for the upcoming public holiday.',
+    noteDate: iso(6), priority: 'Low', taggedUserIds: ['201', '202', '203'],
+    createdById: '201', createdDate: iso(-2), updatedDate: iso(-2),
+  },
+  {
+    id: 'note-2', organizationId: ORG_ID, siteId: '101', caseId: null,
+    title: 'Bengaluru HQ team sync', body: 'Weekly sync — bring case status updates.',
+    noteDate: iso(3), priority: 'Medium', taggedUserIds: ['202', '204'],
+    createdById: '201', createdDate: iso(-1), updatedDate: iso(-1),
+  },
+  {
+    id: 'note-3', organizationId: ORG_ID, siteId: '101', caseId: cases[0].id,
+    title: 'Client wants early settlement', body: 'Discuss settlement options with the client before the next hearing.',
+    noteDate: iso(1), priority: 'Critical', taggedUserIds: ['201', '203', '204', '205', '206'],
+    createdById: '203', createdDate: iso(-1), updatedDate: iso(-1),
+  },
+  {
+    // Linked to the pre-archived case (cases[11]) — demonstrates FR-017: an
+    // archived case's Calendar items remain visible even though the case
+    // itself is hidden from the default case list.
+    id: 'note-4', organizationId: ORG_ID, siteId: cases[11].siteId ?? null, caseId: cases[11].id,
+    title: 'Follow up on recovery timeline', body: 'Case is archived but recovery follow-up is still pending.',
+    noteDate: iso(2), priority: 'Medium', taggedUserIds: ['201'],
+    createdById: '201', createdDate: iso(-1), updatedDate: iso(-1),
+  },
+];
 
 // ── Documents ────────────────────────────────────────────────────────────────
 export const documents = cases.slice(0, 8).map((c, i) => ({
@@ -328,6 +396,38 @@ export function buildEcourtSearchResults(q: Record<string, string> = {}) {
       caseCategory: 'Civil',
     };
   });
+}
+
+// ── eCourts bulk onboarding import ─────────────────────────────────────────────
+/** Mock bulk-import outcome per CNR: already-linked CNRs are reported as
+ *  AlreadyLinked, a deterministic "bad" CNR (ending in '000') demos an Error
+ *  row, everything else is created as a new Case + link. */
+export function importEcourtsCases(siteId: string, cnrNumbers: string[]): EcourtsImportRowResult[] {
+  const alreadyLinked = new Set(db_persistedCnrs());
+  return cnrNumbers.map((cnrNumber) => {
+    if (alreadyLinked.has(cnrNumber)) {
+      const existing = persistedEcourtCases.find((p) => p.cnrNumber === cnrNumber);
+      return { cnrNumber, status: 'AlreadyLinked', caseId: existing?.linkedCaseDetails?.[0]?.id ?? null, error: `CNR already linked to case ${existing?.linkedCaseDetails?.[0]?.id ?? 'unknown'}` };
+    }
+    if (cnrNumber.endsWith('000')) {
+      return { cnrNumber, status: 'Error', caseId: null, error: 'eCourts lookup failed for this CNR' };
+    }
+    const newCase = {
+      id: String(20000 + cases.length),
+      title: `Imported case ${cnrNumber}`,
+      description: 'Imported from eCourts onboarding bulk import.',
+      status: 'Open',
+      createdAt: iso(0), createdDate: iso(0), modifiedDate: iso(0), updatedAt: iso(0),
+      assignedToId: '201', caseNumber: `IMP/${cnrNumber.slice(-6)}`, cnrNumber, caseKey: `case-${cnrNumber}`,
+      createdById: '201', siteId, siteName: sites.find((s) => s.id === siteId)?.name ?? '',
+      accessLevel: 'Full', hasCnrNumber: true, archivedDate: null,
+    };
+    cases.push(newCase);
+    return { cnrNumber, status: 'Created', caseId: newCase.id, error: null };
+  });
+}
+function db_persistedCnrs(): string[] {
+  return persistedEcourtCases.map((p) => p.cnrNumber);
 }
 
 // ── eCourts quota ──────────────────────────────────────────────────────────────

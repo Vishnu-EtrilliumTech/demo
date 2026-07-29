@@ -1,13 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { Landmark, Search, Bookmark, History, RefreshCw } from "lucide-react";
+import { Landmark, Search, Bookmark, History, RefreshCw, UploadCloud } from "lucide-react";
 import { LuiRoot, Button, Tabs, type TabItem } from "@/design-system";
+import { useUserRole } from "@/hooks/useUserRole";
 import { SearchTabNew } from "./components/SearchTabNew";
 import { SavedCasesTabNew } from "./components/SavedCasesTabNew";
 import { HistoryTabNew } from "./components/HistoryTabNew";
+import BulkImportPanel from "./components/BulkImportPanel";
 
-const TABS: TabItem[] = [
+const BASE_TABS: TabItem[] = [
   { key: "search", label: "Search", icon: Search },
   { key: "saved", label: "Saved Cases", icon: Bookmark },
   { key: "history", label: "History", icon: History },
@@ -20,6 +22,11 @@ const TABS: TabItem[] = [
 export default function EcourtsNew({ orgId }: { orgId: string }) {
   const [tab, setTab] = useState("search");
   const [refreshKey, setRefreshKey] = useState(0);
+  const { isOrganizationAdmin } = useUserRole(orgId);
+
+  const TABS: TabItem[] = isOrganizationAdmin
+    ? [...BASE_TABS, { key: "import", label: "Bulk Import", icon: UploadCloud }]
+    : BASE_TABS;
 
   return (
     <LuiRoot>
@@ -46,6 +53,7 @@ export default function EcourtsNew({ orgId }: { orgId: string }) {
         {tab === "search" && <SearchTabNew organizationId={orgId} />}
         {tab === "saved" && <SavedCasesTabNew orgId={orgId} refreshKey={refreshKey} />}
         {tab === "history" && <HistoryTabNew orgId={orgId} refreshKey={refreshKey} />}
+        {tab === "import" && <BulkImportPanel organizationId={orgId} />}
       </div>
     </LuiRoot>
   );

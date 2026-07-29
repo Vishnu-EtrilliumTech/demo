@@ -16,6 +16,7 @@ import {
   Phone,
   Tag,
   LifeBuoy,
+  CalendarDays,
 } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -24,6 +25,7 @@ import { fetchOrganizationUserSites } from "@/app/organization/services/api";
 
 type NavKey =
   | "dashboard"
+  | "calendar"
   | "cases"
   | "ecourts"
   | "users"
@@ -56,12 +58,12 @@ interface OrgSidebarProps {
 }
 
 const roleNavMap: Record<string, NavKey[]> = {
-  OrganizationAdmin: ["dashboard", "cases", "ecourts", "users", "sites"],
-  OrganizationClerk: ["dashboard", "users", "sites"],
-  SiteAdmin: ["dashboard", "cases", "ecourts", "users" ],
-  SiteClerk: ["dashboard", "cases", "ecourts", "users"],
-  SiteSrLegalExpert: ["dashboard", "cases", "ecourts", "users", "my-site"],
-  SiteLegalExpert: ["dashboard", "cases", "ecourts", "users", "my-site"],
+  OrganizationAdmin: ["dashboard", "calendar", "cases", "ecourts", "users", "sites", "settings"],
+  OrganizationClerk: ["dashboard", "calendar", "users", "sites"],
+  SiteAdmin: ["dashboard", "calendar", "cases", "ecourts", "users" ],
+  SiteClerk: ["dashboard", "calendar", "cases", "ecourts", "users"],
+  SiteSrLegalExpert: ["dashboard", "calendar", "cases", "ecourts", "users", "my-site"],
+  SiteLegalExpert: ["dashboard", "calendar", "cases", "ecourts", "users", "my-site"],
 };
 
 export default function OrgSidebar({ organizationId = "", mobileOpen = false, onMobileClose }: OrgSidebarProps) {
@@ -132,6 +134,20 @@ export default function OrgSidebar({ organizationId = "", mobileOpen = false, on
       label: "Dashboard",
       href: dashbordHref,
       icon: LayoutDashboard,
+    },
+    {
+      key: "calendar",
+      label: "Calendar",
+      href: !organizationId
+        ? "#"
+        : (primaryRole === "SiteAdmin" ||
+              primaryRole === "SiteClerk" ||
+              primaryRole === "SiteSrLegalExpert" ||
+              primaryRole === "SiteLegalExpert") &&
+            siteId
+          ? `/organization/${organizationId}/sites/${siteId}/calendar`
+          : `/organization/${organizationId}/calendar`,
+      icon: CalendarDays,
     },
     {
       key: "cases",
@@ -258,17 +274,6 @@ export default function OrgSidebar({ organizationId = "", mobileOpen = false, on
       <nav className={`flex-1 py-4 px-2 space-y-0.5 overflow-hidden`}>
         {navItems.map(({ key, label, href, icon: Icon }) => {
           const active = isActive(href, key);
-          if (key === 'settings') {
-          return (
-            <div
-              key={key}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-500 opacity-50 cursor-not-allowed"
-            >
-              <Icon size={18} className="flex-shrink-0 text-slate-500" />
-              <span className={collapsed ? "md:hidden" : ""}>{label}</span>
-            </div>
-          );
-        }
 
         return (
           <Link

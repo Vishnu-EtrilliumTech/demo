@@ -1,4 +1,5 @@
 import type { CaseApiAccessLevel } from './caseindex';
+import type { Priority, CalendarItemType } from './calendarTypes';
 
 export interface OrganizationUpdatePayload {
   name: string;
@@ -115,6 +116,10 @@ export interface Case {
    * role-based gating.
    */
   accessLevel?: CaseApiAccessLevel;
+  /** Soft-archive marker. null/absent = active; set = archived (excluded from default case lists). */
+  archivedDate?: string | null;
+  /** Whether the current user has favourited this case (left-joined by the case list endpoint for the caller). */
+  isFavourite?: boolean;
 }
 
 export interface Hearing {
@@ -137,6 +142,8 @@ export interface Hearing {
   status?: string;       // site-level response
   hearingStatus?: string; // org-level response
   createdDate?: string;
+  /** Critical/High/Medium/Low; null/absent renders as Green/Default. */
+  priority?: Priority;
 }
 
 export interface Task {
@@ -152,6 +159,8 @@ export interface Task {
   createdDate: string;
   modifiedDate: string;
   closedDate: string;
+  /** Critical/High/Medium/Low; null/absent renders as Green/Default. */
+  priority?: Priority;
 }
 
 /**
@@ -183,6 +192,8 @@ export interface Organization {
   createdDate: string;
   updatedDate: string;
   enabled: boolean;
+  /** Default Calendar item-type filter (Org Settings). null = all types available in the current phase. */
+  defaultCalendarItemTypes?: CalendarItemType[] | null;
   currentUser: {
     id: string;
     /** User full name (empty string "" is valid) */

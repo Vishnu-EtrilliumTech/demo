@@ -362,12 +362,12 @@ export const useCaseHearings = (
   }, [selectedHearing, hearingDetailMode]);
 
   // Form change handlers
-  const handleHearingFormChange = useCallback((field: keyof AddCaseHearingRequest, value: string | number) => {
+  const handleHearingFormChange = useCallback((field: keyof AddCaseHearingRequest, value: string | number | null) => {
     setHearingForm(prev => ({ ...prev, [field]: value }));
     addHearingValidation.clearFieldError(field as string);
   }, [addHearingValidation]);
 
-  const handleEditHearingFormChange = useCallback((field: keyof UpdateCaseHearingRequest, value: string | number) => {
+  const handleEditHearingFormChange = useCallback((field: keyof UpdateCaseHearingRequest, value: string | number | null) => {
     setEditHearingForm(prev => ({ ...prev, [field]: value }));
     updateHearingValidation.clearFieldError(field as string);
   }, [updateHearingValidation]);

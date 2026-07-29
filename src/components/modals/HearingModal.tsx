@@ -9,6 +9,8 @@ import AddressAutocomplete from "@/components/AddressAutocomplete";
 import CourtLocationAutocomplete from "@/components/CourtLocationAutocomplete";
 import useGoogleMaps from "@/hooks/useGoogleMaps";
 import { CourtLocationSearchResult } from "@/app/organization/services/ecourtapi";
+import { PriorityPicker } from "@/components/modals/PriorityPicker";
+import type { Priority } from "@/app/organization/types/calendarTypes";
 
 interface HearingModalProps {
   open: boolean;
@@ -25,8 +27,9 @@ interface HearingModalProps {
     courtLocationId?: string;
     notes?: string;
     newAssigneeContributorAccessLevel?: ContributorAccessLevel;
+    priority?: Priority;
   };
-  onFormChange: (field: string, value: string | number) => void;
+  onFormChange: (field: string, value: string | number | null) => void;
   errors: Record<string, string>;
   apiErrors: string[] | null;
   onSetApiErrors: (errors: string[] | null) => void;
@@ -313,6 +316,13 @@ export default function HearingModal({
           value={formData.notes || ""}
           onChange={(e) => onFormChange("notes", e.target.value)}
           placeholder="Enter hearing notes"
+        />
+      </Field>
+
+      <Field label="Priority">
+        <PriorityPicker
+          value={formData.priority ?? null}
+          onChange={(p) => onFormChange("priority", p)}
         />
       </Field>
     </Dialog>

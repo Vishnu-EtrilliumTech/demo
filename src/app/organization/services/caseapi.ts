@@ -1384,3 +1384,58 @@ export const fetchAvailableContributorUsers = async (
 
   return normalizePage<AvailableUser>(response.data?.data);
 };
+
+// ── Case Favourites (§4.6) ───────────────────────────────────────────────────
+
+export const favouriteCase = async (
+  organizationId: string,
+  siteId: string,
+  caseId: string | number
+): Promise<void> => {
+  const token = await getToken();
+  await axios.put(
+    `${ORG_API_BASE_URL}/${organizationId}/sites/${siteId}/cases/${caseId}/favourite`,
+    {},
+    { headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } }
+  );
+};
+
+export const unfavouriteCase = async (
+  organizationId: string,
+  siteId: string,
+  caseId: string | number
+): Promise<void> => {
+  const token = await getToken();
+  await axios.delete(
+    `${ORG_API_BASE_URL}/${organizationId}/sites/${siteId}/cases/${caseId}/favourite`,
+    { headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } }
+  );
+};
+
+// ── Case Archive (§4.7) ──────────────────────────────────────────────────────
+
+export const archiveCase = async (
+  organizationId: string,
+  siteId: string,
+  caseId: string | number
+): Promise<void> => {
+  const token = await getToken();
+  await axios.put(
+    `${ORG_API_BASE_URL}/${organizationId}/sites/${siteId}/cases/${caseId}/archive`,
+    {},
+    { headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } }
+  );
+};
+
+export const unarchiveCase = async (
+  organizationId: string,
+  siteId: string,
+  caseId: string | number
+): Promise<void> => {
+  const token = await getToken();
+  await axios.put(
+    `${ORG_API_BASE_URL}/${organizationId}/sites/${siteId}/cases/${caseId}/unarchive`,
+    {},
+    { headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } }
+  );
+};

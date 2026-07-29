@@ -101,6 +101,13 @@ export const useUserRole = (organizationId: string) => {
   const canDeleteSiteUsers = isOrganizationAdmin; // Only admin can delete site users (org level)
   const canDeleteCases = isOrganizationAdmin || isSiteAdmin ; // Legal experts cannot delete cases
 
+  // Calendar / Notes / Tasks / Archive permissions (Unified Calendar feature)
+  const canViewCalendar = isOrganizationAdmin || isOrganizationClerk || isSiteAdmin || isSiteClerk || isSiteSrLegalExpert || isSiteLegalExpert;
+  const canCreateNote = canViewCalendar;
+  const canCreateTask = canViewCalendar;
+  const canArchiveCase = isOrganizationAdmin || isSiteAdmin;
+  const canConfigureCalendarDefaults = isOrganizationAdmin;
+
   // Site-level permissions
   const canEditSiteUsers = isSiteAdmin || isSiteSrLegalExpert || isSiteLegalExpert;
   const canDeleteSiteUsersAsSiteAdmin = isSiteAdmin;
@@ -138,6 +145,13 @@ export const useUserRole = (organizationId: string) => {
     canEditCases,
     canDeleteSiteUsers,
     canDeleteCases,
+
+    // Calendar / Notes / Tasks / Archive permissions
+    canViewCalendar,
+    canCreateNote,
+    canCreateTask,
+    canArchiveCase,
+    canConfigureCalendarDefaults,
 
     // Site-level permissions
     canEditSiteUsers,

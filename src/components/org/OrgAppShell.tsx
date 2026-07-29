@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
+  CalendarDays,
   Briefcase,
   Landmark,
   Users,
@@ -23,16 +24,16 @@ import { getUserInfo, logout } from "@/services/authServices";
 import { getRoleLabel } from "@/utils";
 import HeaderSearch from "./HeaderSearch";
 
-type NavKey = "dashboard" | "cases" | "ecourts" | "users" | "sites" | "settings" | "my-site";
+type NavKey = "dashboard" | "calendar" | "cases" | "ecourts" | "users" | "sites" | "settings" | "my-site";
 
 /** Mirror of OrgSidebar.roleNavMap — behaviour preserved, presentation restyled. */
 const roleNavMap: Record<string, NavKey[]> = {
-  OrganizationAdmin: ["dashboard", "cases", "ecourts", "users", "sites"],
-  OrganizationClerk: ["dashboard", "users", "sites"],
-  SiteAdmin: ["dashboard", "cases", "ecourts", "users"],
-  SiteClerk: ["dashboard", "cases", "ecourts", "users"],
-  SiteSrLegalExpert: ["dashboard", "cases", "ecourts", "users", "my-site"],
-  SiteLegalExpert: ["dashboard", "cases", "ecourts", "users", "my-site"],
+  OrganizationAdmin: ["dashboard", "calendar", "cases", "ecourts", "users", "sites", "settings"],
+  OrganizationClerk: ["dashboard", "calendar", "users", "sites"],
+  SiteAdmin: ["dashboard", "calendar", "cases", "ecourts", "users"],
+  SiteClerk: ["dashboard", "calendar", "cases", "ecourts", "users"],
+  SiteSrLegalExpert: ["dashboard", "calendar", "cases", "ecourts", "users", "my-site"],
+  SiteLegalExpert: ["dashboard", "calendar", "cases", "ecourts", "users", "my-site"],
 };
 
 interface OrgAppShellProps {
@@ -107,8 +108,18 @@ export default function OrgAppShell({ organizationId, children }: OrgAppShellPro
     return pathname.startsWith(href);
   };
 
+  const calendarHref =
+    (primaryRole === "SiteAdmin" ||
+      primaryRole === "SiteClerk" ||
+      primaryRole === "SiteSrLegalExpert" ||
+      primaryRole === "SiteLegalExpert") &&
+    siteId
+      ? `/organization/${organizationId}/sites/${siteId}/calendar`
+      : `/organization/${organizationId}/calendar`;
+
   const defs: Record<NavKey, Omit<NavItem, "active">> = {
     dashboard: { key: "dashboard", label: "Dashboard", icon: LayoutDashboard, href: dashboardHref },
+    calendar: { key: "calendar", label: "Calendar", icon: CalendarDays, href: calendarHref },
     cases: { key: "cases", label: "Cases", icon: Briefcase, href: `/organization/${organizationId}/cases` },
     ecourts: { key: "ecourts", label: "eCourts", icon: Landmark, href: `/organization/${organizationId}/ecourts` },
     users: { key: "users", label: "Users", icon: Users, href: `/organization/${organizationId}/users` },
@@ -124,22 +135,22 @@ export default function OrgAppShell({ organizationId, children }: OrgAppShellPro
       label: "Settings",
       icon: Settings,
       href: `/organization/${organizationId}/settings`,
-      disabled: true,
     },
   };
 
   const allowed = primaryRole ? (roleNavMap[primaryRole] ?? []) : [];
   const item = (key: NavKey): NavItem => ({ ...defs[key], active: isActive(key, defs[key].href ?? "#") });
 
-  const firmKeys: NavKey[] = (["dashboard", "cases", "users", "sites", "my-site"] as NavKey[]).filter((k) =>
+  const firmKeys: NavKey[] = (["dashboard", "calendar", "cases", "users", "sites", "my-site"] as NavKey[]).filter((k) =>
     allowed.includes(k),
   );
   const practiceKeys: NavKey[] = (["ecourts"] as NavKey[]).filter((k) => allowed.includes(k));
+  const settingsKeys: NavKey[] = (["settings"] as NavKey[]).filter((k) => allowed.includes(k));
 
   const navGroups: NavGroup[] = [];
   if (firmKeys.length) navGroups.push({ label: "Firm", items: firmKeys.map(item) });
   if (practiceKeys.length) navGroups.push({ label: "Practice", items: practiceKeys.map(item) });
-  // navGroups.push({ label: "Settings", items: [item("settings")] });
+  if (settingsKeys.length) navGroups.push({ label: "Settings", items: settingsKeys.map(item) });
 
   const roleLabel = primaryRole ? getRoleLabel(primaryRole) : "";
   const initials = userName ? userName.charAt(0).toUpperCase() : "?";

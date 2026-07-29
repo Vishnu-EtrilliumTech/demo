@@ -3,7 +3,7 @@
 import { use, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMediaQuery } from "@mui/material";
-import { FolderOpen, Plus, Search, List, LayoutGrid, FilterX, Fingerprint, CalendarClock } from "lucide-react";
+import { FolderOpen, Plus, Search, List, LayoutGrid, FilterX, Fingerprint, CalendarClock, Star, MoreVertical, Archive, ArchiveRestore } from "lucide-react";
 
 import {
   LuiRoot,
@@ -13,6 +13,7 @@ import {
   EmptyState,
   DataTable,
   Pagination,
+  Toggle,
   type Column,
 } from "@/design-system";
 import { useUserRole } from "@/hooks/useUserRole";
@@ -24,6 +25,7 @@ import {
   fetchOrganizationUserSites,
   fetchOrganizationSites,
 } from "@/app/organization/services/api";
+import { favouriteCase, unfavouriteCase, archiveCase, unarchiveCase } from "@/app/organization/services/caseapi";
 import { Case, CaseStatus, User, Site } from "@/app/organization/types";
 import type { CaseListFilters, SiteCaseListFilters } from "@/app/organization/types/listFilterTypes";
 import QuickAddCaseDialog from "@/app/organization/components/cases/QuickAddCaseDialog";
@@ -79,7 +81,7 @@ export default function CasesNew({ params }: { params: Promise<{ id: string }> }
     useListQuery<CaseListFilters>({
       defaultSort: { sortBy: "createdDate", sortDirection: "desc" },
       sortableFields: ["createdDate", "title", "caseNumber", "status"],
-      filterKeys: ["status", "siteId", "assignedExpertId", "clientId", "search"],
+      filterKeys: ["status", "siteId", "assignedExpertId", "clientId", "search", "favouritesOnly", "includeArchived"],
     });
 
   const [casesMeta, setCasesMeta] = useState<PagedResponse<Case> | null>(null);
@@ -91,6 +93,8 @@ export default function CasesNew({ params }: { params: Promise<{ id: string }> }
   const [addCaseOpen, setAddCaseOpen] = useState(false);
   const [view, setView] = useState<"table" | "card">("table");
   const [searchInput, setSearchInput] = useState(listState.filters.search ?? "");
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const [mutatingCaseId, setMutatingCaseId] = useState<string | null>(null);
 
   // Default to card view on mobile (table is unusable at narrow widths);
   // desktop keeps "table" as before. Only set the default once on mount —
@@ -201,12 +205,49 @@ export default function CasesNew({ params }: { params: Promise<{ id: string }> }
     [router, organizationId],
   );
 
+  const handleToggleFavourite = useCallback(
+    async (c: Case) => {
+      if (!c.siteId) return;
+      setMutatingCaseId(String(c.id));
+      try {
+        if (c.isFavourite) await unfavouriteCase(organizationId, c.siteId, c.id);
+        else await favouriteCase(organizationId, c.siteId, c.id);
+        await loadCases();
+      } catch {
+        showError("Failed to update favourite status.");
+      } finally {
+        setMutatingCaseId(null);
+      }
+    },
+    [organizationId, loadCases, showError],
+  );
+
+  const handleToggleArchive = useCallback(
+    async (c: Case) => {
+      if (!c.siteId) return;
+      setOpenMenuId(null);
+      setMutatingCaseId(String(c.id));
+      try {
+        if (c.archivedDate) await unarchiveCase(organizationId, c.siteId, c.id);
+        else await archiveCase(organizationId, c.siteId, c.id);
+        await loadCases();
+      } catch {
+        showError("Failed to update archive status.");
+      } finally {
+        setMutatingCaseId(null);
+      }
+    },
+    [organizationId, loadCases, showError],
+  );
+
   const hasActiveFilters =
     !!listState.filters.status ||
     (!siteIdFromQuery && !!listState.filters.siteId) ||
     !!listState.filters.assignedExpertId ||
     !!listState.filters.clientId ||
-    !!listState.filters.search;
+    !!listState.filters.search ||
+    !!listState.filters.favouritesOnly ||
+    !!listState.filters.includeArchived;
 
   const handleClearFilters = useCallback(() => {
     if (siteIdFromQuery) {
@@ -214,6 +255,8 @@ export default function CasesNew({ params }: { params: Promise<{ id: string }> }
       setFilter("search", undefined);
       setFilter("assignedExpertId", undefined);
       setFilter("clientId", undefined);
+      setFilter("favouritesOnly", undefined);
+      setFilter("includeArchived", undefined);
     } else {
       clearFilters();
     }
@@ -232,6 +275,25 @@ export default function CasesNew({ params }: { params: Promise<{ id: string }> }
   const assignedName = (c: Case) => userMap.get(String(c.assignedToId)) || "—";
 
   const columns: Column<Case>[] = [
+    {
+      key: "favourite",
+      header: "",
+      render: (c) => (
+        <button
+          type="button"
+          aria-label={c.isFavourite ? "Unfavourite case" : "Favourite case"}
+          aria-pressed={!!c.isFavourite}
+          disabled={mutatingCaseId === String(c.id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleToggleFavourite(c);
+          }}
+          style={{ border: "none", background: "transparent", cursor: "pointer", display: "inline-flex", padding: 4 }}
+        >
+          <Star width={16} height={16} fill={c.isFavourite ? "#f9a825" : "none"} color={c.isFavourite ? "#f9a825" : "#9aa0a6"} />
+        </button>
+      ),
+    },
     {
       key: "title",
       header: "Case",
@@ -253,9 +315,16 @@ export default function CasesNew({ params }: { params: Promise<{ id: string }> }
       header: "Status",
       sortField: "status",
       render: (c) => (
-        <Pill tone={caseStatusTone(c.status)} dot>
-          {CASE_STATUS_LABEL[c.status] ?? c.status}
-        </Pill>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+          <Pill tone={caseStatusTone(c.status)} dot>
+            {CASE_STATUS_LABEL[c.status] ?? c.status}
+          </Pill>
+          {c.archivedDate && (
+            <Pill tone="neutral" dot={false}>
+              Archived
+            </Pill>
+          )}
+        </span>
       ),
     },
     {
@@ -273,6 +342,70 @@ export default function CasesNew({ params }: { params: Promise<{ id: string }> }
           </span>
         );
       },
+    },
+    {
+      key: "actions",
+      header: "",
+      render: (c) => (
+        <span style={{ position: "relative", display: "inline-flex" }}>
+          <button
+            type="button"
+            aria-label="Case actions"
+            aria-haspopup="menu"
+            aria-expanded={openMenuId === String(c.id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpenMenuId(openMenuId === String(c.id) ? null : String(c.id));
+            }}
+            style={{ border: "none", background: "transparent", cursor: "pointer", display: "inline-flex", padding: 4 }}
+          >
+            <MoreVertical width={16} height={16} />
+          </button>
+          {openMenuId === String(c.id) && (
+            <>
+              <button
+                type="button"
+                aria-hidden
+                tabIndex={-1}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenMenuId(null);
+                }}
+                style={{ position: "fixed", inset: 0, zIndex: 10, border: "none", background: "transparent", cursor: "default" }}
+              />
+              <div
+                role="menu"
+                style={{
+                  position: "absolute",
+                  top: "100%",
+                  right: 0,
+                  background: "var(--surface, #fff)",
+                  border: "1px solid var(--border, #e2e2e2)",
+                  borderRadius: 6,
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
+                  padding: 4,
+                  zIndex: 11,
+                  minWidth: 160,
+                }}
+              >
+                <button
+                  type="button"
+                  role="menuitem"
+                  disabled={mutatingCaseId === String(c.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleToggleArchive(c);
+                  }}
+                  style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", border: 0, background: "transparent", fontSize: 13, padding: "6px 8px", borderRadius: 4, cursor: "pointer", textAlign: "left" }}
+                >
+                  {c.archivedDate ? <ArchiveRestore width={14} height={14} /> : <Archive width={14} height={14} />}
+                  {c.archivedDate ? "Unarchive" : "Archive"}
+                </button>
+              </div>
+            </>
+          )}
+        </span>
+      ),
     },
   ];
 
@@ -372,6 +505,22 @@ export default function CasesNew({ params }: { params: Promise<{ id: string }> }
               </select>
             </div>
           )}
+          <label style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
+            <Toggle
+              checked={listState.filters.favouritesOnly === "true"}
+              onChange={(next) => setFilter("favouritesOnly", next ? "true" : undefined)}
+              aria-label="Favourites only"
+            />
+            Favourites only
+          </label>
+          <label style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
+            <Toggle
+              checked={listState.filters.includeArchived === "true"}
+              onChange={(next) => setFilter("includeArchived", next ? "true" : undefined)}
+              aria-label="Include archived"
+            />
+            Include archived
+          </label>
           {hasActiveFilters && (
             <Button variant="ghost" icon={FilterX} onClick={handleClearFilters}>
               <span className="btn-label">Clear</span>

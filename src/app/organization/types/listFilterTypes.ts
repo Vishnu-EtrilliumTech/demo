@@ -13,6 +13,10 @@ export interface CaseListFilters {
   from?: string;
   to?: string;
   search?: string;
+  /** "true" to restrict to the current user's favourited cases (§4.6). */
+  favouritesOnly?: string;
+  /** "true" to include archived cases (excluded by default, §4.7). */
+  includeArchived?: string;
   [key: string]: string | undefined;
 }
 
@@ -23,6 +27,10 @@ export interface SiteCaseListFilters {
   from?: string;
   to?: string;
   search?: string;
+  /** "true" to restrict to the current user's favourited cases (§4.6). */
+  favouritesOnly?: string;
+  /** "true" to include archived cases (excluded by default, §4.7). */
+  includeArchived?: string;
   [key: string]: string | undefined;
 }
 

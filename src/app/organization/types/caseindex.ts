@@ -224,6 +224,7 @@ export interface AddCaseTaskRequest extends Record<string, unknown> {
   status: TaskStatus;
   /** Optional: grant the assignee case access on save. Omit → backend defaults to ViewOnly. */
   newAssigneeContributorAccessLevel?: ContributorAccessLevel;
+  priority?: import('./calendarTypes').Priority;
 }
 
 export interface UpdateCaseTaskRequest extends Record<string, unknown> {
@@ -234,6 +235,7 @@ export interface UpdateCaseTaskRequest extends Record<string, unknown> {
   status: TaskStatus;
   /** Optional: grant the assignee case access on save. Omit → backend defaults to ViewOnly. */
   newAssigneeContributorAccessLevel?: ContributorAccessLevel;
+  priority?: import('./calendarTypes').Priority;
 }
 
 export interface CaseTask {
@@ -247,6 +249,8 @@ export interface CaseTask {
   status: TaskStatus;
   createdAt: string;
   updatedAt?: string;
+  /** Critical/High/Medium/Low; null/absent renders as Green/Default. */
+  priority?: import('./calendarTypes').Priority;
 }
 
 export interface CaseTaskResponse {
@@ -363,6 +367,7 @@ export interface AddCaseHearingRequest extends Record<string, unknown> {
   notes?: string;
   /** Optional: grant the assignee case access on save. Omit → backend defaults to ViewOnly. */
   newAssigneeContributorAccessLevel?: ContributorAccessLevel;
+  priority?: import('./calendarTypes').Priority;
 }
 
 export interface UpdateCaseHearingRequest extends Record<string, unknown> {
@@ -377,6 +382,7 @@ export interface UpdateCaseHearingRequest extends Record<string, unknown> {
   notes?: string;
   /** Optional: grant the assignee case access on save. Omit → backend defaults to ViewOnly. */
   newAssigneeContributorAccessLevel?: ContributorAccessLevel;
+  priority?: import('./calendarTypes').Priority;
 }
 
 export interface CaseHearing {
@@ -395,6 +401,8 @@ export interface CaseHearing {
   notes?: string;
   createdAt: string;
   updatedAt?: string;
+  /** Critical/High/Medium/Low; null/absent renders as Green/Default. */
+  priority?: import('./calendarTypes').Priority;
 }
 
 export interface CaseHearingResponse {

@@ -96,11 +96,11 @@ interface HearingsTabProps {
   onCloseAddHearing: () => void;
   onHearingFormChange: (
     field: keyof AddCaseHearingRequest,
-    value: string | number,
+    value: string | number | null,
   ) => void;
   onEditHearingFormChange: (
     field: keyof UpdateCaseHearingRequest,
-    value: string | number,
+    value: string | number | null,
   ) => void;
   onAddHearing: (onSuccess?: () => void) => Promise<void>;
   onUpdateHearing: (onSuccess?: () => void) => Promise<void>;
