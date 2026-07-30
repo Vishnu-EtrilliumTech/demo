@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { ChevronLeft, ChevronRight, ChevronDown, Plus, Gavel, ListTodo, StickyNote, Bell } from "lucide-react";
 import { Dialog, Field } from "@/design-system";
 import HearingModal from "@/components/modals/HearingModal";
@@ -23,7 +23,7 @@ import CalendarDayView from "./CalendarDayView";
 import NoteModal, { type NoteFormValue } from "./NoteModal";
 import TaskModal, { type TaskFormValue } from "./TaskModal";
 import RemindersPanel from "./RemindersPanel";
-import { addMonths, addDays, formatMonthYear } from "./calendarDateUtils";
+import { addMonths, addDays, formatMonthYear, toDatetimeLocalValue } from "./calendarDateUtils";
 import "./calendarGrid.css";
 
 interface CalendarViewProps {
@@ -34,9 +34,20 @@ interface CalendarViewProps {
 
 type AddKind = "Hearing" | "Task" | "Note" | null;
 
-const emptyHearingForm = () => ({
+/** Clamps a small popover near a clicked element's rect so it stays on-screen. */
+function positionNear(rect: DOMRect, width = 220, height = 160): { top: number; left: number } {
+  let left = rect.left;
+  let top = rect.bottom + 6;
+  if (typeof window !== "undefined") {
+    if (left + width > window.innerWidth - 12) left = window.innerWidth - width - 12;
+    if (top + height > window.innerHeight - 12) top = Math.max(8, rect.top - height - 6);
+  }
+  return { top: Math.max(8, top), left: Math.max(8, left) };
+}
+
+const emptyHearingForm = (seedDate?: Date | null) => ({
   assignedToId: "",
-  hearingDateTime: "",
+  hearingDateTime: seedDate ? toDatetimeLocalValue(seedDate) : "",
   status: HearingStatus.Scheduled,
   courtName: "",
   googleMapLocation: "",
@@ -56,6 +67,16 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
   const [miniMonth, setMiniMonth] = useState(() => new Date());
   const [addMenuOpen, setAddMenuOpen] = useState(false);
   const [addKind, setAddKind] = useState<AddKind>(null);
+  // Set when the user clicks a specific day cell / time slot on the grid — a
+  // small popup opens near the click offering Hearing/Task/Note (popoverPos
+  // controls the popup itself); whichever type is chosen defaults its date
+  // field to pendingSeedDate rather than "now" (mirrors the
+  // click-a-day-to-create convention from the retired Diary scaffolding).
+  // pendingSeedDate outlives the popup's own open/closed state — it stays set
+  // through the rest of the create flow until the item modal closes.
+  const [popoverPos, setPopoverPos] = useState<{ top: number; left: number } | null>(null);
+  const [pendingSeedDate, setPendingSeedDate] = useState<Date | null>(null);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [remindersOpen, setRemindersOpen] = useState(false);
   const today = useMemo(() => new Date(), []);
   const viewMenuRef = useRef<HTMLDivElement>(null);
@@ -137,12 +158,13 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
 
   const openAdd = (kind: AddKind) => {
     setAddMenuOpen(false);
+    setPopoverPos(null);
     setAddKind(kind);
     setEditingNote(null);
     setEditingTask(null);
     if (kind === "Hearing") {
       setHearingCase(null);
-      setHearingForm(emptyHearingForm());
+      setHearingForm(emptyHearingForm(pendingSeedDate));
     }
   };
 
@@ -151,6 +173,17 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
     setEditingNote(null);
     setEditingTask(null);
     setHearingCase(null);
+    setPendingSeedDate(null);
+  };
+
+  /** Clicking a day cell (Month view) or time slot (Week/Day view) opens a
+   * small popup near the click with Hearing/Task/Note choices, seeded with
+   * that date so the chosen item type defaults to the date/time clicked
+   * rather than "now". */
+  const onGridDateClick = (d: Date, e: ReactMouseEvent<HTMLElement>) => {
+    cal.setAnchorDate(d);
+    setPendingSeedDate(d);
+    setPopoverPos(positionNear(e.currentTarget.getBoundingClientRect()));
   };
 
   const handleSubmitNote = async (value: NoteFormValue) => {
@@ -288,9 +321,26 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
       </header>
 
       <div className="gcal-body">
-        <aside className="gcal-sidebar">
+        <button
+          type="button"
+          className={`gcal-sidebar-toggle${sidebarCollapsed ? " collapsed" : ""}`}
+          aria-label={sidebarCollapsed ? "Show sidebar" : "Hide sidebar"}
+          aria-expanded={!sidebarCollapsed}
+          onClick={() => setSidebarCollapsed((v) => !v)}
+        >
+          {sidebarCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+        </button>
+        <aside className={`gcal-sidebar${sidebarCollapsed ? " collapsed" : ""}`} aria-hidden={sidebarCollapsed}>
           <div className="gcal-create-menu" ref={addMenuRef}>
-            <button type="button" className="gcal-create-btn" onClick={() => setAddMenuOpen((v) => !v)}>
+            <button
+              type="button"
+              className="gcal-create-btn"
+              onClick={() => {
+                setPendingSeedDate(null);
+                setPopoverPos(null);
+                setAddMenuOpen((v) => !v);
+              }}
+            >
               <span className="gcal-create-plus">
                 <Plus size={22} />
               </span>
@@ -344,7 +394,7 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
               monthDate={cal.anchorDate}
               items={cal.items}
               today={today}
-              onDayClick={(d) => cal.setAnchorDate(d)}
+              onDayClick={onGridDateClick}
               onItemClick={(item) => onItemClick(item)}
               onMoreClick={(d) => cal.setAnchorDate(d)}
               onPriorityChange={onPriorityChange}
@@ -355,7 +405,7 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
               anchorDate={cal.anchorDate}
               items={cal.items}
               today={today}
-              onSlotClick={() => undefined}
+              onSlotClick={onGridDateClick}
               onItemClick={(item) => onItemClick(item)}
             />
           )}
@@ -364,12 +414,77 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
               anchorDate={cal.anchorDate}
               items={cal.items}
               today={today}
-              onSlotClick={() => undefined}
+              onSlotClick={onGridDateClick}
               onItemClick={(item) => onItemClick(item)}
             />
           )}
         </main>
       </div>
+
+      {popoverPos && (
+        <>
+          <button
+            type="button"
+            aria-hidden
+            tabIndex={-1}
+            onClick={() => setPopoverPos(null)}
+            style={{ position: "fixed", inset: 0, zIndex: 100, border: "none", background: "transparent", cursor: "default" }}
+          />
+          <div
+            role="menu"
+            aria-label="Create at this date"
+            style={{
+              position: "fixed",
+              top: popoverPos.top,
+              left: popoverPos.left,
+              zIndex: 101,
+              background: "var(--surface, #fff)",
+              border: "1px solid var(--border, #e2e2e2)",
+              borderRadius: "var(--r-sm, 8px)",
+              boxShadow: "var(--sh, 0 4px 16px rgba(0,0,0,0.15))",
+              padding: 4,
+              minWidth: 200,
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+            }}
+          >
+            {pendingSeedDate && (
+              <div style={{ padding: "8px 10px 4px", fontSize: 12, opacity: 0.6, fontWeight: 600 }}>
+                {pendingSeedDate.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
+              </div>
+            )}
+            <button
+              type="button"
+              role="menuitem"
+              onClick={() => openAdd("Hearing")}
+              style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", textAlign: "left", border: 0, background: "transparent", font: "inherit", fontSize: 13, padding: "8px 10px", borderRadius: 4, cursor: "pointer" }}
+            >
+              <Gavel size={16} /> Hearing
+            </button>
+            {canCreateTask && (
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => openAdd("Task")}
+                style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", textAlign: "left", border: 0, background: "transparent", font: "inherit", fontSize: 13, padding: "8px 10px", borderRadius: 4, cursor: "pointer" }}
+              >
+                <ListTodo size={16} /> Task
+              </button>
+            )}
+            {canCreateNote && (
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => openAdd("Note")}
+                style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", textAlign: "left", border: 0, background: "transparent", font: "inherit", fontSize: 13, padding: "8px 10px", borderRadius: 4, cursor: "pointer" }}
+              >
+                <StickyNote size={16} /> Note
+              </button>
+            )}
+          </div>
+        </>
+      )}
 
       {/* Hearing "+Add" flow: pick a case first, then the full Hearing form */}
       {addKind === "Hearing" && !hearingCase && (
@@ -405,6 +520,7 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
         isSubmitting={tasksHook.isSubmitting}
         existing={editingTask}
         onDelete={editingTask ? handleDeleteTask : undefined}
+        seedDate={pendingSeedDate}
       />
 
       <NoteModal
@@ -417,6 +533,7 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
         isSubmitting={notesHook.isSubmitting}
         existing={editingNote}
         onDelete={editingNote ? handleDeleteNote : undefined}
+        seedDate={pendingSeedDate}
       />
 
       {remindersOpen && (

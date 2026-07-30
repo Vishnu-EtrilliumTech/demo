@@ -8,6 +8,7 @@ import { CasePickerAutocomplete } from "@/components/modals/CasePickerAutocomple
 import { TaskStatus } from "@/app/organization/types/caseindex";
 import type { Case, Site, User } from "@/app/organization/types";
 import type { OrgTask, Priority } from "@/app/organization/types/calendarTypes";
+import { toDatetimeLocalValue } from "./calendarDateUtils";
 
 type TaskScope = "Org" | "Site" | "Case";
 
@@ -33,23 +34,25 @@ interface TaskModalProps {
   isSubmitting: boolean;
   existing?: OrgTask | null;
   onDelete?: () => void;
+  /** Pre-fill the due date field with this date (e.g. the Calendar day/slot the user clicked to create from). Ignored when editing. */
+  seedDate?: Date | null;
 }
 
-const emptyValue = (): TaskFormValue => ({
+const emptyValue = (seedDate?: Date | null): TaskFormValue => ({
   scope: "Org",
   siteId: "",
   linkedCase: null,
   title: "",
   description: "",
-  dueDate: "",
+  dueDate: seedDate ? toDatetimeLocalValue(seedDate) : "",
   status: TaskStatus.Open,
   assignedToId: "",
   priority: null,
 });
 
 /** Create/edit an Org/Site/Case-scope Task from the Calendar. */
-export default function TaskModal({ open, onClose, onSubmit, organizationId, sites, users, isSubmitting, existing, onDelete }: TaskModalProps) {
-  const [value, setValue] = useState<TaskFormValue>(emptyValue());
+export default function TaskModal({ open, onClose, onSubmit, organizationId, sites, users, isSubmitting, existing, onDelete, seedDate }: TaskModalProps) {
+  const [value, setValue] = useState<TaskFormValue>(() => emptyValue(seedDate));
 
   useEffect(() => {
     if (!open) return;
@@ -60,14 +63,15 @@ export default function TaskModal({ open, onClose, onSubmit, organizationId, sit
         linkedCase: null,
         title: existing.title,
         description: existing.description ?? "",
-        dueDate: existing.dueDate ? existing.dueDate.slice(0, 16) : "",
+        dueDate: existing.dueDate ? toDatetimeLocalValue(new Date(existing.dueDate)) : "",
         status: existing.status,
         assignedToId: existing.assignedToId ?? "",
         priority: existing.priority,
       });
     } else {
-      setValue(emptyValue());
+      setValue(emptyValue(seedDate));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, existing]);
 
   return (

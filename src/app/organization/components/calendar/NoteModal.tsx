@@ -7,6 +7,7 @@ import { PriorityPicker } from "@/components/modals/PriorityPicker";
 import { CasePickerAutocomplete } from "@/components/modals/CasePickerAutocomplete";
 import type { Case, Site, User } from "@/app/organization/types";
 import type { Note, Priority } from "@/app/organization/types/calendarTypes";
+import { toDatetimeLocalValue } from "./calendarDateUtils";
 
 type NoteScope = "Org" | "Site" | "Case";
 
@@ -31,24 +32,26 @@ interface NoteModalProps {
   isSubmitting: boolean;
   existing?: Note | null;
   onDelete?: () => void;
+  /** Pre-fill the date field with this date (e.g. the Calendar day/slot the user clicked to create from). Ignored when editing. */
+  seedDate?: Date | null;
 }
 
 const MAX_TAG_CHIPS = 4;
 
-const emptyValue = (): NoteFormValue => ({
+const emptyValue = (seedDate?: Date | null): NoteFormValue => ({
   scope: "Org",
   siteId: "",
   linkedCase: null,
   title: "",
   body: "",
-  noteDate: new Date().toISOString().slice(0, 16),
+  noteDate: toDatetimeLocalValue(seedDate ?? new Date()),
   taggedUserIds: [],
   priority: null,
 });
 
 /** Create/edit a Note: Org/Site/Case scope, unlimited tagged people, Priority. */
-export default function NoteModal({ open, onClose, onSubmit, organizationId, sites, users, isSubmitting, existing, onDelete }: NoteModalProps) {
-  const [value, setValue] = useState<NoteFormValue>(emptyValue());
+export default function NoteModal({ open, onClose, onSubmit, organizationId, sites, users, isSubmitting, existing, onDelete, seedDate }: NoteModalProps) {
+  const [value, setValue] = useState<NoteFormValue>(() => emptyValue(seedDate));
 
   useEffect(() => {
     if (!open) return;
@@ -59,13 +62,14 @@ export default function NoteModal({ open, onClose, onSubmit, organizationId, sit
         linkedCase: null,
         title: existing.title,
         body: existing.body ?? "",
-        noteDate: existing.noteDate.slice(0, 16),
+        noteDate: toDatetimeLocalValue(new Date(existing.noteDate)),
         taggedUserIds: existing.taggedUserIds,
         priority: existing.priority,
       });
     } else {
-      setValue(emptyValue());
+      setValue(emptyValue(seedDate));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, existing]);
 
   const taggedNames = value.taggedUserIds

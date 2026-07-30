@@ -136,9 +136,39 @@
 .gcal-viewmenu-item.active { font-weight: 600; }
 
 /* Body: sidebar + main */
-.gcal-body { flex: 1; display: flex; min-height: 0; }
+.gcal-body { flex: 1; display: flex; min-height: 0; position: relative; }
 
-.gcal-sidebar { width: 256px; flex: 0 0 auto; padding: 16px 12px 0; overflow-y: auto; }
+.gcal-sidebar {
+  width: 256px;
+  flex: 0 0 auto;
+  padding: 16px 12px 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  white-space: nowrap;
+  transition: width 0.18s ease, padding 0.18s ease, opacity 0.12s ease;
+}
+.gcal-sidebar.collapsed { width: 0; padding-left: 0; padding-right: 0; opacity: 0; pointer-events: none; }
+
+.gcal-sidebar-toggle {
+  position: absolute;
+  top: 16px;
+  left: 244px;
+  z-index: 15;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #dadce0;
+  background: #fff;
+  color: #5f6368;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3);
+  transition: left 0.18s ease;
+}
+.gcal-sidebar-toggle:hover { background: #f1f3f4; color: #3c4043; }
+.gcal-sidebar-toggle.collapsed { left: 4px; }
 
 .gcal-create-btn {
   display: flex;
