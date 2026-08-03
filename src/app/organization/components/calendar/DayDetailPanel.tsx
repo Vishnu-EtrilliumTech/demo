@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { X, Gavel, ListTodo, StickyNote, CalendarClock } from "lucide-react";
+import { X, Gavel, ListTodo, StickyNote, CalendarClock, Plus } from "lucide-react";
 import { PriorityPicker } from "@/components/modals/PriorityPicker";
 import type { CalendarItem, CalendarItemType, Priority } from "@/app/organization/types/calendarTypes";
 import { priorityColor } from "@/app/organization/types/calendarTypes";
@@ -70,16 +70,37 @@ export default function DayDetailPanel({
       </div>
 
       <div className="gcal-daypanel-add">
-        <button type="button" className="gcal-daypanel-addbtn" onClick={() => onAdd("Hearing")}>
+        <button
+          type="button"
+          className="gcal-daypanel-addbtn"
+          title="Add a hearing on this date"
+          aria-label="Add a hearing on this date"
+          onClick={() => onAdd("Hearing")}
+        >
+          <Plus size={12} className="gcal-daypanel-addbtn-plus" aria-hidden />
           <Gavel size={14} /> Hearing
         </button>
         {canCreateTask && (
-          <button type="button" className="gcal-daypanel-addbtn" onClick={() => onAdd("Task")}>
+          <button
+            type="button"
+            className="gcal-daypanel-addbtn"
+            title="Add a task on this date"
+            aria-label="Add a task on this date"
+            onClick={() => onAdd("Task")}
+          >
+            <Plus size={12} className="gcal-daypanel-addbtn-plus" aria-hidden />
             <ListTodo size={14} /> Task
           </button>
         )}
         {canCreateNote && (
-          <button type="button" className="gcal-daypanel-addbtn" onClick={() => onAdd("Note")}>
+          <button
+            type="button"
+            className="gcal-daypanel-addbtn"
+            title="Add a note on this date"
+            aria-label="Add a note on this date"
+            onClick={() => onAdd("Note")}
+          >
+            <Plus size={12} className="gcal-daypanel-addbtn-plus" aria-hidden />
             <StickyNote size={14} /> Note
           </button>
         )}
