@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, ChevronDown, Plus, Gavel, ListTodo, StickyNote, Bell } from "lucide-react";
 import { Dialog, Field } from "@/design-system";
 import HearingModal from "@/components/modals/HearingModal";
@@ -23,6 +23,7 @@ import CalendarDayView from "./CalendarDayView";
 import NoteModal, { type NoteFormValue } from "./NoteModal";
 import TaskModal, { type TaskFormValue } from "./TaskModal";
 import RemindersPanel from "./RemindersPanel";
+import DayDetailPanel from "./DayDetailPanel";
 import { addMonths, addDays, formatMonthYear, toDatetimeLocalValue } from "./calendarDateUtils";
 import "./calendarGrid.css";
 
@@ -33,17 +34,6 @@ interface CalendarViewProps {
 }
 
 type AddKind = "Hearing" | "Task" | "Note" | null;
-
-/** Clamps a small popover near a clicked element's rect so it stays on-screen. */
-function positionNear(rect: DOMRect, width = 220, height = 160): { top: number; left: number } {
-  let left = rect.left;
-  let top = rect.bottom + 6;
-  if (typeof window !== "undefined") {
-    if (left + width > window.innerWidth - 12) left = window.innerWidth - width - 12;
-    if (top + height > window.innerHeight - 12) top = Math.max(8, rect.top - height - 6);
-  }
-  return { top: Math.max(8, top), left: Math.max(8, left) };
-}
 
 const emptyHearingForm = (seedDate?: Date | null) => ({
   assignedToId: "",
@@ -67,14 +57,14 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
   const [miniMonth, setMiniMonth] = useState(() => new Date());
   const [addMenuOpen, setAddMenuOpen] = useState(false);
   const [addKind, setAddKind] = useState<AddKind>(null);
-  // Set when the user clicks a specific day cell / time slot on the grid — a
-  // small popup opens near the click offering Hearing/Task/Note (popoverPos
-  // controls the popup itself); whichever type is chosen defaults its date
-  // field to pendingSeedDate rather than "now" (mirrors the
-  // click-a-day-to-create convention from the retired Diary scaffolding).
-  // pendingSeedDate outlives the popup's own open/closed state — it stays set
-  // through the rest of the create flow until the item modal closes.
-  const [popoverPos, setPopoverPos] = useState<{ top: number; left: number } | null>(null);
+  // Set when the user clicks a specific day cell / time slot on the grid —
+  // opens DayDetailPanel (below) listing that date's items with its own
+  // filters, plus "+Add" actions seeded to this date so a newly created
+  // Hearing/Task/Note defaults to it instead of "now".
+  const [dayPanelDate, setDayPanelDate] = useState<Date | null>(null);
+  // Outlives the day panel / "+Add" menu's own open/closed state — stays set
+  // through the rest of the create flow until the item modal closes, so the
+  // seeded date survives from click through to the modal's date field.
   const [pendingSeedDate, setPendingSeedDate] = useState<Date | null>(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [remindersOpen, setRemindersOpen] = useState(false);
@@ -103,6 +93,15 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
     setMiniMonth(new Date(cal.anchorDate.getFullYear(), cal.anchorDate.getMonth(), 1));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cal.anchorDate.getFullYear(), cal.anchorDate.getMonth()]);
+
+  useEffect(() => {
+    if (!dayPanelDate) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDayPanelDate(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [dayPanelDate]);
 
   const goToday = () => {
     cal.setAnchorDate(new Date());
@@ -156,15 +155,20 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
     cal.refetch();
   };
 
-  const openAdd = (kind: AddKind) => {
+  /** `seedDateOverride` lets a caller (the day panel) supply the seed date
+   * explicitly, avoiding a stale-closure read of `pendingSeedDate` in the
+   * same event that also sets it. Omit it to fall back to whatever
+   * `pendingSeedDate` already holds (the plain sidebar "+Create" flow). */
+  const openAdd = (kind: AddKind, seedDateOverride?: Date | null) => {
+    const seed = seedDateOverride !== undefined ? seedDateOverride : pendingSeedDate;
     setAddMenuOpen(false);
-    setPopoverPos(null);
     setAddKind(kind);
     setEditingNote(null);
     setEditingTask(null);
+    setPendingSeedDate(seed);
     if (kind === "Hearing") {
       setHearingCase(null);
-      setHearingForm(emptyHearingForm(pendingSeedDate));
+      setHearingForm(emptyHearingForm(seed));
     }
   };
 
@@ -176,14 +180,11 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
     setPendingSeedDate(null);
   };
 
-  /** Clicking a day cell (Month view) or time slot (Week/Day view) opens a
-   * small popup near the click with Hearing/Task/Note choices, seeded with
-   * that date so the chosen item type defaults to the date/time clicked
-   * rather than "now". */
-  const onGridDateClick = (d: Date, e: ReactMouseEvent<HTMLElement>) => {
+  /** Clicking a day cell (Month view), a "+N more" overflow link, or a time
+   * slot (Week/Day view) opens the Day Detail panel for that date. */
+  const onGridDateClick = (d: Date) => {
     cal.setAnchorDate(d);
-    setPendingSeedDate(d);
-    setPopoverPos(positionNear(e.currentTarget.getBoundingClientRect()));
+    setDayPanelDate(d);
   };
 
   const handleSubmitNote = async (value: NoteFormValue) => {
@@ -337,7 +338,6 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
               className="gcal-create-btn"
               onClick={() => {
                 setPendingSeedDate(null);
-                setPopoverPos(null);
                 setAddMenuOpen((v) => !v);
               }}
             >
@@ -396,7 +396,7 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
               today={today}
               onDayClick={onGridDateClick}
               onItemClick={(item) => onItemClick(item)}
-              onMoreClick={(d) => cal.setAnchorDate(d)}
+              onMoreClick={(d) => onGridDateClick(d)}
               onPriorityChange={onPriorityChange}
             />
           )}
@@ -421,69 +421,17 @@ export default function CalendarView({ scope, organizationId, siteId }: Calendar
         </main>
       </div>
 
-      {popoverPos && (
-        <>
-          <button
-            type="button"
-            aria-hidden
-            tabIndex={-1}
-            onClick={() => setPopoverPos(null)}
-            style={{ position: "fixed", inset: 0, zIndex: 100, border: "none", background: "transparent", cursor: "default" }}
-          />
-          <div
-            role="menu"
-            aria-label="Create at this date"
-            style={{
-              position: "fixed",
-              top: popoverPos.top,
-              left: popoverPos.left,
-              zIndex: 101,
-              background: "var(--surface, #fff)",
-              border: "1px solid var(--border, #e2e2e2)",
-              borderRadius: "var(--r-sm, 8px)",
-              boxShadow: "var(--sh, 0 4px 16px rgba(0,0,0,0.15))",
-              padding: 4,
-              minWidth: 200,
-              display: "flex",
-              flexDirection: "column",
-              gap: 2,
-            }}
-          >
-            {pendingSeedDate && (
-              <div style={{ padding: "8px 10px 4px", fontSize: 12, opacity: 0.6, fontWeight: 600 }}>
-                {pendingSeedDate.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
-              </div>
-            )}
-            <button
-              type="button"
-              role="menuitem"
-              onClick={() => openAdd("Hearing")}
-              style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", textAlign: "left", border: 0, background: "transparent", font: "inherit", fontSize: 13, padding: "8px 10px", borderRadius: 4, cursor: "pointer" }}
-            >
-              <Gavel size={16} /> Hearing
-            </button>
-            {canCreateTask && (
-              <button
-                type="button"
-                role="menuitem"
-                onClick={() => openAdd("Task")}
-                style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", textAlign: "left", border: 0, background: "transparent", font: "inherit", fontSize: 13, padding: "8px 10px", borderRadius: 4, cursor: "pointer" }}
-              >
-                <ListTodo size={16} /> Task
-              </button>
-            )}
-            {canCreateNote && (
-              <button
-                type="button"
-                role="menuitem"
-                onClick={() => openAdd("Note")}
-                style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", textAlign: "left", border: 0, background: "transparent", font: "inherit", fontSize: 13, padding: "8px 10px", borderRadius: 4, cursor: "pointer" }}
-              >
-                <StickyNote size={16} /> Note
-              </button>
-            )}
-          </div>
-        </>
+      {dayPanelDate && (
+        <DayDetailPanel
+          date={dayPanelDate}
+          items={cal.items}
+          canCreateTask={canCreateTask}
+          canCreateNote={canCreateNote}
+          onClose={() => setDayPanelDate(null)}
+          onItemClick={onItemClick}
+          onAdd={(kind) => openAdd(kind, dayPanelDate)}
+          onPriorityChange={onPriorityChange}
+        />
       )}
 
       {/* Hearing "+Add" flow: pick a case first, then the full Hearing form */}

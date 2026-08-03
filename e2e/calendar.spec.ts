@@ -55,4 +55,33 @@ test.describe('Unified Calendar (spec #038)', () => {
     await page.getByLabel('Favourites only').click();
     await expect(page.getByText('Firm-wide holiday notice')).toHaveCount(0, { timeout: 10_000 });
   });
+
+  test('clicking a date opens the Day Detail panel with its own filters and "+Add" seeded to that date', async ({ page }) => {
+    // mockData.ts seeds a Note ("Client wants early settlement") on July 31.
+    // Click the day NUMBER specifically (not the cell body, which also
+    // contains that item and would open its edit dialog instead).
+    const dayNum = page.locator('.gcal-day-num', { hasText: /^31$/ }).first();
+    await dayNum.click();
+
+    const panel = page.locator('.gcal-daypanel');
+    await expect(panel).toBeVisible();
+    await expect(panel.getByText('Client wants early settlement')).toBeVisible();
+
+    // The panel's own Notes filter narrows its own list independently of the
+    // main Calendar filter bar.
+    await panel.locator('.gcal-daypanel-filters').getByText('Notes').click();
+    await expect(panel.locator('.gcal-daypanel-empty')).toBeVisible();
+    await panel.locator('.gcal-daypanel-filters').getByText('Notes').click();
+    await expect(panel.getByText('Client wants early settlement')).toBeVisible();
+
+    // "+Add" inside the panel seeds the new item's date to the panel's date.
+    await panel.getByRole('button', { name: /^Task$/ }).click();
+    const dueDateInput = page.locator('input[type="datetime-local"]');
+    await expect(dueDateInput).toHaveValue('2026-07-31T00:00');
+    await page.getByPlaceholder('Task title').fill('Day panel task');
+    await page.getByRole('button', { name: /add task/i }).click();
+
+    // The panel (still open underneath the now-closed modal) reflects the new item.
+    await expect(panel.getByText('Day panel task')).toBeVisible({ timeout: 10_000 });
+  });
 });
